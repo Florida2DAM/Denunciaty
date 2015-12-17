@@ -19,9 +19,11 @@ public class Splash extends Activity {
         ImageView img = (ImageView) findViewById(R.id.imageView);
         TextView tV = (TextView) findViewById(R.id.textView);
         Animation an = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_in);
+        Animation an2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.move);
 
         img.startAnimation(an);
         tV.startAnimation(an);
+        img.startAnimation(an2);
         findViewById(R.id.loadingPanel).startAnimation(an);
         an.setAnimationListener(new Animation.AnimationListener() {
             @Override
