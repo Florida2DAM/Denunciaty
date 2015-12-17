@@ -5,4 +5,10 @@
         android:fromYDelta="600"
         android:toYDelta="0"
         android:fillBefore="true"/>
+    <alpha
+        android:duration="2500"
+        android:fromAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toAlpha="1.0" />
+
 </set>
