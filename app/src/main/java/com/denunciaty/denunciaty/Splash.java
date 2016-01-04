@@ -35,7 +35,7 @@ public class Splash extends Activity {
             public void onAnimationEnd(Animation animation) {
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 finish();
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), AccesoActivity.class);
                 startActivity(i);
             }
 

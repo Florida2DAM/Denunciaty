@@ -21,8 +21,15 @@
             android:name=".MainActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity android:name=".MisReportesActivity" >
+        </activity>
         <activity
-            android:name=".MisReportesActivity">
+            android:name=".AccesoActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".RegistroActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 
