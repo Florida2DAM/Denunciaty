@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
+        <item name="android:colorPrimary">#6071C2</item>
+        <item name="android:colorPrimaryDark">#3F51B5</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
-
     <style name="SplashTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActionBar">false</item>
