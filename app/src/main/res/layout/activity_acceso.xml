@@ -31,7 +31,7 @@
         android:layout_alignParentEnd="true"
         android:background="#4F65AE"
         android:textColor="#ffffff"
-        android:password="false"
+        android:password="true"
         android:hint="Contraseña"
         android:textSize="20dp" />
 

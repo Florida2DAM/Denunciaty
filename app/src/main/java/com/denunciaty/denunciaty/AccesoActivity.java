@@ -25,23 +25,6 @@ public class AccesoActivity extends Activity {
         iniciar = (Button) findViewById(R.id.iniciar);
         registrate = (Button) findViewById(R.id.registrate);
 
-
-        // Prueba (Si funciona meter en métodos)
-        correo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                correo.setText("");
-            }
-        });
-
-        pass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pass.setText("");
-                pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            }
-        });
-
         registrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
