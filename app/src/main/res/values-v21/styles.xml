@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Con ActionBar Personalizado-->
     <style name="AppTheme" parent="android:Theme.Material.Light">
         <item name="android:colorPrimary">#6071C2</item>
-        <item name="android:colorPrimaryDark">#3F51B5</item>
+        <item name="android:colorPrimaryDark">#224562</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
+    <!--Pantalla completa-->
     <style name="SplashTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <!--Sin ActionBar Personalizado, con barra de herramientas-->
+    <style name="NoaActionBarTheme" parent="android:Theme.Material.Light">
+        <item name="android:colorPrimary">#6071C2</item>
+        <item name="android:colorPrimaryDark">#224562</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>
