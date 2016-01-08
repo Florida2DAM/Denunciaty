@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.denunciaty.denunciaty">
+    package="com.denunciaty.denunciaty" >
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".Splash"
             android:label="@string/title_activity_splash"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,19 +19,21 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"></activity>
-        <activity android:name=".MisReportesActivity"></activity>
+            android:label="@string/app_name" />
+        <activity android:name=".MisReportesActivity" />
         <activity
             android:name=".AccesoActivity"
             android:label="@string/app_name"
-            android:theme="@style/NoaActionBarTheme"></activity>
+            android:theme="@style/NoaActionBarTheme" />
         <activity
             android:name=".RegistroActivity"
             android:label="@string/app_name"
-            android:theme="@style/NoaActionBarTheme"></activity>
+            android:theme="@style/NoaActionBarTheme" />
         <activity
             android:name=".AddReporteActivity"
-            android:label="@string/title_activity_add_reporte"></activity>
+            android:label="@string/title_activity_add_reporte" />
+        <activity android:name=".PrincipalActivity" >
+        </activity>
     </application>
 
 </manifest>
