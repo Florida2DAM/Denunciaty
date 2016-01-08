@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Denunciaty</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash">Denunciaty</string>
@@ -8,4 +7,5 @@
     <string name="title_activity_acceso">AccesoActivity</string>
     <string name="title_activity_registro">RegistroActivity</string>
     <string name="title_activity_add_reporte">AddReporteActivity</string>
+    <string name="server_client_id">339447190295-tjfqg7t67tn27mj175qu67vfqfj7fi0n.apps.googleusercontent.com</string>
 </resources>

@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "denunciaty",
+    "project_number": "339447190295",
+    "name": "Denunciaty"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339447190295:android:ccefb57d297a4b4d",
+        "client_id": "android:com.denunciaty.denunciaty",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.denunciaty.denunciaty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339447190295-tjfqg7t67tn27mj175qu67vfqfj7fi0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.denunciaty.denunciaty",
+            "certificate_hash": "D96F882C53EACEA3E993210F51E39EBB7CD882FF"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
