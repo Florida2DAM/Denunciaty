@@ -87,15 +87,4 @@
         android:src="@mipmap/localizacion"
         android:layout_alignBottom="@+id/img_incidente"
         android:layout_alignEnd="@+id/img_incidente" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/imageView3"
-        android:src="@mipmap/plus"
-        android:layout_above="@+id/textView6"
-        android:layout_toStartOf="@+id/imageView2"
-        android:layout_marginEnd="25dp" />
-
-
 </RelativeLayout>
