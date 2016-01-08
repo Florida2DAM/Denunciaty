@@ -2,10 +2,11 @@ package com.denunciaty.denunciaty;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -13,17 +14,30 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 
 public class RegistroActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
-    SignInButton signInBtn;
+
+    TwitterLoginButton twitterLogIn;
+    SignInButton googleLogIn;
     GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
+    private int tw_sign_in = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        twitterLogIn = (TwitterLoginButton) findViewById(R.id.twitterLogIn);
+
+        //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -32,20 +46,39 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        signInBtn = (SignInButton) findViewById(R.id.sign_in_button);
-        signInBtn.setSize(SignInButton.SIZE_STANDARD);
-        signInBtn.setScopes(gso.getScopeArray());
+        googleLogIn = (SignInButton) findViewById(R.id.googleLogIn);
+        googleLogIn.setSize(SignInButton.SIZE_STANDARD);
+        googleLogIn.setScopes(gso.getScopeArray());
 
 
-        signInBtn = (SignInButton) findViewById(R.id.sign_in_button);
-        signInBtn.setSize(SignInButton.SIZE_STANDARD);
-        signInBtn.setScopes(gso.getScopeArray());
+        //Twitter
+        twitterLogIn.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                // The TwitterSession is also available through:
+                // Twitter.getInstance().core.getSessionManager().getActiveSession()
+                TwitterSession session = result.data;
+                // Remove toast and use the TwitterSession's userID
+                // with your app's user model
+                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                tw_sign_in = 0;
+            }
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("TwitterKit", "Login with Twitter failure", exception);
+            }
+        });
 
+        twitterLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tw_sign_in = 1;
+            }
+        });
 
-        signInBtn.setOnClickListener(new View.OnClickListener() {
+        googleLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
@@ -66,6 +99,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+        }
+
+        if(tw_sign_in == 1){
+            twitterLogIn.onActivityResult(requestCode, resultCode, data);
         }
     }
 
