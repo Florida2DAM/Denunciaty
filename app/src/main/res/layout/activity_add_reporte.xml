@@ -18,7 +18,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:background="#0044ff"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:elevation="2dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -81,9 +82,9 @@
         android:background="#ffffff" />
 
     <ImageView
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:id="@+id/imageView2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView2"
         android:src="@mipmap/localizacion"
         android:layout_alignBottom="@+id/img_incidente"
         android:layout_alignEnd="@+id/img_incidente" />
