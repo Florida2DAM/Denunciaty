@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -28,6 +30,8 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private int tw_sign_in = 0;
+    TextView app;
+    Button iniciar;
 
 
     @Override
@@ -36,6 +40,8 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         setContentView(R.layout.activity_registro);
 
         twitterLogIn = (TwitterLoginButton) findViewById(R.id.twitterLogIn);
+        app = (TextView) findViewById(R.id.app);
+        iniciar = (Button) findViewById(R.id.iniciar);
 
         //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -84,6 +90,19 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 signIn();
             }
         });
+
+        app.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                regitroApp();
+                finish();
+            }
+        });
+    }
+
+    public void regitroApp(){
+        Intent i = new Intent(getApplicationContext(),RegistroAppActivity.class);
+        startActivity(i);
     }
 
     private void signIn(){

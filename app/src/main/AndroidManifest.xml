@@ -24,10 +24,6 @@
             android:label="@string/app_name" />
         <activity android:name=".MisReportesActivity" />
         <activity
-            android:name=".AccesoActivity"
-            android:label="@string/app_name"
-            android:theme="@style/NoaActionBarTheme" />
-        <activity
             android:name=".RegistroActivity"
             android:label="@string/app_name"
             android:theme="@style/NoaActionBarTheme" />
@@ -38,15 +34,15 @@
             android:name=".PrincipalActivity"
             android:label="@string/app_name"
             android:theme="@style/NoaActionBarTheme" />
+        <activity
+            android:name=".RegistroAppActivity"
+            android:label="@string/app_name"
+            android:theme="@style/NoaActionBarTheme" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="2b811bcaca5f56c4dd163071818596afca25eab8" />
 
-        <activity
-            android:name=".RegistroAppActivity"
-            android:label="@string/title_activity_registro_app" >
-        </activity>
     </application>
 
 </manifest>
