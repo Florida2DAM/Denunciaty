@@ -8,4 +8,5 @@
     <string name="title_activity_registro">RegistroActivity</string>
     <string name="title_activity_add_reporte">AddReporteActivity</string>
     <string name="server_client_id">339447190295-tjfqg7t67tn27mj175qu67vfqfj7fi0n.apps.googleusercontent.com</string>
+    <string name="title_activity_registro_app">Registro</string>
 </resources>
