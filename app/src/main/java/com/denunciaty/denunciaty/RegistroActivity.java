@@ -1,11 +1,16 @@
 package com.denunciaty.denunciaty;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +103,13 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 finish();
             }
         });
+
+        iniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInputDialog();
+            }
+        });
     }
 
     public void regitroApp(){
@@ -138,6 +150,30 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             Log.d("Conectado","Conectado");
         }
 
+    }
+
+    protected void showInputDialog(){
+        LayoutInflater layout = LayoutInflater.from(RegistroActivity.this);
+        View view = layout.inflate(R.layout.login, null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroActivity.this);
+        alertDialog.setView(view);
+
+        final EditText email = (EditText) view.findViewById(R.id.email);
+        final EditText contra = (EditText) view.findViewById(R.id.pass);
+
+        alertDialog.setCancelable(false)
+                .setPositiveButton("Iniciar Sesión", new DialogInterface.OnClickListener(){
+                  public void onClick(DialogInterface dialog, int id){
+                      Toast.makeText(RegistroActivity.this, "Iniciando", Toast.LENGTH_SHORT).show();
+                  }
+                })
+                .setNegativeButton("Cancelar",new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        Toast.makeText(RegistroActivity.this, "Cancelando", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 
 

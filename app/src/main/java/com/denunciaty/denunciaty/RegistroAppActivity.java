@@ -1,5 +1,6 @@
 package com.denunciaty.denunciaty;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-public class RegistroAppActivity extends ActionBarActivity {
+public class RegistroAppActivity extends Activity {
 
     ImageView imagen;
     EditText usuario, nombre, apellidos, email;
