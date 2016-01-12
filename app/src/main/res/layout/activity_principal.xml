@@ -1,50 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent" android:id="@+id/map"
     tools:context="com.denunciaty.denunciaty.PrincipalActivity"
-    android:background="@mipmap/mapa">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:text="Busqueda avanzada"
-        android:id="@+id/btnBusquedaAvanzada"
-        android:drawableLeft="@mipmap/filtro"
-        android:drawablePadding="5dp"
-        android:layout_marginBottom="100dp"
-        android:focusable="false"
-        android:background="#6071C2"
-        android:visibility="visible"
-        android:typeface="monospace"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:text="Mis reportes"
-        android:id="@+id/btnMisReportes"
-        android:drawableLeft="@mipmap/usuario"
-        android:drawablePadding="5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="#6071C2"
-        android:textSize="12dp" />
-
-    <Button
-        android:layout_width="170dp"
-        android:layout_height="60dp"
-        android:text="Añadir un reporte"
-        android:id="@+id/btnAñadirReporte"
-        android:drawableLeft="@mipmap/plusmas"
-        android:drawablePadding="5dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/btnBusquedaAvanzada"
-        android:background="#6071C2"
-        android:textSize="12dp" />
-</RelativeLayout>
+    android:name="com.google.android.gms.maps.SupportMapFragment" />

@@ -100,7 +100,6 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             @Override
             public void onClick(View v) {
                 regitroApp();
-                finish();
             }
         });
 
@@ -165,6 +164,8 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 .setPositiveButton("Iniciar Sesión", new DialogInterface.OnClickListener(){
                   public void onClick(DialogInterface dialog, int id){
                       Toast.makeText(RegistroActivity.this, "Iniciando", Toast.LENGTH_SHORT).show();
+                      Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
+                      startActivity(i);
                   }
                 })
                 .setNegativeButton("Cancelar",new DialogInterface.OnClickListener(){
