@@ -1,7 +1,6 @@
 package com.denunciaty.denunciaty;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -160,7 +159,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         final EditText email = (EditText) view.findViewById(R.id.email);
         final EditText contra = (EditText) view.findViewById(R.id.pass);
 
-        alertDialog.setCancelable(false)
+        alertDialog.setCancelable(true)
                 .setPositiveButton("Iniciar Sesión", new DialogInterface.OnClickListener(){
                   public void onClick(DialogInterface dialog, int id){
                       Toast.makeText(RegistroActivity.this, "Iniciando", Toast.LENGTH_SHORT).show();
