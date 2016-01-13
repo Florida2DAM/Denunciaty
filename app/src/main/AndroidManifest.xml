@@ -38,7 +38,8 @@
             android:theme="@style/NoaActionBarTheme" />
         <activity
             android:name=".AddReporteActivity"
-            android:label="@string/title_activity_add_reporte" />
+            android:label="@string/title_activity_add_reporte"
+            android:theme="@style/NoaActionBarTheme"/>
         <activity
             android:name=".RegistroAppActivity"
             android:label="@string/app_name"

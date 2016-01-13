@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId "com.denunciaty.denunciaty"
-        minSdkVersion 17 //La mínima, que soporta la app.
+        minSdkVersion 20 //La mínima, que soporta la app.
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

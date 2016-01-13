@@ -13,7 +13,7 @@
         <item name="android:windowNoTitle">true</item>
     </style>
     <!--Sin ActionBar Personalizado, con barra de herramientas-->
-    <style name="NoaActionBarTheme" parent="android:Theme.Material.Light">
+    <style name="NoaActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">#6071C2</item>
         <item name="android:colorPrimaryDark">#224562</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
