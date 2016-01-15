@@ -58,7 +58,12 @@
         <activity
             android:name=".PrincipalActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/NoaActionBarTheme" >
+        </activity>
+        <activity
+            android:name=".ReporteActivity"
+            android:theme="@style/AppCompatTheme"
+            android:label="@string/title_activity_reporte" >
         </activity>
     </application>
 

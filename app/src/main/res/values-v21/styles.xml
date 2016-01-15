@@ -20,5 +20,9 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="AppCompatTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">#6071C2</item>
+        <item name="android:colorPrimaryDark">#224562</item>
+    </style>
 
 </resources>
