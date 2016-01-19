@@ -79,20 +79,24 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private void setUpMap() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Robert"));
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
-
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         switch(position){
+            case 0:
+                //Principal Activity
+                break;
             case 1:
-                Intent i = new Intent(this,MisReportesActivity.class);
-                startActivity(i);
+                //Mis Reportes Activity
+                Intent i2 = new Intent(this,MisReportesActivity.class);
+                startActivity(i2);
                 finish();
                 break;
             case 2:
-                Intent i2 = new Intent(this,AddReporteActivity.class);
-                startActivity(i2);
+                //Add Reporte Activity
+                Intent i3 = new Intent(this,AddReporteActivity.class);
+                startActivity(i3);
                 finish();
                 break;
 

@@ -50,7 +50,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                                                    }
                                                }
         );
-        //viewHolder.itemView.setBackgroundResource(R.drawable.row_selector);
+        viewHolder.itemView.setBackgroundResource(R.color.tw__composer_blue);
         return viewHolder;
     }
 
