@@ -1,7 +1,7 @@
 package com.denunciaty.denunciaty;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -84,6 +84,18 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        switch(position){
+            case 1:
+                Intent i = new Intent(this,MisReportesActivity.class);
+                startActivity(i);
+                finish();
+                break;
+            case 2:
+                Intent i2 = new Intent(this,AddReporteActivity.class);
+                startActivity(i2);
+                finish();
+                break;
 
+        }
     }
 }

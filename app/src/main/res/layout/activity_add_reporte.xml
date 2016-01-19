@@ -116,7 +116,7 @@
         android:elevation="10dp">
         <fragment android:id="@+id/fragment_drawer"
             class="com.denunciaty.denunciaty.NavigationDrawerFragment"
-            android:layout_width="500dp"
+            android:layout_width="320dp"
             android:layout_height="match_parent" android:fitsSystemWindows="true"
             app:layout="@layout/fragment_navigation_drawer"
             cardview:layout="@layout/fragment_navigation_drawer" />
