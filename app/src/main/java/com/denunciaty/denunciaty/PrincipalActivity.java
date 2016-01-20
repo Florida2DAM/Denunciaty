@@ -1,7 +1,7 @@
 package com.denunciaty.denunciaty;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -79,11 +79,27 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private void setUpMap() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Robert"));
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
-
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        switch(position){
+            case 0:
+                //Principal Activity
+                break;
+            case 1:
+                //Mis Reportes Activity
+                Intent i2 = new Intent(this,MisReportesActivity.class);
+                startActivity(i2);
+                finish();
+                break;
+            case 2:
+                //Add Reporte Activity
+                Intent i3 = new Intent(this,AddReporteActivity.class);
+                startActivity(i3);
+                finish();
+                break;
 
+        }
     }
 }

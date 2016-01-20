@@ -165,6 +165,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                       Toast.makeText(RegistroActivity.this, "Iniciando", Toast.LENGTH_SHORT).show();
                       Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
                       startActivity(i);
+                      finish();
                   }
                 })
                 .setNegativeButton("Cancelar",new DialogInterface.OnClickListener(){
