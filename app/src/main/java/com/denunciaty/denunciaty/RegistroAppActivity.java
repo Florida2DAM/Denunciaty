@@ -11,8 +11,8 @@ import android.widget.ImageView;
 public class RegistroAppActivity extends Activity {
 
     ImageView imagen;
-    EditText usuario, nombre, apellidos, email;
-    Button añadir, submit;
+    EditText usuario, nombre, apellidos, email, localidad, contraseña, repite_contraseña;
+    Button enviar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +23,16 @@ public class RegistroAppActivity extends Activity {
         imagen = (ImageView) findViewById(R.id.iv_avatar);
 
         //EditText con datos del usuario
-        usuario = (EditText) findViewById(R.id.et_usuario);
         nombre = (EditText) findViewById(R.id.et_nombre);
         apellidos = (EditText) findViewById(R.id.et_apellidos);
+        localidad = (EditText) findViewById(R.id.et_localidad);
         email = (EditText) findViewById(R.id.et_email);
+        usuario = (EditText) findViewById(R.id.et_usuario);
+        contraseña = (EditText) findViewById(R.id.et_contraseña);
+        repite_contraseña = (EditText) findViewById(R.id.et_contraseñaRepetida);
 
-        //Botón para añadir usuario
-        añadir = (Button) findViewById(R.id.bt_añadir);
-
-        //Botón para entrar
-        submit = (Button) findViewById(R.id.bt_submit);
+        //Botón para enviar
+        enviar = (Button) findViewById(R.id.bt_submit);
 
     }
 
