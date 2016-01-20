@@ -1,8 +1,6 @@
 package com.denunciaty.denunciaty;
 
-/**
- * Created by Julian on 13/01/2016.
- */
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +48,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
                                                    }
                                                }
         );
-        viewHolder.itemView.setBackgroundResource(R.color.tw__composer_blue);
+        //viewHolder.itemView.setBackgroundResource(R.color.tw__composer_blue);
         return viewHolder;
     }
 

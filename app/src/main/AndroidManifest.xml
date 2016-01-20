@@ -63,8 +63,9 @@
         <activity
             android:name=".ReporteActivity"
             android:theme="@style/AppCompatTheme"
-            android:label="@string/title_activity_reporte" >
+            android:label="Reporte" >
         </activity>
     </application>
 
 </manifest>
+

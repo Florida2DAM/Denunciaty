@@ -89,13 +89,19 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 break;
             case 1:
                 //Mis Reportes Activity
-                Intent i2 = new Intent(this,MisReportesActivity.class);
-                startActivity(i2);
+                Intent i1 = new Intent(this,MisReportesActivity.class);
+                startActivity(i1);
                 finish();
                 break;
             case 2:
                 //Add Reporte Activity
-                Intent i3 = new Intent(this,AddReporteActivity.class);
+                Intent i2 = new Intent(this,AddReporteActivity.class);
+                startActivity(i2);
+                finish();
+                break;
+            case 3:
+                //Reporte Activity
+                Intent i3 = new Intent(this,ReporteActivity.class);
                 startActivity(i3);
                 finish();
                 break;
