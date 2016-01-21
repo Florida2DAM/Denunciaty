@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="cambiarIdioma"
+        android:title="Idioma"
+        android:summary="Idioma"
+        android:dialogTitle="Cambiar idioma"
+        android:entries="@array/idiomas"
+        android:entryValues="@array/codigo_idiomas" />
+
+    <SwitchPreference
+        android:key="notificaciones"
+        android:title="Notificaciones"
+        android:summary="¿Quieres recibir notificaciones?" />
+
+    <SwitchPreference
+        android:key="accederWifi"
+        android:title="Acceder solo con wifi"
+        android:summary="Wifi" />
+
+
+</PreferenceScreen>

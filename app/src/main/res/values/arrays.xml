@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="idiomas">
+        <item >Español</item>
+        <item >Ingles</item>
+        <item >Valenciano</item>
+    </string-array>
+
+    <string-array name="codigo_idiomas">
+        <item >espanyol</item>
+        <item >ingles</item>
+        <item >valenciano</item>
+    </string-array>
+
+</resources>
