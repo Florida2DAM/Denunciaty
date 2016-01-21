@@ -8,15 +8,22 @@
         android:paddingTop="24dp"
         android:background="@drawable/material470">
 
-        <ImageView android:layout_width="64dp" android:layout_height="64dp"
-            android:id="@+id/imgAvatar" android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
-            android:layout_marginLeft="16dp" android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_avatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/avatar"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+             />
 
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent"
             android:layout_height="56dp" android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" android:layout_below="@+id/imgAvatar"
+            android:layout_alignParentStart="true" android:layout_below="@+id/iv_avatar"
             android:layout_marginRight="16dp" android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp">
 

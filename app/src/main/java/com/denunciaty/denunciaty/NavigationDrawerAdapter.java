@@ -63,6 +63,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
             mSelectedPosition = i;
             mSelectedView = viewHolder.itemView;
             mSelectedView.setSelected(true);
+            mSelectedView.setBackgroundColor(0xCCFFFF);
         } else {
             if (mSelectedView != null) {
                 mSelectedView.setSelected(false);

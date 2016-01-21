@@ -2,9 +2,11 @@ package com.denunciaty.denunciaty;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
-
+    FloatingActionButton fB;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng valencia = new LatLng(39.4699075,-0.3762881000000107);
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
@@ -27,6 +29,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        fB = (FloatingActionButton) findViewById(R.id.fab);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
@@ -34,6 +37,15 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         //set up the drawer
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
         setUpMapIfNeeded();
+
+        fB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),AddReporte2.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -83,29 +95,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        switch(position){
-            case 0:
-                //Principal Activity
-                break;
-            case 1:
-                //Mis Reportes Activity
-                Intent i1 = new Intent(this,MisReportesActivity.class);
-                startActivity(i1);
-                finish();
-                break;
-            case 2:
-                //Add Reporte Activity
-                Intent i2 = new Intent(this,AddReporteActivity.class);
-                startActivity(i2);
-                finish();
-                break;
-            case 3:
-                //Reporte Activity
-                Intent i3 = new Intent(this,ReporteActivity.class);
-                startActivity(i3);
-                finish();
-                break;
 
-        }
     }
 }

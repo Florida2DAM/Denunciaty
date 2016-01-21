@@ -4,6 +4,7 @@ package com.denunciaty.denunciaty;
  * Created by Julian on 13/01/2016.
 */
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -94,6 +95,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDrawerList.setLayoutManager(layoutManager);
         mDrawerList.setHasFixedSize(true);
+        //setUserData("Denunciaty","denunciaty.florida@gmail.com",R.mipmap.avatar);
 
         final List<NavigationItem> navigationItems = getMenu();
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(navigationItems);
@@ -115,10 +117,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         return mDrawerLayout;
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        selectItem(position);
-    }
 
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
@@ -247,7 +245,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     }
 
     public void setUserData(String user, String email, Bitmap avatar) {
-        ImageView avatarContainer = (ImageView) mFragmentContainerView.findViewById(R.id.imgAvatar);
+        ImageView avatarContainer = (ImageView) mFragmentContainerView.findViewById(R.id.iv_avatar);
         ((TextView) mFragmentContainerView.findViewById(R.id.txtUserEmail)).setText(email);
         ((TextView) mFragmentContainerView.findViewById(R.id.txtUsername)).setText(user);
         avatarContainer.setImageDrawable(new RoundImage(avatar));
@@ -255,6 +253,37 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public View getGoogleDrawer() {
         return mFragmentContainerView.findViewById(R.id.googleDrawer);
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        switch(position){
+            case 0:
+                //Principal Activity
+                Intent i0 = new Intent(getActivity(),PrincipalActivity.class);
+                startActivity(i0);
+                getActivity().finish();
+                break;
+            case 1:
+                //Mis Reportes Activity
+                Intent i1 = new Intent(getActivity(),MisReportesActivity.class);
+                startActivity(i1);
+                getActivity().finish();
+                break;
+            case 2:
+                //AddReporte Activity
+                Intent i2 = new Intent(getActivity(),AddReporteActivity.class);
+                startActivity(i2);
+                getActivity().finish();
+                break;
+            case 3:
+                //Reporte Activity
+                Intent i3 = new Intent(getActivity(),ReporteActivity.class);
+                startActivity(i3);
+                getActivity().finish();
+                break;
+
+        }
     }
 
     public static class RoundImage extends Drawable {
