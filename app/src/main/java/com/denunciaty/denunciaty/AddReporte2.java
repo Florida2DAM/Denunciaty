@@ -27,7 +27,10 @@ public class AddReporte2 extends AppCompatActivity {
                 if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     Toast.makeText(getApplicationContext(),"Necesitas tener el GPS activado", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(),"else", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"GPS Activado", Toast.LENGTH_SHORT).show();
+
+                    //acciones para obtener ubicacion
+
                 }
             }
         });
