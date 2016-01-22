@@ -65,7 +65,7 @@ public class FragmentAddReporte extends Fragment {
         sp_tipo = (Spinner) getView().findViewById(R.id.sp_tipo);
 
         //Creamos el adaptador
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.tipo_reporte, android.R.layout.simple_spinner_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.tipo_reporte, android.R.layout.simple_spinner_item);
         //Añadimos el layout para el menú
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Le indicamos al spinner el adaptador a usar
