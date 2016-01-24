@@ -13,4 +13,18 @@
         <item >valenciano</item>
     </string-array>
 
+    <string-array name="tipo_reporte">
+        <item >TIPO DE INCIDENCIA</item>
+        <item >Limpieza</item>
+        <item >Señales</item>
+        <item >Vehiculo</item>
+        <item >Alumbrado</item>
+        <item >Mobiliario</item>
+        <item >vVia publica</item>
+        <item >Arbolado</item>
+        <item >Transporte publico</item>
+        <item >Otros</item>
+    </string-array>
+
+
 </resources>
