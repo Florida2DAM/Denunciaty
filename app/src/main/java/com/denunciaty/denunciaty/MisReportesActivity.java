@@ -34,7 +34,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
         //set up the drawer
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
 
-        /*populate the navigation drawer
+        /*populate the navigationdrawer
         mnavigationDrawerFragment.setUserData("nombre", "correo", BitmapFactory.decodeResource(getResources()), R.drawable.avatar);*/
 
 
