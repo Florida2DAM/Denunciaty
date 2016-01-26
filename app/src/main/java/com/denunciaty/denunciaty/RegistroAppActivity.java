@@ -1,12 +1,17 @@
 package com.denunciaty.denunciaty;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class RegistroAppActivity extends Activity {
 
@@ -21,6 +26,12 @@ public class RegistroAppActivity extends Activity {
 
         //Imagen del usuario
         imagen = (ImageView) findViewById(R.id.iv_avatar);
+        imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         //EditText con datos del usuario
         nombre = (EditText) findViewById(R.id.et_nombre);
@@ -33,6 +44,23 @@ public class RegistroAppActivity extends Activity {
 
         //Botón para enviar
         enviar = (Button) findViewById(R.id.bt_submit);
+        enviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegistroAppActivity.this);
+                builder.setMessage("Se ha registrado correctamente")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(RegistroAppActivity.this, "Registro correcto", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
+                                startActivity(i);
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
 
     }
 
