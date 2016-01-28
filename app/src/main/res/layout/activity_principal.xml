@@ -3,45 +3,73 @@
     xmlns:cardview="http://schemas.android.com/tools"
     android:id="@+id/drawer"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:layout_height="match_parent">
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include android:id="@+id/toolbar_actionbar" layout="@layout/toolbar_default"
-            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/toolbar_actionbar"
+            layout="@layout/toolbar_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/map"
-            tools:context="com.denunciaty.denunciaty.PrincipalActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_below="@+id/toolbar_actionbar"
-            android:layout_alignParentStart="true" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:src="@android:drawable/ic_input_add"
-            app:backgroundTint="#6071C2"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true" />
+            android:id="@+id/framelayout">
+
+            <fragment
+                android:id="@+id/fragment_addreporte"
+                android:name="com.denunciaty.denunciaty.FragmentAddReporte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/toolbar_actionbar"
+                tools:context="com.denunciaty.denunciaty.PrincipalActivity" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:src="@android:drawable/ic_input_add"
+                app:backgroundTint="#6071C2" />
+        </FrameLayout>
+
+
     </RelativeLayout>
 
     <com.denunciaty.denunciaty.ScrimInsetsFrameLayout
         android:id="@+id/scrimInsetsFrameLayout"
-        android:layout_width="500dp" android:layout_height="wrap_content"
-        android:fitsSystemWindows="true" android:layout_gravity="start"
-        app:insetForeground="#4000" android:elevation="10dp">
-        <fragment android:id="@+id/fragment_drawer"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:elevation="10dp"
+        android:fitsSystemWindows="true"
+        app:insetForeground="#4000">
+
+        <fragment
+            android:id="@+id/fragment_drawer"
             class="com.denunciaty.denunciaty.NavigationDrawerFragment"
             android:layout_width="320dp"
-            android:layout_height="match_parent" android:fitsSystemWindows="true"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:layout="@layout/fragment_navigation_drawer"
             cardview:layout="@layout/fragment_navigation_drawer" />
     </com.denunciaty.denunciaty.ScrimInsetsFrameLayout>

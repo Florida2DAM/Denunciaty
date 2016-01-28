@@ -1,5 +1,8 @@
 package com.denunciaty.denunciaty;
 
+import android.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,7 +33,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        fB = (FloatingActionButton) findViewById(R.id.fab);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
@@ -38,12 +41,17 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
         setUpMapIfNeeded();
 
+        fB = (FloatingActionButton) findViewById(R.id.fab);
         fB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),AddReporte2.class);
-                startActivity(i);
-                finish();
+                FragmentAddReporte fragmentAddReporte = new FragmentAddReporte();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                //empieza transaccion
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.framelayout, fragmentAddReporte);
+
+                fragmentTransaction.commit();
             }
         });
     }
