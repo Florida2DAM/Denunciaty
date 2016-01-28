@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,13 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/framelayout">
-
-            <fragment
-                android:id="@+id/fragment_addreporte"
-                android:name="com.denunciaty.denunciaty.FragmentAddReporte"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
@@ -53,7 +46,7 @@
         </FrameLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.denunciaty.denunciaty.ScrimInsetsFrameLayout
         android:id="@+id/scrimInsetsFrameLayout"
