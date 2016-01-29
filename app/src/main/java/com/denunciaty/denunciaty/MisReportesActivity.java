@@ -1,5 +1,6 @@
 package com.denunciaty.denunciaty;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class MisReportesActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
     ListView lV;
+    ArrayList<Reporte> reportes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
         mnavigationDrawerFragment.setUserData("nombre", "correo", BitmapFactory.decodeResource(getResources()), R.drawable.avatar);*/
 
         new CargarMisReportesTask().execute();
+        clicarLista();
     }
 
     @Override
@@ -108,7 +112,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            ArrayList<Reporte> reportes = parseaJSON(s);
+            reportes = parseaJSON(s);
             lV.setAdapter(new AdaptadorSpinner(getApplicationContext(), R.layout.lista, reportes) {
                 @Override
                 public void onEntrada(Object entrada, View view) {
@@ -133,6 +137,24 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
                 }
             });
         }
+    }
+
+    public void clicarLista(){
+        lV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Reporte repSeleccionado = (Reporte) lV.getAdapter().getItem(position);
+                //Falta la imagen.
+                Intent i = new Intent(getApplicationContext(),ReporteActivity.class);
+                i.putExtra("idIntent",repSeleccionado.getTitulo());
+                i.putExtra("tituloIntent",repSeleccionado.getTitulo());
+                i.putExtra("descripcionIntent",repSeleccionado.getDescripcion());
+                i.putExtra("ubicacionIntent",repSeleccionado.getUbicacion());
+                i.putExtra("tipoIntent",repSeleccionado.getTipoIncidente());
+                i.putExtra("solIntent",repSeleccionado.isSolucionado());
+                startActivity(i);
+            }
+        });
     }
 
     public ArrayList<Reporte> parseaJSON(String s){

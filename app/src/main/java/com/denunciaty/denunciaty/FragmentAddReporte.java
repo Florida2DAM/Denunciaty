@@ -15,8 +15,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-public class FragmentAddReporte extends Fragment implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class FragmentAddReporte extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
@@ -24,7 +23,6 @@ public class FragmentAddReporte extends Fragment implements
     Spinner sp_tipo;
 
     public void onStart() {
-        mGoogleApiClient.connect();
         super.onStart();
     }
 
@@ -71,6 +69,12 @@ public class FragmentAddReporte extends Fragment implements
             Log.d("COOR", String.valueOf(mLastLocation.getLatitude()+" "+mLastLocation.getLongitude()));
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
     }
 
     @Override

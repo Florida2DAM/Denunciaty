@@ -8,9 +8,11 @@
         android:icon="@drawable/ic_notifications_black_24dp" />
 
     <header android:fragment="com.denunciaty.denunciaty.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" android:icon="@drawable/ic_sync_black_24dp" />
+            android:title="@string/pref_header_data_sync"
+            android:icon="@drawable/ic_sync_black_24dp" />
 
     <header android:fragment="com.denunciaty.denunciaty.SettingsActivity$GeneralPreferenceFragment"
-        android:title="@string/pref_header_general" android:icon="@drawable/ic_info_black_24dp" />
+        android:title="@string/pref_header_general"
+        android:icon="@drawable/ic_info_black_24dp" />
 
 </preference-headers>
