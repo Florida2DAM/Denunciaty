@@ -1,17 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Denunciaty</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuració</string>
     <string name="title_activity_splash">Denunciaty</string>
-    <string name="title_activity_mis_reportes">Mis Reportes</string>
-    <string name="title_activity_acceso">Acceso a Denunciaty</string>
-    <string name="title_activity_registro">Registro</string>
-    <string name="title_activity_add_reporte">Añadir Reporte</string>
+    <string name="title_activity_mis_reportes">Els meus Reports</string>
+    <string name="title_activity_acceso">Access a Denunciaty</string>
+    <string name="title_activity_registro">Registre</string>
+    <string name="title_activity_add_reporte">Afegir Report</string>
     <string name="server_client_id">339447190295-tjfqg7t67tn27mj175qu67vfqfj7fi0n.apps.googleusercontent.com</string>
-    <string name="title_activity_registro_app">Registro desde nuestra app</string>
-    <string name="title_activity_principal">Map</string>
-    <string name="title_activity_reporte">Reporte</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_registro_app">Registre desde l´app</string>
+    <string name="title_activity_principal">Mapa</string>
+    <string name="title_activity_reporte">Report</string>
+    <string name="title_activity_settings">Configuració</string>
 
     <!-- Strings related to Settings -->
 
@@ -74,57 +75,49 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Add Reporte Activity -->
-    <string name="publicar_addreporte">Publicar</string>
-    <string name="descripcion_addreporte">DESCRIPCIÓN</string>
-    <string name="gravedad_addreporte">GRAVEDAD</string>
-    <string name="incidente_addreporte">INCIDENTE</string>
-
     <!-- Fragment Add Reporte -->
-    <string name="titulo_descriptivo">Título descriptivo</string>
-    <string name="descripcion_fragment_addreporte">Descripción</string>
-    <string name="ubicacion_fragment_addreporte">Ubicación</string>
-    <string name="publicar_reporte_fragment_addreporte">Publicar reporte</string>
+    <string name="titulo_descriptivo">Títul descriptiu</string>
+    <string name="descripcion_fragment_addreporte">Descripció</string>
+    <string name="ubicacion_fragment_addreporte">Ubicació</string>
+    <string name="publicar_reporte_fragment_addreporte">Publicar report</string>
 
     <!-- Navigation Drawer Fragments -->
     <string name="buscar_navigation">Buscar</string>
-    <string name="mis_reportes_navigation">Mis Reportes</string>
-    <string name="mi_perfil_navigation">Mi perfil</string>
-    <string name="configuracion_navigation">Configuración</string>
+    <string name="mis_reportes_navigation">Els meus Reports</string>
+    <string name="mi_perfil_navigation">El meu perfil</string>
+    <string name="configuracion_navigation">Configuració</string>
 
     <!-- Registro Activity -->
-    <string name="registrate_desde_nuestra_app">Regístrate desde nuestra app</string>
-    <string name="bienvenido_denunciaty">Bienvenido a Denunciaty</string>
-    <string name="la_app_valenciana">La app valenciana donde podrás \ndenunciar cualquier desperfecto o \nincidente presente en tu ubicación.</string>
-    <string name="inicia_sesion">Iniciar Sesión</string>
-    <string name="iniciasesion_registroapp">Iniciar Sesión</string>
-    <string name="iniciando_registroapp">Iniciando</string>
-    <string name="cancelar_registroapp">Cancelar</string>
-    <string name="cancelando_registroapp">Cancelando</string>
+    <string name="registrate_desde_nuestra_app">Registra´te desde la nostra app</string>
+    <string name="bienvenido_denunciaty">Benvingut a Denunciaty</string>
+    <string name="la_app_valenciana">La app valenciana on podràs \ndenunciar qualsevol desperfecte o \nincident present en la teua ubicació.</string>
+    <string name="inicia_sesion">Iniciar Sessió</string>
+    <string name="iniciasesion_registroapp">Inicia Sessió</string>
+    <string name="iniciando_registroapp">Iniciant</string>
+    <string name="cancelar_registroapp">cancel·lar</string>
+    <string name="cancelando_registroapp">cancel·lant</string>
 
     <!-- Registro Usuario Activity -->
-    <string name="nombre_registroapp">Nombre</string>
-    <string name="apellido_registroapp">Apellidos</string>
-    <string name="localidad_registroapp">Localidad</string>
-    <string name="email_registroapp">Email</string>
-    <string name="usuario_registroapp">Usuario</string>
-    <string name="contraseña_registroapp">Contraseña</string>
+    <string name="nombre_registroapp">Nom</string>
+    <string name="apellido_registroapp">Cognoms</string>
+    <string name="localidad_registroapp">Localitat</string>
+    <string name="email_registroapp">Correu Electrònic</string>
+    <string name="usuario_registroapp">Usuari</string>
+    <string name="contraseña_registroapp">Contrasenya</string>
     <string name="enviar_registroapp">Enviar</string>
-    <string name="registro_correctamente">Se ha registrado correctamente</string>
-    <string name="registro_correcto">Registro correcto</string>
+    <string name="registro_correctamente">Se ha registrat correctament</string>
+    <string name="registro_correcto">Registre correcte</string>
 
     <!-- Splash -->
     <string name="denunciaty_splash">Denunciaty</string>
 
     <!-- Login -->
-    <string name="correo_login">Correo Electrónico</string>
-    <string name="contraseña_login">Contraseña</string>
+    <string name="correo_login">Correu Electrònic</string>
+    <string name="contraseña_login">Contrasenya</string>
 
     <!-- Lista -->
-    <string name="nombre_denuncia_lista">Nombre de la denuncia</string>
-    <string name="calle_lista">calle</string>
-    <string name="descripcion_lista">descripcion:</string>
-
-
+    <string name="nombre_denuncia_lista">Nom de la denuncia</string>
+    <string name="calle_lista">carrer</string>
+    <string name="descripcion_lista">descripció:</string>
 
 </resources>

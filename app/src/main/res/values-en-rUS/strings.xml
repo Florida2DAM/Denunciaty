@@ -1,16 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Denunciaty</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash">Denunciaty</string>
-    <string name="title_activity_mis_reportes">Mis Reportes</string>
-    <string name="title_activity_acceso">Acceso a Denunciaty</string>
-    <string name="title_activity_registro">Registro</string>
-    <string name="title_activity_add_reporte">Añadir Reporte</string>
+    <string name="title_activity_mis_reportes">My Reports</string>
+    <string name="title_activity_acceso">Access Denunciaty</string>
+    <string name="title_activity_registro">Registration</string>
+    <string name="title_activity_add_reporte">Add Reporte</string>
     <string name="server_client_id">339447190295-tjfqg7t67tn27mj175qu67vfqfj7fi0n.apps.googleusercontent.com</string>
-    <string name="title_activity_registro_app">Registro desde nuestra app</string>
+    <string name="title_activity_registro_app">Registration from our app</string>
     <string name="title_activity_principal">Map</string>
-    <string name="title_activity_reporte">Reporte</string>
+    <string name="title_activity_reporte">Report</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -74,57 +75,50 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Add Reporte Activity -->
-    <string name="publicar_addreporte">Publicar</string>
-    <string name="descripcion_addreporte">DESCRIPCIÓN</string>
-    <string name="gravedad_addreporte">GRAVEDAD</string>
-    <string name="incidente_addreporte">INCIDENTE</string>
-
     <!-- Fragment Add Reporte -->
-    <string name="titulo_descriptivo">Título descriptivo</string>
-    <string name="descripcion_fragment_addreporte">Descripción</string>
-    <string name="ubicacion_fragment_addreporte">Ubicación</string>
-    <string name="publicar_reporte_fragment_addreporte">Publicar reporte</string>
+    <string name="titulo_descriptivo">Descriptive tittle</string>
+    <string name="descripcion_fragment_addreporte">Description</string>
+    <string name="ubicacion_fragment_addreporte">Location</string>
+    <string name="publicar_reporte_fragment_addreporte">Publish report</string>
 
     <!-- Navigation Drawer Fragments -->
-    <string name="buscar_navigation">Buscar</string>
-    <string name="mis_reportes_navigation">Mis Reportes</string>
-    <string name="mi_perfil_navigation">Mi perfil</string>
-    <string name="configuracion_navigation">Configuración</string>
+    <string name="buscar_navigation">Search</string>
+    <string name="mis_reportes_navigation">My Reports</string>
+    <string name="mi_perfil_navigation">My profile</string>
+    <string name="configuracion_navigation">Settings</string>
 
     <!-- Registro Activity -->
-    <string name="registrate_desde_nuestra_app">Regístrate desde nuestra app</string>
-    <string name="bienvenido_denunciaty">Bienvenido a Denunciaty</string>
+    <string name="registrate_desde_nuestra_app">Sing in for our app</string>
+    <string name="bienvenido_denunciaty">Welcome to Denunciaty</string>
     <string name="la_app_valenciana">La app valenciana donde podrás \ndenunciar cualquier desperfecto o \nincidente presente en tu ubicación.</string>
-    <string name="inicia_sesion">Iniciar Sesión</string>
-    <string name="iniciasesion_registroapp">Iniciar Sesión</string>
-    <string name="iniciando_registroapp">Iniciando</string>
-    <string name="cancelar_registroapp">Cancelar</string>
-    <string name="cancelando_registroapp">Cancelando</string>
+    <string name="inicia_sesion">Log in</string>
+    <string name="iniciasesion_registroapp">Log in</string>
+    <string name="iniciando_registroapp">Strarting</string>
+    <string name="cancelar_registroapp">Cancel</string>
+    <string name="cancelando_registroapp">Canceling</string>
 
     <!-- Registro Usuario Activity -->
-    <string name="nombre_registroapp">Nombre</string>
-    <string name="apellido_registroapp">Apellidos</string>
-    <string name="localidad_registroapp">Localidad</string>
+    <string name="nombre_registroapp">Name</string>
+    <string name="apellido_registroapp">Surname</string>
+    <string name="localidad_registroapp">Locality</string>
     <string name="email_registroapp">Email</string>
-    <string name="usuario_registroapp">Usuario</string>
-    <string name="contraseña_registroapp">Contraseña</string>
-    <string name="enviar_registroapp">Enviar</string>
-    <string name="registro_correctamente">Se ha registrado correctamente</string>
-    <string name="registro_correcto">Registro correcto</string>
+    <string name="usuario_registroapp">User</string>
+    <string name="contraseña_registroapp">Password</string>
+    <string name="enviar_registroapp">Submit</string>
+    <string name="registro_correctamente">It has been recorded correctly</string>
+    <string name="registro_correcto">Correct registration</string>
 
     <!-- Splash -->
     <string name="denunciaty_splash">Denunciaty</string>
 
     <!-- Login -->
-    <string name="correo_login">Correo Electrónico</string>
-    <string name="contraseña_login">Contraseña</string>
+    <string name="correo_login">Email</string>
+    <string name="contraseña_login">Password</string>
 
     <!-- Lista -->
-    <string name="nombre_denuncia_lista">Nombre de la denuncia</string>
-    <string name="calle_lista">calle</string>
-    <string name="descripcion_lista">descripcion:</string>
-
+    <string name="nombre_denuncia_lista">Name of the report</string>
+    <string name="calle_lista">street</string>
+    <string name="descripcion_lista">description:</string>
 
 
 </resources>

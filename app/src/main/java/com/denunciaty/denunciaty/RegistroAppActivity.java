@@ -48,11 +48,11 @@ public class RegistroAppActivity extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegistroAppActivity.this);
-                builder.setMessage("Se ha registrado correctamente")
+                builder.setMessage(R.string.registro_correctamente)
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(RegistroAppActivity.this, "Registro correcto", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistroAppActivity.this, R.string.registro_correcto, Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
                                 startActivity(i);
                             }
