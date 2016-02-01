@@ -80,14 +80,23 @@
     <string name="gravedad_addreporte">GRAVEDAD</string>
     <string name="incidente_addreporte">INCIDENTE</string>
 
-
     <!-- Fragment Add Reporte -->
     <string name="titulo_descriptivo">Título descriptivo</string>
     <string name="descripcion_fragment_addreporte">Descripción</string>
     <string name="ubicacion_fragment_addreporte">Ubicación</string>
     <string name="publicar_reporte_fragment_addreporte">Publicar reporte</string>
 
-    <!-- Fragment Add Reporte -->
+    <!-- Registro Activity -->
+    <string name="registrate_desde_nuestra_app">Regístrate desde nuestra app</string>
+    <string name="bienvenido_denunciaty">Bienvenido a Denunciaty</string>
+    <string name="la_app_valenciana">La app valenciana donde podrás \ndenunciar cualquier desperfecto o \nincidente presente en tu ubicación.</string>
+    <string name="inicia_sesion">Iniciar Sesión</string>
+
+    <!-- Navigation Drawer Fragments -->
+    <string name="buscar_navigation">Buscar</string>
+    <string name="mis_reportes_navigation">Mis Reportes</string>
+    <string name="mi_perfil_navigation">Mi perfil</string>
+    <string name="configuracion_navigation">Configuración</string>
 
 
 </resources>
