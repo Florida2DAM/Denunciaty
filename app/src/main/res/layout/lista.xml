@@ -5,7 +5,7 @@
 <ImageView
     android:id="@+id/iV"
     android:layout_width="100dp"
-    android:layout_height="150dp"
+    android:layout_height="115dp"
     android:layout_marginLeft="10dp"
     android:layout_alignParentLeft="true"
     android:src="@android:drawable/ic_menu_gallery"
@@ -39,14 +39,16 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:textStyle="italic"
-        android:text="descripcion: dkajidashfjhsajfhsajfjkasfjbsajfhsajfhjsafhkjashfksjahfkjsahfjksahfkjhsajfkhsaf"
+        android:text="descripcion:"
         android:textColor="#9A9B9A"
         android:layout_below="@+id/ubiTV"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/iV" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_height="2dp"
         android:background="#6694E6"
         android:layout_alignBottom="@+id/iV"
         android:layout_alignParentStart="true" />
