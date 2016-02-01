@@ -86,17 +86,24 @@
     <string name="ubicacion_fragment_addreporte">Ubicación</string>
     <string name="publicar_reporte_fragment_addreporte">Publicar reporte</string>
 
-    <!-- Registro Activity -->
-    <string name="registrate_desde_nuestra_app">Regístrate desde nuestra app</string>
-    <string name="bienvenido_denunciaty">Bienvenido a Denunciaty</string>
-    <string name="la_app_valenciana">La app valenciana donde podrás \ndenunciar cualquier desperfecto o \nincidente presente en tu ubicación.</string>
-    <string name="inicia_sesion">Iniciar Sesión</string>
-
     <!-- Navigation Drawer Fragments -->
     <string name="buscar_navigation">Buscar</string>
     <string name="mis_reportes_navigation">Mis Reportes</string>
     <string name="mi_perfil_navigation">Mi perfil</string>
     <string name="configuracion_navigation">Configuración</string>
+
+    <!-- Registro Activity -->
+    <string name="registrate_desde_nuestra_app">Regístrate desde nuestra app</string>
+    <string name="bienvenido_denunciaty">Bienvenido a Denunciaty</string>
+    <string name="la_app_valenciana">La app valenciana donde podrás \ndenunciar cualquier desperfecto o \nincidente presente en tu ubicación.</string>
+    <string name="inicia_sesion">Iniciar Sesión</string>
+    <string name="iniciasesion_registroapp">Iniciar Sesión</string>
+    <string name="iniciando_registroapp">Iniciando</string>
+    <string name="cancelar_registroapp">Cancelar</string>
+    <string name="cancelando_registroapp">Cancelando</string>
+
+    <!-- Registro Usuario Activity -->
+
 
 
 </resources>

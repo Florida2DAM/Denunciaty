@@ -160,17 +160,17 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         final EditText contra = (EditText) view.findViewById(R.id.pass);
 
         alertDialog.setCancelable(true)
-                .setPositiveButton("Iniciar Sesión", new DialogInterface.OnClickListener(){
+                .setPositiveButton(R.string.iniciasesion_registroapp, new DialogInterface.OnClickListener(){
                   public void onClick(DialogInterface dialog, int id){
-                      Toast.makeText(RegistroActivity.this, "Iniciando", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(RegistroActivity.this, R.string.iniciando_registroapp, Toast.LENGTH_SHORT).show();
                       Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
                       startActivity(i);
                       finish();
                   }
                 })
-                .setNegativeButton("Cancelar",new DialogInterface.OnClickListener(){
+                .setNegativeButton(R.string.cancelar_registroapp,new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
-                        Toast.makeText(RegistroActivity.this, "Cancelando", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistroActivity.this, R.string.cancelando_registroapp, Toast.LENGTH_SHORT).show();
                     }
                 });
         AlertDialog alert = alertDialog.create();
