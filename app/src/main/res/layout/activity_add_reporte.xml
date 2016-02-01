@@ -29,7 +29,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/publicar"
+                android:text="@string/publicar_addreporte"
                 android:id="@+id/bt_publicar"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/descripcion"
+                android:text="@string/descripcion_addreporte"
                 android:id="@+id/textView5"
                 android:layout_above="@+id/editText"
                 android:layout_alignParentStart="true" />
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gravedad"
+                android:text="@string/gravedad_addreporte"
                 android:id="@+id/textView4"
                 android:layout_centerVertical="true"
                 android:layout_alignParentStart="true" />
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/incidente"
+                android:text="@string/incidente_addreporte"
                 android:id="@+id/textView6"
                 android:layout_above="@+id/editText2"
                 android:layout_alignParentStart="true" />

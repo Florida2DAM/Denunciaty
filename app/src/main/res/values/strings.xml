@@ -75,11 +75,19 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Add Reporte Activity -->
-    <string name="publicar">Publicar</string>
-    <string name="descripcion">DESCRIPCIÓN</string>
-    <string name="gravedad">GRAVEDAD</string>
-    <string name="incidente">INCIDENTE</string>
+    <string name="publicar_addreporte">Publicar</string>
+    <string name="descripcion_addreporte">DESCRIPCIÓN</string>
+    <string name="gravedad_addreporte">GRAVEDAD</string>
+    <string name="incidente_addreporte">INCIDENTE</string>
 
-    <!-- Add Reporte Activity -->
+
+    <!-- Fragment Add Reporte -->
+    <string name="titulo_descriptivo">Título descriptivo</string>
+    <string name="descripcion_fragment_addreporte">Descripción</string>
+    <string name="ubicacion_fragment_addreporte">Ubicación</string>
+    <string name="publicar_reporte_fragment_addreporte">Publicar reporte</string>
+
+    <!-- Fragment Add Reporte -->
+
 
 </resources>
