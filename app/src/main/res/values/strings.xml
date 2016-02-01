@@ -15,7 +15,7 @@
 
     <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
+    <!-- General settings -->
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
@@ -38,7 +38,7 @@
         <item>-1</item>
     </string-array>
 
-    <!-- Example settings for Data & Sync -->
+    <!-- Settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
@@ -61,7 +61,7 @@
 
     <string name="pref_title_system_sync_settings">Sicronizar ajustes de sistema</string>
 
-    <!-- Example settings for Notifications -->
+    <!-- Settings for Notifications -->
     <string name="pref_header_notifications">Notificaciones</string>
 
     <string name="pref_title_new_message_notifications">Nuevo mensaje de notificación</string>
@@ -74,5 +74,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Add Reporte Activity -->
+    <string name="publicar">Publicar</string>
+    <string name="descripcion">DESCRIPCIÓN</string>
+    <string name="gravedad">GRAVEDAD</string>
+    <string name="incidente">INCIDENTE</string>
+
+    <!-- Add Reporte Activity -->
 
 </resources>
