@@ -38,7 +38,7 @@
                 android:gravity="center_horizontal"
                 android:textColor="#FFFFFFFF"
                 android:textSize="22dp"
-                android:hint="Nombre"
+                android:hint="@string/nombre_registroapp"
                 android:layout_marginTop="20dp"
                 android:textStyle="bold" />
 
@@ -49,7 +49,7 @@
                 android:gravity="center_horizontal"
                 android:textSize="22dp"
                 android:textColor="#FFFFFFFF"
-                android:hint="Apellidos"
+                android:hint="@string/apellido_registroapp"
                 android:textStyle="bold" />
 
             <EditText
@@ -59,7 +59,7 @@
                 android:gravity="center_horizontal"
                 android:textSize="22dp"
                 android:textColor="#ffffff"
-                android:hint="Localidad"
+                android:hint="@string/localidad_registroapp"
                 android:textStyle="bold" />
 
             <EditText
@@ -69,7 +69,7 @@
                 android:gravity="center_horizontal"
                 android:textSize="22dp"
                 android:textColor="#FFFFFFFF"
-                android:hint="Email"
+                android:hint="@string/email_registroapp"
                 android:textStyle="bold" />
 
             <EditText
@@ -79,7 +79,7 @@
                 android:gravity="center_horizontal"
                 android:textSize="22dp"
                 android:textColor="#FFFFFFFF"
-                android:hint="Usuario"
+                android:hint="@string/usuario_registroapp"
                 android:textStyle="bold" />
 
             <EditText
@@ -90,7 +90,7 @@
                 android:ems="10"
                 android:id="@+id/et_contraseña"
                 android:textColor="#FFFFFFFF"
-                android:hint="Contraseña"
+                android:hint="@string/contraseña_registroapp"
                 android:textStyle="bold"
                 android:textSize="20dp" />
 
@@ -102,14 +102,14 @@
                 android:ems="10"
                 android:id="@+id/et_contraseñaRepetida"
                 android:textColor="#FFFFFFFF"
-                android:hint="Contraseña"
+                android:hint="@string/contraseña_registroapp"
                 android:textStyle="bold"
                 android:textSize="20dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enviar"
+                android:text="@string/enviar_registroapp"
                 android:id="@+id/bt_submit"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"

@@ -103,6 +103,13 @@
     <string name="cancelando_registroapp">Cancelando</string>
 
     <!-- Registro Usuario Activity -->
+    <string name="nombre_registroapp">Nombre</string>
+    <string name="apellido_registroapp">Apellidos</string>
+    <string name="localidad_registroapp">Localidad</string>
+    <string name="email_registroapp">Email</string>
+    <string name="usuario_registroapp">Usuario</string>
+    <string name="contraseña_registroapp">Contraseña</string>
+    <string name="enviar_registroapp">Enviar</string>
 
 
 
