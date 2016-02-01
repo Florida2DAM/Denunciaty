@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Denunciaty"
+        android:text="@string/denunciaty_splash"
         android:id="@+id/textView"
         android:textSize="60dp"
         android:layout_marginTop="122dp"
