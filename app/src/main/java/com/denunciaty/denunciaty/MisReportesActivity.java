@@ -172,6 +172,9 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
                 String tipo = tipo_id.toString();
                 Integer sol_id = e.getInt("solucionado");
                 Boolean solucionado =false;
+                Double latitud = e.getDouble("latitud");
+                Double longitud = e.getDouble("longitud");
+                Integer usuario_id = e.getInt("usuario_id");
                 if(sol_id==0){
                     solucionado=false;
                 }
@@ -179,7 +182,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
                     solucionado=true;
                 }
                 Log.d("Reporte",titulo+"-"+descripcion+"-"+ubicacion+"-"+tipo_id+"-"+sol_id+"-"+solucionado);
-                Reporte rep = new Reporte(id,R.mipmap.ic_launcher,titulo,descripcion,ubicacion,tipo,solucionado);
+                Reporte rep = new Reporte(id,R.mipmap.ic_launcher,titulo,descripcion,ubicacion,tipo,solucionado,latitud,longitud,usuario_id);
                 reportes.add(rep);
             }
         } catch (JSONException e) {

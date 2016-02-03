@@ -1,5 +1,6 @@
 package com.denunciaty.denunciaty;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -7,8 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import com.denunciaty.denunciaty.JavaClasses.Reporte;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -16,10 +19,27 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.fabric.sdk.android.services.network.HttpRequest;
+
 public class PrincipalActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
     FloatingActionButton fB;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private LatLng valencia = new LatLng(39.4699075,-0.3762881000000107);
+    private LatLng valencia = new LatLng(39.4699075, -0.3762881000000107);
+    ArrayList<Reporte> reportes;
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
             .zoom(12.5f)
             .bearing(0)
@@ -93,12 +113,99 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Robert"));
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
+        new CargarMarcadoresMapa().execute();
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
+    }
+
+    private class CargarMarcadoresMapa extends AsyncTask<Void,Void,List<Reporte>>{
+
+        @Override
+        protected List<Reporte> doInBackground(Void... params) {
+            InputStream iS = null;
+            String data = "";
+            try {
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/reporte/").openConnection();
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+                iS.close();
+                reportes = parseaJSON(data);
+                return reportes;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<Reporte> rep) {
+            super.onPostExecute(rep);
+            for (Reporte reporte: rep) {
+                LatLng posicion = new LatLng(reporte.getLatitud(),reporte.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion()));
+            }
+        }
+    }
+    public ArrayList<Reporte> parseaJSON(String s){
+        ArrayList<Reporte>reportes= new ArrayList<Reporte>();
+        try {
+            JSONArray json = new JSONArray(s);
+            for(int i=0;i < json.length();i++) {
+                JSONObject e = json.getJSONObject(i);
+                Integer id = e.getInt("id");
+
+                String titulo = e.getString("titulo");
+                String descripcion = e.getString("descripcion");
+                String ubicacion = e.getString("ubicacion");
+                Integer tipo_id = e.getInt("tipo_id");
+                String tipo = tipo_id.toString();
+                Integer sol_id = e.getInt("solucionado");
+                Boolean solucionado = false;
+                Double latitud = e.getDouble("latitud");
+                Double longitud = e.getDouble("longitud");
+                Integer usuario_id = e.getInt("usuario_id");
+
+                if (sol_id == 0) {
+                    solucionado = false;
+                }
+                if (sol_id == 1) {
+                    solucionado = true;
+                }
+                Log.d("Reporte", titulo + "-" + descripcion + "-" + ubicacion + "-" + tipo_id + "-" + sol_id + "-" + solucionado);
+                Reporte rep = new Reporte(id, R.mipmap.ic_launcher, titulo, descripcion, ubicacion, tipo, solucionado, latitud, longitud, usuario_id);
+                reportes.add(rep);
+                return reportes;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reportes;
     }
 }

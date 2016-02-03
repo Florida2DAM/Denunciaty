@@ -8,8 +8,11 @@ public class Reporte {
     private String ubicacion;
     private String tipoIncidente;
     private boolean solucionado;
+    private double latitud;
+    private double longitud;
+    private int usuario_id;
 
-    public Reporte(int id, int imagen,String titulo, String descripcion, String ubicacion, String tipoIncidente, Boolean solucionado){
+    public Reporte(int id, int imagen,String titulo, String descripcion, String ubicacion, String tipoIncidente, Boolean solucionado,Double latitud,Double longitud,Integer usuario_id){
         this.id=id;
         this.imagen=imagen;
         this.titulo=titulo;
@@ -17,6 +20,17 @@ public class Reporte {
         this.ubicacion=ubicacion;
         this.tipoIncidente=tipoIncidente;
         this.solucionado=solucionado;
+        this.latitud=latitud;
+        this.longitud=longitud;
+        this.usuario_id=usuario_id;
+    }
+
+    public int getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(int usuario_id) {
+        this.usuario_id = usuario_id;
     }
 
     public int getId() {
@@ -73,5 +87,21 @@ public class Reporte {
 
     public void setSolucionado(boolean solucionado) {
         this.solucionado = solucionado;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }
