@@ -19,5 +19,9 @@
         android:title="Acceder solo con wifi"
         android:summary="Wifi" />
 
+    <Preference android:title="@string/pref_title_system_sync_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+
 
 </PreferenceScreen>

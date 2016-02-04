@@ -277,8 +277,8 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 getActivity().finish();
                 break;
             case 3:
-                //Reporte Activity
-                Intent i3 = new Intent(getActivity(),ReporteActivity.class);
+                //Settings Activity
+                Intent i3 = new Intent(getActivity(),SettingsActivity.class);
                 startActivity(i3);
                 getActivity().finish();
                 break;

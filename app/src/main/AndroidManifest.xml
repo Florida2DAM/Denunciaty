@@ -66,6 +66,11 @@
             android:theme="@style/AppCompatTheme"
             android:label="Reporte" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/AppCompatTheme"
+            android:label="Settings" >
+        </activity>
     </application>
 
 </manifest>
