@@ -1,8 +1,14 @@
 package com.denunciaty.denunciaty;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -10,9 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.denunciaty.denunciaty.JavaClasses.AdaptadorSpinner;
+import com.denunciaty.denunciaty.JavaClasses.Reporte;
+import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,6 +36,20 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import io.fabric.sdk.android.services.network.HttpRequest;
+
 
 public class RegistroActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -36,6 +60,9 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     private int tw_sign_in = 0;
     TextView app;
     Button iniciar;
+    Usuario usuario;
+    String passInput = null;
+    String passBBDD = null;
 
 
     @Override
@@ -157,24 +184,167 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         alertDialog.setView(view);
 
         final EditText email = (EditText) view.findViewById(R.id.email);
-        final EditText contra = (EditText) view.findViewById(R.id.pass);
+        final EditText pass = (EditText) view.findViewById(R.id.pass);
 
         alertDialog.setCancelable(true)
-                .setPositiveButton(R.string.iniciasesion_registroapp, new DialogInterface.OnClickListener(){
-                  public void onClick(DialogInterface dialog, int id){
-                      Toast.makeText(RegistroActivity.this, R.string.iniciando_registroapp, Toast.LENGTH_SHORT).show();
-                      Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
-                      startActivity(i);
-                      finish();
-                  }
+                .setPositiveButton(R.string.iniciasesion_registroapp, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String emailInput = email.getText().toString();
+                        String contrasenya = pass.getText().toString();
+
+                        if (emailInput.isEmpty() || contrasenya.isEmpty()) {
+                            Toast.makeText(RegistroActivity.this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Encriptacion pass
+                            try {
+                                passInput = SHA1(pass.getText().toString());
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+
+                            UsuariosTask async = new UsuariosTask();
+                            //Consulta por email
+                            async.execute(emailInput);
+                        }
+
+
+                    }
                 })
-                .setNegativeButton(R.string.cancelar_registroapp,new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
+                .setNegativeButton(R.string.cancelar_registroapp, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(RegistroActivity.this, R.string.cancelando_registroapp, Toast.LENGTH_SHORT).show();
                     }
                 });
         AlertDialog alert = alertDialog.create();
         alert.show();
+    }
+
+
+    public Boolean compruebaContraseña(String passBBDD,String passInput){
+        if(passBBDD.equals(passInput)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
+    //Encriptación
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9)) {
+                    buf.append((char) ('0' + halfbyte));
+                }
+                else {
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                }
+                halfbyte = data[i] & 0x0F;
+            } while(two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
+
+
+    public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] sha1hash = new byte[40];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        sha1hash = md.digest();
+        return convertToHex(sha1hash);
+    }
+
+
+    //AsyncTask
+    private class UsuariosTask extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String email = params[0];
+            InputStream iS = null;
+            String data = "";
+
+            try {
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/datos/0/"+email).openConnection();
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+                iS.close();
+
+                return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            try {
+                    JSONObject e = new JSONObject(s);
+
+                    Integer id = e.getInt("id");
+                    String nombre = e.getString("nombre");
+                    String apellidos = e.getString("apellidos");
+                    String nombre_usuario = e.getString("nombre_usuario");
+                    String emailUser = e.getString("email");
+                    String password = e.getString("password");
+                    String foto = e.getString("foto");
+                    String ingreso = e.getString("ingreso_at");
+                    String localidad = e.getString("localidad");
+
+                    usuario = new Usuario(id,nombre,apellidos,nombre_usuario,emailUser,password,foto,ingreso,localidad);
+
+                    Log.d("Usuario", nombre + "-" + apellidos + "-" + nombre_usuario + "-" + emailUser + "-" + password + "-" + foto + "-"
+                            + ingreso + "-" +localidad +"-"+id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            //Comprobamos pass
+            passBBDD = usuario.getPassword();
+
+            if (compruebaContraseña(passBBDD, passInput)) {
+                Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
+                i.putExtra("usuario",usuario);
+                startActivity(i);
+                finish();
+            } else {
+                Toast.makeText(RegistroActivity.this, "La dirección de corre y contraseña no coinciden", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
 

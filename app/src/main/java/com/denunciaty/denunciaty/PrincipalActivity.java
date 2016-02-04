@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
+import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -40,6 +42,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng valencia = new LatLng(39.4699075, -0.3762881000000107);
     ArrayList<Reporte> reportes;
+    Usuario usuario;
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
             .zoom(12.5f)
             .bearing(0)
@@ -53,6 +56,10 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
+
+        //Recupero al usuario logueado
+        usuario = (Usuario)getIntent().getExtras().getSerializable("usuario");
+
 
         //set up the drawer
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
