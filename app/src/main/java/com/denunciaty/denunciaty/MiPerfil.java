@@ -32,11 +32,24 @@ public class MiPerfil extends AppCompatActivity {
         setContentView(R.layout.activity_mi_perfil);
 
         usuario = (EditText) findViewById(R.id.et_usuario);
+        usuario.setEnabled(false);
         nombre = (EditText) findViewById(R.id.et_nombre);
+        nombre.setEnabled(false);
         apellido = (EditText) findViewById(R.id.et_apellidos);
+        apellido.setEnabled(false);
         email = (EditText) findViewById(R.id.et_email);
+        email.setEnabled(false);
         localidad = (EditText) findViewById(R.id.et_localidad);
+        localidad.setEnabled(false);
         foto = (ImageView) findViewById(R.id.iv_avatar);
+        foto.setEnabled(false);
+
+        foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInputDialogFoto();
+            }
+        });
 
         edita = (ImageButton) findViewById(R.id.ib_edit);
         edita.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +62,7 @@ public class MiPerfil extends AppCompatActivity {
                 apellido.setEnabled(true);
                 email.setEnabled(true);
                 localidad.setEnabled(true);
+                foto.setEnabled(true);
 
             }
         });
@@ -64,6 +78,7 @@ public class MiPerfil extends AppCompatActivity {
                 apellido.setEnabled(false);
                 email.setEnabled(false);
                 localidad.setEnabled(false);
+                foto.setEnabled(false);
             }
         });
 
@@ -96,6 +111,47 @@ public class MiPerfil extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void showInputDialogFoto(){
+        LayoutInflater layout = LayoutInflater.from(MiPerfil.this);
+        View view = layout.inflate(R.layout.elegir_foto, null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiPerfil.this);
+        alertDialog.setView(view);
+
+        final Button hazFoto = (Button) view.findViewById(R.id.bt_hacerFoto);
+        final Button eligeFoto = (Button) view.findViewById(R.id.bt_eligeFoto);
+
+        alertDialog.setCancelable(true)
+               /* .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String antigua = passAntigua.getText().toString();
+                        String nueva = passNueva.getText().toString();
+
+                        if (antigua.isEmpty() || nueva.isEmpty()) {
+                            Toast.makeText(MiPerfil.this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Encriptacion pass
+                            try {
+                                passInput = SHA1(passAntigua.getText().toString());
+                                passInput = SHA1(passNueva.getText().toString());
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                })*/
+                .setNegativeButton(R.string.cancelar_registroapp, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(MiPerfil.this, R.string.cancelando_registroapp, Toast.LENGTH_SHORT).show();
+                    }
+                });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 
     protected void showInputDialog(){
