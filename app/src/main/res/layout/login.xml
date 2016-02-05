@@ -18,7 +18,8 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/correo_login" />
+        android:hint="@string/correo_login"
+        android:textColor="#010101" />
     <EditText
         android:id="@+id/pass"
         android:inputType="textPassword"
@@ -29,5 +30,6 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="@string/contraseña_login"/>
+        android:hint="@string/contraseña_login"
+        android:textColor="#010101" />
 </LinearLayout>

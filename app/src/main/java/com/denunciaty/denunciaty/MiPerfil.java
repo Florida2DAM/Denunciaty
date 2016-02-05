@@ -122,34 +122,6 @@ public class MiPerfil extends AppCompatActivity {
         final Button hazFoto = (Button) view.findViewById(R.id.bt_hacerFoto);
         final Button eligeFoto = (Button) view.findViewById(R.id.bt_eligeFoto);
 
-        alertDialog.setCancelable(true)
-               /* .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        String antigua = passAntigua.getText().toString();
-                        String nueva = passNueva.getText().toString();
-
-                        if (antigua.isEmpty() || nueva.isEmpty()) {
-                            Toast.makeText(MiPerfil.this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //Encriptacion pass
-                            try {
-                                passInput = SHA1(passAntigua.getText().toString());
-                                passInput = SHA1(passNueva.getText().toString());
-                            } catch (NoSuchAlgorithmException e) {
-                                e.printStackTrace();
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                    }
-                })*/
-                .setNegativeButton(R.string.cancelar_registroapp, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(MiPerfil.this, R.string.cancelando_registroapp, Toast.LENGTH_SHORT).show();
-                    }
-                });
         AlertDialog alert = alertDialog.create();
         alert.show();
     }

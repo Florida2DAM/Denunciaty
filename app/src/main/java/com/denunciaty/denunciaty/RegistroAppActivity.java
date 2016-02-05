@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,7 @@ public class RegistroAppActivity extends Activity {
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showInputDialogFoto();
             }
         });
 
@@ -62,6 +63,19 @@ public class RegistroAppActivity extends Activity {
             }
         });
 
+    }
+
+    protected void showInputDialogFoto(){
+        LayoutInflater layout = LayoutInflater.from(RegistroAppActivity.this);
+        View view = layout.inflate(R.layout.elegir_foto, null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroAppActivity.this);
+        alertDialog.setView(view);
+
+        final Button hazFoto = (Button) view.findViewById(R.id.bt_hacerFoto);
+        final Button eligeFoto = (Button) view.findViewById(R.id.bt_eligeFoto);
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 
     @Override
