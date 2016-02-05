@@ -11,6 +11,7 @@
     <string name="title_activity_registro_app">Registro desde nuestra app</string>
     <string name="title_activity_principal">Map</string>
     <string name="title_activity_reporte">Reporte</string>
+    <string name="title_activity_mi_perfil">Mi Perfil</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->

@@ -31,7 +31,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
-        <activity android:name=".MisReportesActivity"
+        <activity
+            android:name=".MisReportesActivity"
             android:theme="@style/NoaActionBarTheme" />
         <activity
             android:name=".RegistroActivity"
@@ -40,7 +41,7 @@
         <activity
             android:name=".AddReporteActivity"
             android:label="@string/title_activity_add_reporte"
-            android:theme="@style/NoaActionBarTheme"/>
+            android:theme="@style/NoaActionBarTheme" />
         <activity
             android:name=".RegistroAppActivity"
             android:label="@string/app_name"
@@ -63,8 +64,13 @@
         </activity>
         <activity
             android:name=".ReporteActivity"
-            android:theme="@style/AppCompatTheme"
-            android:label="Reporte" >
+            android:label="Reporte"
+            android:theme="@style/AppCompatTheme" >
+        </activity>
+        <activity
+            android:name=".MiPerfil"
+            android:label="@string/title_activity_mi_perfil"
+            android:theme="@style/AppCompatTheme">
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -74,4 +80,3 @@
     </application>
 
 </manifest>
-
