@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:key="cambiarIdioma"
-        android:title="Idioma"
-        android:summary="Idioma"
-        android:dialogTitle="Cambiar idioma"
-        android:entries="@array/idiomas"
-        android:entryValues="@array/codigo_idiomas" />
+    <PreferenceCategory android:title="@string/notificaciones_pref"
+        android:icon="@drawable/ic_notifications_black_24dp">
+        <SwitchPreference
+            android:key="notificaciones"
+            android:title="@string/pref_notificaciones"
+            android:summary="@string/pref_recibirNotificaciones" />
+    </PreferenceCategory>
 
-    <SwitchPreference
-        android:key="notificaciones"
-        android:title="Notificaciones"
-        android:summary="¿Quieres recibir notificaciones?" />
+    <PreferenceCategory android:title="@string/idioma_pref">
+        <ListPreference
+            android:key="cambiarIdioma"
+            android:title="@string/pref_idioma"
+            android:summary="@string/pref_idioma"
+            android:dialogTitle="@string/pref_cambiarIdioma"
+            android:entries="@array/idiomas"
+            android:entryValues="@array/codigo_idiomas" />
+    </PreferenceCategory>
 
-    <SwitchPreference
-        android:key="accederWifi"
-        android:title="Acceder solo con wifi"
-        android:summary="Wifi" />
+    <PreferenceCategory android:title="@string/pref_ajustesGenerales"
+        android:icon="@drawable/ic_info_black_24dp">
 
-    <Preference android:title="@string/pref_title_system_sync_settings">
-        <intent android:action="android.settings.SYNC_SETTINGS" />
-    </Preference>
+        <PreferenceScreen android:title="@string/pref_austesdered" android:persistent="false">
+            <SwitchPreference
+                android:key="accederWifi"
+                android:title="@string/pref_accederWifi"
+                android:summary="@string/preff_Wifi" />
+
+            <Preference android:title="@string/pref_title_system_sync_settings">
+                <intent android:action="android.settings.SYNC_SETTINGS" />
+            </Preference>
+        </PreferenceScreen>
+
+        <PreferenceScreen android:title="@string/pref_ajustesusuario" android:persistent="false">
+            <Preference android:title="@string/pref_borrarCuenta"></Preference>
+            <Preference android:title="@string/pref_cerrarSesion"></Preference>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

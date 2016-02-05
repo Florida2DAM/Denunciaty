@@ -341,7 +341,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 startActivity(i);
                 finish();
             } else {
-                Toast.makeText(RegistroActivity.this, "La dirección de corre y contraseña no coinciden", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
             }
 
         }

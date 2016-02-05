@@ -17,6 +17,9 @@
     <!-- Strings related to Settings -->
 
     <!-- General settings -->
+
+    <string name="pref_idioma">Idioma</string>
+
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
@@ -125,7 +128,18 @@
     <string name="nombre_denuncia_lista">Nombre de la denuncia</string>
     <string name="calle_lista">calle</string>
     <string name="descripcion_lista">descripcion:</string>
-
+    <string name="pref_cambiarIdioma">Cambiar idioma</string>
+    <string name="pref_notificaciones">Notificaciones</string>
+    <string name="pref_recibirNotificaciones">¿Quieres recibir notificaciones?</string>
+    <string name="pref_accederWifi">Acceder solo con wifi</string>
+    <string name="preff_Wifi">Wifi</string>
+    <string name="notificaciones_pref">NOTIFICACIONES</string>
+    <string name="idioma_pref">IDIOMA</string>
+    <string name="pref_ajustesGenerales">AJUSTES GENERALES</string>
+    <string name="pref_borrarCuenta">Borrar cuenta de usuario</string>
+    <string name="pref_cerrarSesion">Cerrar sesión</string>
+    <string name="pref_ajustesusuario">Ajustes de usuario</string>
+    <string name="pref_austesdered">Ajustes de red</string>
 
 
 </resources>
