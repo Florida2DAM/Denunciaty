@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;

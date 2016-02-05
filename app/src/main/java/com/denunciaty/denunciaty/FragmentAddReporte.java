@@ -32,7 +32,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fragment_add_reporte,
                 container, false);
@@ -66,9 +66,8 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         if (mLastLocation != null) {
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
             mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-            Log.d("COOR", String.valueOf(mLastLocation.getLatitude()+" "+mLastLocation.getLongitude()));
+            Log.d("COOR", String.valueOf(mLastLocation.getLatitude() + " " + mLastLocation.getLongitude()));
         }
-
     }
 
     @Override
