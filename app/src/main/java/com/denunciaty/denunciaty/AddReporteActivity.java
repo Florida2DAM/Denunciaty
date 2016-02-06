@@ -1,12 +1,12 @@
 package com.denunciaty.denunciaty;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
@@ -70,10 +72,9 @@ public class AddReporteActivity extends AppCompatActivity implements NavigationD
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Authorization", "Basic "+encoded);
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
                 connection.setDoInput(true);
                 connection.connect();
-
 
 
                 iS = new BufferedInputStream(connection.getInputStream());
@@ -125,12 +126,51 @@ public class AddReporteActivity extends AppCompatActivity implements NavigationD
         }
         */
         }
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.d("code",""+s);
-        }
 
+        private class SubirImagen extends AsyncTask<Void, Void, Void> {
+            /*
+            EJEMPLO DE SUBIR IMAGEN
+             */
+            Bitmap bit;
+            String nombre;
+
+            public SubirImagen(Bitmap bit, String nombre) {
+                this.bit = bit;
+                this.nombre = nombre;
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                HttpURLConnection conn = null;
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                String request= "http://denunc699:28WdV4Xq@denunciaty.florida.com.mialias.net/";
+                URL url= null;
+                try {
+                    url = new URL(request);
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestProperty("charset", "UTF-8");
+                    conn.setRequestProperty("Authorization", "Basic " + encoded);
+                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+            }
         }
 
     }
+}

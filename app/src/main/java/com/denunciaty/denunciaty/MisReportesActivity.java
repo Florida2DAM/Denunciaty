@@ -75,7 +75,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
             try {
                 numID_usuario=13;
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
-                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/reps/1").openConnection();
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/reps/7").openConnection();
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");

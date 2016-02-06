@@ -1,5 +1,7 @@
 package com.denunciaty.denunciaty;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,14 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -32,16 +39,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
     FloatingActionButton fB;
+    Toolbar tbReporte;
+    ImageView iVReporte;
+    TextView tVReporte,tVReporteUbi;
+    LinearLayout lY;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng valencia = new LatLng(39.4699075, -0.3762881000000107);
     ArrayList<Reporte> reportes;
     Usuario usuario;
+    String id_selec;
+    HashMap<String, String[]> haspMap = new HashMap <String, String[]>();
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
             .zoom(12.5f)
             .bearing(0)
@@ -54,6 +68,12 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         setContentView(R.layout.activity_principal);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
+        lY = (LinearLayout)findViewById(R.id.rep_selec);
+        tbReporte = (Toolbar)findViewById(R.id.rep_tb);
+        iVReporte = (ImageView)findViewById(R.id.img_reporte_selec);
+        tVReporte = (TextView)findViewById(R.id.tv_reporte_selec);
+        tVReporteUbi = (TextView)findViewById(R.id.tv_reporte_ub);
+
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         //Recupero al usuario logueado
@@ -76,6 +96,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 fragmentTransaction.commit();
             }
         });
+        comprobarClicks();
     }
 
     @Override
@@ -84,21 +105,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         setUpMapIfNeeded();
     }
 
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -112,21 +118,12 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         }
     }
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
         new CargarMarcadoresMapa().execute();
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
 
-    }
 
     private class CargarMarcadoresMapa extends AsyncTask<Void,Void,List<Reporte>>{
 
@@ -171,13 +168,166 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         }
 
         @Override
-        protected void onPostExecute(List<Reporte> rep) {
+        protected void onPostExecute(final List<Reporte> rep) {
             super.onPostExecute(rep);
-            for (Reporte reporte: rep) {
+            for (final Reporte reporte: rep) {
                 LatLng posicion = new LatLng(reporte.getLatitud(),reporte.getLongitud());
-                mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion()));
+                String tipo = reporte.getTipoIncidente();
+                Marker m;
+                String imagen;
+                switch (tipo) {
+                    case "0":
+                        imagen ="limpieza";
+                                m =mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.limpieza)));
+                        haspMap.put(m.getId(),new String[]{imagen, String.valueOf(reporte.getId())});
+                        break;
+                    case "1":
+                        imagen ="senyalizacion";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.senyalizacion)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                    case "2":
+                        imagen ="vehiculo";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.vehiculo)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                    case "3":
+                        imagen ="iluminacion";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.iluminacion)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                    case "4":
+                        imagen ="mobiliario";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.mobiliario)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                    case "5":
+                        imagen ="via_publica";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.via_publica)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                    case "6":
+                        imagen ="arbolada";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.arbolada)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                    case "7":
+                        imagen ="transporte_publico";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.transporte_publico)));
+                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        break;
+                }
             }
         }
+    }
+
+    private class CargarReporteSeleccionado extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... id) {
+            InputStream iS = null;
+            String data = "";
+            Integer idReporteSeleccionado=0;
+            try {
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/reporte/datos/"+idReporteSeleccionado).openConnection();
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+                iS.close();
+
+                return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            reportes = parseaJSON(s);
+        }
+    }
+
+    public static int getImageId(Context context, String imageName) {
+        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
+    }
+    public void comprobarClicks(){
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String value = "";
+                tVReporte.setText(marker.getTitle());
+                tVReporteUbi.setText(marker.getSnippet());
+                tbReporte.setVisibility(View.VISIBLE);
+                for (String key : haspMap.keySet()) {
+                    Log.d("Reporte", key + "-" + marker.getId());
+                    if (marker.getId().equals(key)) {
+                        tbReporte.setVisibility(View.VISIBLE);
+                        String[] c = haspMap.get(key);
+                        String imagen = c[0];
+                        id_selec = c[1];
+                        iVReporte.setImageResource(getImageId(getApplication(), imagen));
+                        Log.d("Reporte", "Reporte seleccionado: " + id_selec);
+                    }
+                }
+                return true;
+            }
+        });
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                tbReporte.setVisibility(View.INVISIBLE);
+            }
+        });
+        lY.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i=0;i<reportes.size();i++){
+                    Reporte rep = reportes.get(i);
+                    if(rep.getId()==Integer.parseInt(id_selec.toString())){
+                        Intent intent = new Intent(getApplicationContext(),ReporteActivity.class);
+                        intent.putExtra("idIntent",rep.getTitulo());
+                        intent.putExtra("tituloIntent",rep.getTitulo());
+                        intent.putExtra("descripcionIntent",rep.getDescripcion());
+                        intent.putExtra("ubicacionIntent",rep.getUbicacion());
+                        intent.putExtra("tipoIntent",rep.getTipoIncidente());
+                        intent.putExtra("solIntent",rep.isSolucionado());
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
     }
     public ArrayList<Reporte> parseaJSON(String s){
         ArrayList<Reporte>reportes= new ArrayList<Reporte>();
@@ -207,11 +357,16 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 Log.d("Reporte", titulo + "-" + descripcion + "-" + ubicacion + "-" + tipo_id + "-" + sol_id + "-" + solucionado);
                 Reporte rep = new Reporte(id, R.mipmap.ic_launcher, titulo, descripcion, ubicacion, tipo, solucionado, latitud, longitud, usuario_id);
                 reportes.add(rep);
-                return reportes;
             }
+            return reportes;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return reportes;
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+
     }
 }
