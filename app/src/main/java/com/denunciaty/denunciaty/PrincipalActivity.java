@@ -53,7 +53,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng valencia = new LatLng(39.4699075, -0.3762881000000107);
     ArrayList<Reporte> reportes;
-    Usuario usuario;
+    Usuario usuario=null;
     String id_selec;
     HashMap<String, String[]> haspMap = new HashMap <String, String[]>();
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
@@ -77,8 +77,9 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         //Recupero al usuario logueado
-        usuario = (Usuario)getIntent().getExtras().getSerializable("usuario");
-
+        //if(usuario==null) {
+          //  usuario = (Usuario) getIntent().getExtras().getSerializable("usuario");
+        //}
 
         //set up the drawer
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
