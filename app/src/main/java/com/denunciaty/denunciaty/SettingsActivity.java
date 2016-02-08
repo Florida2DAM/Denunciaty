@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -23,8 +24,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
+import java.util.Locale;
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -40,6 +43,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onResume();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
+        comprobarPreferencias();
     }
 
     @Override
@@ -47,8 +51,47 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onPause();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
+        comprobarPreferencias();
     }
 
+    public static void changeLocale(Resources res,String locale){
+        Configuration config;
+        config = new Configuration(res.getConfiguration());
+
+        switch (locale) {
+            case "ca":
+                config.locale = new Locale("ca");
+                break;
+            case "en-rUS":
+                config.locale = Locale.ENGLISH;
+                break;
+            default:
+                config.locale = new Locale("");
+                break;
+        }
+        res.updateConfiguration(config, res.getDisplayMetrics());
+    }
+
+    public void comprobarPreferencias(){
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        if(pref!=null){
+
+            switch(pref.getString("cambiarIdioma","")){
+                case "ingles":
+                    changeLocale(getResources(),"en-rUS");
+                    //Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
+                    break;
+                case "valenciano":
+                    changeLocale(getResources(),"ca");
+                    //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a valenciano",Toast.LENGTH_SHORT).show();
+                    break;
+                case "castellano":
+                    changeLocale(getResources(),"");
+                    //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a español",Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

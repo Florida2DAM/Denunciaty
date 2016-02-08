@@ -1,9 +1,16 @@
 package com.denunciaty.denunciaty;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +22,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
@@ -41,6 +49,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
@@ -100,9 +109,16 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        comprobarPreferencias();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        comprobarPreferencias();
     }
 
     private void setUpMapIfNeeded() {
@@ -368,5 +384,28 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     @Override
     public void onNavigationDrawerItemSelected(int position) {
 
+    }
+
+    public void notification(String titulo,String contenido){
+
+        Notification.Builder n = new Notification.Builder(this);
+        n.setContentTitle(titulo);
+        n.setContentText(contenido);
+        n.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        n.setSmallIcon(R.mipmap.ic_launcher);
+        n.setDefaults(Notification.DEFAULT_VIBRATE);
+        n.setDefaults(Notification.DEFAULT_SOUND) ;
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(0,n.build());
+    }
+
+    public void comprobarPreferencias(){
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        if(pref!=null){
+            if(pref.getBoolean("notificaciones",true)){
+                notification("NOTIFICACION","Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion");
+            }
+        }
     }
 }
