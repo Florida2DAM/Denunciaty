@@ -262,25 +262,25 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 //Principal Activity
                 Intent i0 = new Intent(getActivity(),PrincipalActivity.class);
                 startActivity(i0);
-                getActivity().finish();
+                //getActivity().finish();
                 break;
             case 1:
                 //Mis Reportes Activity
                 Intent i1 = new Intent(getActivity(),MisReportesActivity.class);
                 startActivity(i1);
-                getActivity().finish();
+               // getActivity().finish();
                 break;
             case 2:
                 //Mi perfil Activity
                 Intent i2 = new Intent(getActivity(),MiPerfil.class);
                 startActivity(i2);
-                getActivity().finish();
+                //getActivity().finish();
                 break;
             case 3:
                 //Settings Activity
                 Intent i3 = new Intent(getActivity(),SettingsActivity.class);
                 startActivity(i3);
-                getActivity().finish();
+                //getActivity().finish();
                 break;
 
         }

@@ -413,6 +413,17 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
             if(pref.getBoolean("notificaciones",true)){
                 notification("NOTIFICACION","Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion");
             }
+            switch(pref.getString("cambiarVista","")){
+                case "normal":
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    break;
+                case "satelite":
+                    mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                    break;
+                case "hibrida":
+                    mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                    break;
+            }
         }
     }
 }

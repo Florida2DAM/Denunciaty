@@ -62,8 +62,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             case "ca":
                 config.locale = new Locale("ca");
                 break;
-            case "en-rUS":
-                config.locale = Locale.ENGLISH;
+            case "en-US":
+                config.locale = new Locale("en-US");
                 break;
             default:
                 config.locale = new Locale("");
@@ -78,7 +78,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
             switch(pref.getString("cambiarIdioma","")){
                 case "ingles":
-                    changeLocale(getResources(),"en-rUS");
+                    changeLocale(getResources(),"en-US");
                     //Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
                     break;
                 case "valenciano":
@@ -113,20 +113,28 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 Boolean b = pref.getBoolean(key, false);
                 connectionPref.setSummary(b.toString());
                 break;
+            case "cambiarVista":
+                connectionPref.setSummary(pref.getString(key, ""));
+                break;
         }
     }
 
     private void registrarPrefsInicio(){
-
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+
         Preference connectionPref = findPreference("cambiarIdioma");
         connectionPref.setSummary(pref.getString("cambiarIdioma", ""));
+
         connectionPref = findPreference("notificaciones");
         Boolean a =pref.getBoolean("notificaciones", false);
         connectionPref.setSummary(a.toString());
+
         connectionPref = findPreference("accederWifi");
         Boolean b =pref.getBoolean("accederWifi", false);
         connectionPref.setSummary(b.toString());
+
+        Preference conectionPref = findPreference("cambiarVista");
+        connectionPref.setSummary(pref.getString("cambiarIdioma",""));
     }
 
 }

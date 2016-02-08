@@ -140,6 +140,8 @@
     <string name="pref_cerrarSesion">Cerrar sesión</string>
     <string name="pref_ajustesusuario">Ajustes de usuario</string>
     <string name="pref_austesdered">Ajustes de red</string>
+    <string name="pref_vista">Vista del mapa</string>
+    <string name="pref_vistaas">Vistas</string>
 
 
 </resources>

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="vistas">
+        <item>Vista normal</item>
+        <item>Vista satelite</item>
+        <item>Vista hibrida</item>
+    </string-array>
+
+    <string-array name="codigo_vistas">
+        <item> normal</item>
+        <item> satelite</item>
+        <item> hibrida</item>
+    </string-array>
+
     <string-array name="idiomas">
         <item >Español</item>
         <item >Ingles</item>

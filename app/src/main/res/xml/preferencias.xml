@@ -19,10 +19,8 @@
             android:entryValues="@array/codigo_idiomas" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_ajustesGenerales"
+    <PreferenceCategory android:title="@string/pref_austesdered"
         android:icon="@drawable/ic_info_black_24dp">
-
-        <PreferenceScreen android:title="@string/pref_austesdered" android:persistent="false">
             <SwitchPreference
                 android:key="accederWifi"
                 android:summary="@string/preff_Wifi"
@@ -31,14 +29,21 @@
             <Preference android:title="@string/pref_title_system_sync_settings">
                 <intent android:action="android.settings.SYNC_SETTINGS" />
             </Preference>
-        </PreferenceScreen>
-
-        <PreferenceScreen android:title="@string/pref_ajustesusuario" android:persistent="false">
-            <Preference android:title="@string/pref_borrarCuenta"></Preference>
-            <Preference android:title="@string/pref_cerrarSesion"></Preference>
-        </PreferenceScreen>
-
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_ajustesusuario">
+        <Preference android:title="@string/pref_borrarCuenta"></Preference>
+        <Preference android:title="@string/pref_cerrarSesion"></Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_vista">
+        <ListPreference
+            android:key="cambiarVista"
+            android:title="@string/pref_vista"
+            android:summary="@string/pref_vista"
+            android:dialogTitle="@string/pref_vistaas"
+            android:entries="@array/vistas"
+            android:entryValues="@array/codigo_vistas" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
