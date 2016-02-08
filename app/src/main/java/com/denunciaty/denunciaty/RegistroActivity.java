@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -62,12 +63,23 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     String passBBDD = null;
     String idPlus;
     Bitmap imagenPerfil;
+    private SQLite bbdd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        bbdd = new SQLite(getApplicationContext());
+        bbdd.open();
+
+        if(bbdd.recuperarLogueado().equals("true")){
+            Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+            //i.putExtra("usuario", usuario);
+            startActivity(i);
+            finish();
+        }
 
         twitterLogIn = (TwitterLoginButton) findViewById(R.id.twitterLogIn);
         app = (TextView) findViewById(R.id.app);
@@ -177,7 +189,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             String personPhotoUrl = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
             new DescargaImagenTask(personPhotoUrl).execute();
-            Log.d("DATA", personName + "-" + email + "-" + personPhotoUrl + "-" + idPlus +"-"+imagenPerfil);
+            Log.d("DATA", personName + "-" + email + "-" + personPhotoUrl + "-" + idPlus + "-" + imagenPerfil);
         }
     }
 
@@ -338,22 +350,29 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
                 Log.d("Usuario", nombre + "-" + apellidos + "-" + nombre_usuario + "-" + emailUser + "-" + password + "-" + foto + "-"
                         + ingreso + "-" + localidad + "-" + id);
+
+                //Comprobamos pass
+                passBBDD = usuario.getPassword();
+
+                if (compruebaContraseña(passBBDD, passInput)) {
+
+                    bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
+
+                    bbdd.logueado("true");
+
+                    Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+                    //i.putExtra("usuario", usuario);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
-            //Comprobamos pass
-            passBBDD = usuario.getPassword();
 
-            if (compruebaContraseña(passBBDD, passInput)) {
-                Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
-                i.putExtra("usuario", usuario);
-                startActivity(i);
-                finish();
-            } else {
-                Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
-            }
 
         }
     }

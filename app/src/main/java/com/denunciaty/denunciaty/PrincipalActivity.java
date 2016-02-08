@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,6 +55,7 @@ import java.util.Locale;
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
+    private SQLite bbdd;
     FloatingActionButton fB;
     Toolbar tbReporte;
     ImageView iVReporte;
@@ -86,6 +88,10 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         //Recupero al usuario logueado
+        bbdd = new SQLite(getApplicationContext());
+        bbdd.open();
+        usuario = bbdd.recuperarUsuario();
+        Toast.makeText(PrincipalActivity.this, usuario.getNombre(), Toast.LENGTH_SHORT).show();
         //if(usuario==null) {
           //  usuario = (Usuario) getIntent().getExtras().getSerializable("usuario");
         //}
