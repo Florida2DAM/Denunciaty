@@ -29,12 +29,12 @@
         <item >TIPO DE INCIDENCIA</item>
         <item >Limpieza</item>
         <item >Señales</item>
-        <item >Vehiculo</item>
+        <item >Vehículo</item>
         <item >Alumbrado</item>
         <item >Mobiliario</item>
-        <item >vVia publica</item>
+        <item >Via pública</item>
         <item >Arbolado</item>
-        <item >Transporte publico</item>
+        <item >Transporte público</item>
         <item >Otros</item>
     </string-array>
 
