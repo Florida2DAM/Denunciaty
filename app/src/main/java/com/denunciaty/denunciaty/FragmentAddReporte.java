@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,26 +16,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class FragmentAddReporte extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     //TextView mLatitudeText, mLongitudeText;
-    Spinner sp_tipo;
     ImageView img_camara, img_cruz;
     RelativeLayout relativeLayout;
+    TextView et_titulo, et_descripcion;
+    Spinner sp_tipo;
+    Button bt_publicar, botonprueba;
+
+    String titulo, descripcion, tipo;
+
 
     public void onStart() {
         super.onStart();
@@ -64,6 +81,9 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         relativeLayout.setVisibility(View.VISIBLE);
 
+        et_titulo = (TextView) view.findViewById(R.id.et_titulo);
+
+        et_descripcion = (TextView) view.findViewById(R.id.et_descripcion);
 
         sp_tipo = (Spinner) view.findViewById(R.id.sp_tipo);
         //Creamos el adaptador
@@ -72,7 +92,6 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Le indicamos al spinner el adaptador a usar
         sp_tipo.setAdapter(adapter);
-
 
         img_camara = (ImageView) view.findViewById(R.id.img_camara);
         img_camara.setOnClickListener(new View.OnClickListener() {
@@ -99,14 +118,29 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         img_cruz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment fragment = getFragmentManager().findFragmentByTag(getTag());
+                if(fragment != null)
+                    getFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+        });
 
+
+        bt_publicar = (Button) view.findViewById(R.id.bt_publicar);
+        bt_publicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //recogemos los datos introducidos
+                titulo = et_titulo.getText().toString();
+                descripcion = et_descripcion.getText().toString();
+                tipo = sp_tipo.getSelectedItem().toString();
+
+                new CrearReporteTask().execute();
             }
         });
 
 
         return view;
     }
-
 
 
     @Override
@@ -116,8 +150,8 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
             //Creamos un bitmap con la imagen recientemente
             //almacenada en la memoria
             Bitmap bMap = BitmapFactory.decodeFile(
-                    Environment.getExternalStorageDirectory()+
-                            "/Tutorialeshtml5/"+"foto.jpg");
+                    Environment.getExternalStorageDirectory() +
+                            "/DenuncityPics/" + "foto.jpg");
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
             img_camara.setImageBitmap(bMap);
@@ -152,4 +186,50 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
 
     }
 
+
+    private class CrearReporteTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            InputStream iS = null;
+            String data = "";
+
+            try {
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty/api/reporte/nuevo/" + titulo + "/" + descripcion + "/1/Fuentelidiota/2/5/0").openConnection();
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+                iS.close();
+
+                return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return data;
+        }
+
+
+    }
 }

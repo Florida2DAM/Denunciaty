@@ -46,9 +46,10 @@
 
         <Spinner
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:id="@+id/sp_tipo"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
@@ -56,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/publicar_reporte_fragment_addreporte"
-        android:id="@+id/bt_submit"
+        android:id="@+id/bt_publicar"
         android:textColor="#010101"
         android:background="#6f8ab4"
         android:layout_marginLeft="10dp"
@@ -71,8 +72,8 @@
         android:id="@+id/img_camara"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/linearLayout"
-        android:layout_above="@+id/bt_submit"
-        android:src="@drawable/img"
+        android:layout_above="@+id/bt_publicar"
+        android:src="@drawable/camaraok"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" />
 
