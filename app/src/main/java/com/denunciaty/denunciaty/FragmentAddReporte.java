@@ -9,15 +9,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,6 +34,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
     //TextView mLatitudeText, mLongitudeText;
     Spinner sp_tipo;
     ImageView img_camara, img_cruz;
+    RelativeLayout relativeLayout;
 
     public void onStart() {
         super.onStart();
@@ -54,10 +57,13 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
                     .addApi(LocationServices.API)
                     .build();
         }
-
         onStart();
         //mLatitudeText = (TextView) view.findViewById(R.id.mLatitudeText);
         //mLongitudeText = (TextView) view.findViewById(R.id.mLongitudeText);
+
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
+        relativeLayout.setVisibility(View.VISIBLE);
+
 
         sp_tipo = (Spinner) view.findViewById(R.id.sp_tipo);
         //Creamos el adaptador
@@ -88,7 +94,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
             }
         });
 
-/*      CERRAR EL FRAGMENT
+        //CERRAR EL FRAGMENT
         img_cruz = (ImageView) view.findViewById(R.id.img_cruz);
         img_cruz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +102,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
 
             }
         });
-*/
+
 
         return view;
     }

@@ -110,6 +110,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.framelayout, fragmentAddReporte);
                 fragmentTransaction.commit();
+                fB.setVisibility(View.GONE);
             }
         });
         comprobarClicks();

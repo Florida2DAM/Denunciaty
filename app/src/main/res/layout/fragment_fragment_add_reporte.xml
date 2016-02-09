@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.denunciaty.denunciaty.FragmentAddReporte">
+    tools:context="com.denunciaty.denunciaty.FragmentAddReporte"
+    android:id="@+id/relativeLayout"
+    android:background="#cb6f75b9">
 
 
     <LinearLayout
