@@ -1,8 +1,12 @@
 package com.denunciaty.denunciaty;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
@@ -52,6 +57,7 @@ public class AddReporteActivity extends AppCompatActivity implements NavigationD
         mnavigationDrawerFragment.setUserData("nombre", "correo", BitmapFactory.decodeResource(getResources()), R.drawable.avatar);*/
 
     }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {

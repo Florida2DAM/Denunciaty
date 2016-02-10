@@ -4,6 +4,8 @@ package com.denunciaty.denunciaty;
  * Created by Julian on 13/01/2016.
 */
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
@@ -124,6 +126,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         items.add(new NavigationItem(getResources().getString(R.string.mis_reportes_navigation), getResources().getDrawable(R.drawable.tool1132)));
         items.add(new NavigationItem(getResources().getString(R.string.mi_perfil_navigation), getResources().getDrawable(R.drawable.user157)));
         items.add(new NavigationItem(getResources().getString(R.string.configuracion_navigation), getResources().getDrawable(R.drawable.settings49)));
+        items.add(new NavigationItem(getResources().getString(R.string.cerrarSesion), getResources().getDrawable(R.drawable.cerrarsesion)));
         return items;
     }
 
@@ -282,6 +285,23 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 startActivity(i3);
                 //getActivity().finish();
                 break;
+            case 4:
+                //Cerrar Sesion
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
+                dialogo1.setTitle("Importante");
+                dialogo1.setMessage("¿ Acepta la ejecución de este programa en modo prueba ?");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+
+                    }
+                });
+                dialogo1.show();
 
         }
     }

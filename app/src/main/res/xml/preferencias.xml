@@ -41,9 +41,5 @@
             android:entryValues="@array/codigo_vistas" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_ajustesusuario">
-        <SwitchPreference android:key="borrarCuenta" android:title="@string/pref_borrarCuenta"></SwitchPreference>
-        <SwitchPreference android:key="cerrarSesion" android:title="@string/pref_cerrarSesion"></SwitchPreference>
-    </PreferenceCategory>
 
 </PreferenceScreen>

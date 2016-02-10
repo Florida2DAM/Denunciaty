@@ -95,6 +95,7 @@
     <string name="mis_reportes_navigation">Mis Reportes</string>
     <string name="mi_perfil_navigation">Mi perfil</string>
     <string name="configuracion_navigation">Configuración</string>
+    <string name="cerrarSesion">Cerrar sesion</string>
 
     <!-- Registro Activity -->
     <string name="registrate_desde_nuestra_app">Regístrate desde nuestra app</string>

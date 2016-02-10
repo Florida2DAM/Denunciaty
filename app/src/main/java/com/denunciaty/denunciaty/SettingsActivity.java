@@ -36,7 +36,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferencias);
-
         registrarPrefsInicio();
     }
 
@@ -45,6 +44,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onResume();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
+        comprobarPreferencias();
     }
 
     @Override
@@ -90,24 +90,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a español",Toast.LENGTH_SHORT).show();
                     break;
             }
-
-            if(pref.getBoolean("cerrarSesion",false)){
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
-                dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Acepta la ejecución de este programa en modo prueba ?");
-                dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        
-                    }
-                });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        finish();
-                    }
-                });
-                dialogo1.show();
-            }
         }
     }
 
@@ -122,25 +104,17 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         switch (key){
             case "notificaciones":
                 Boolean a = pref.getBoolean(key, false);
-                connectionPref.setSummary("@string/pref_recibirNotificaciones "+a.toString());
+                connectionPref.setSummary("¿Quieres recibir notificaciones?");
                 break;
             case "cambiarIdioma":
                 connectionPref.setSummary(pref.getString(key, ""));
                 break;
             case "accederWifi":
                 Boolean b = pref.getBoolean(key, false);
-                connectionPref.setSummary("@string/preff_Wifi "+b.toString());
+                connectionPref.setSummary("Acceder a la aplicacion solo con wifi");
                 break;
             case "cambiarVista":
                 connectionPref.setSummary(pref.getString(key, ""));
-                break;
-            case "borrarCuenta":
-                Boolean c = pref.getBoolean(key, false);
-                //connectionPref.setSummary(c.toString());
-                break;
-            case "cerrarSesion":
-                Boolean d = pref.getBoolean(key, false);
-                //connectionPref.setSummary(d.toString());
                 break;
         }
     }
@@ -153,23 +127,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         connectionPref = findPreference("notificaciones");
         Boolean a =pref.getBoolean("notificaciones", false);
-        connectionPref.setSummary(a.toString());
+        connectionPref.setSummary("¿Quieres recibir notificaciones?");
 
         connectionPref = findPreference("accederWifi");
         Boolean b =pref.getBoolean("accederWifi", false);
-        connectionPref.setSummary(b.toString());
+        connectionPref.setSummary("Acceder a la aplicacion solo con wifi");
 
         connectionPref = findPreference("cambiarVista");
         connectionPref.setSummary(pref.getString("cambiarVista", ""));
-
-        connectionPref = findPreference("borrarCuenta");
-        Boolean c = pref.getBoolean("borrarCuenta", false);
-        connectionPref.setSummary(c.toString());
-
-        connectionPref = findPreference("cerrarSesion");
-        Boolean d = pref.getBoolean("cerrarSesion", false);
-        connectionPref.setSummary(c.toString());
-
 
     }
 
