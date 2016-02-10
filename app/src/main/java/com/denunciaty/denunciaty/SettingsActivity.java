@@ -26,6 +26,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -137,5 +138,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         connectionPref.setSummary(pref.getString("cambiarVista", ""));
 
     }
+
 
 }

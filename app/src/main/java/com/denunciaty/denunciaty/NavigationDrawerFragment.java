@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -288,17 +289,17 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
             case 4:
                 //Cerrar Sesion
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
-                dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Acepta la ejecución de este programa en modo prueba ?");
+                dialogo1.setTitle("Alerta");
+                dialogo1.setMessage("¿ Estás seguro de que quieres cerrar sesión ?");
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-
+                        getActivity().finish();
+                        Toast.makeText(getContext(), "Has cerrado sesión", Toast.LENGTH_SHORT).show();
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-
                     }
                 });
                 dialogo1.show();
