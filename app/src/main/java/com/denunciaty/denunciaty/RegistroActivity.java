@@ -1,13 +1,10 @@
 package com.denunciaty.denunciaty;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,12 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.denunciaty.denunciaty.JavaClasses.AdaptadorSpinner;
-import com.denunciaty.denunciaty.JavaClasses.Reporte;
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -36,7 +31,6 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,13 +39,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 
-public class RegistroActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class RegistroActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     TwitterLoginButton twitterLogIn;
     SignInButton googleLogIn;
@@ -63,12 +61,25 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     Usuario usuario;
     String passInput = null;
     String passBBDD = null;
+    String idPlus;
+    Bitmap imagenPerfil;
+    private SQLite bbdd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        bbdd = new SQLite(getApplicationContext());
+        bbdd.open();
+
+        if(bbdd.recuperarLogueado().equals("true")){
+            Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+            //i.putExtra("usuario", usuario);
+            startActivity(i);
+            finish();
+        }
 
         twitterLogIn = (TwitterLoginButton) findViewById(R.id.twitterLogIn);
         app = (TextView) findViewById(R.id.app);
@@ -137,12 +148,12 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         });
     }
 
-    public void regitroApp(){
-        Intent i = new Intent(getApplicationContext(),RegistroAppActivity.class);
+    public void regitroApp() {
+        Intent i = new Intent(getApplicationContext(), RegistroAppActivity.class);
         startActivity(i);
     }
 
-    private void signIn(){
+    private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -157,7 +168,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             handleSignInResult(result);
         }
 
-        if(tw_sign_in == 1){
+        if (tw_sign_in == 1) {
             twitterLogIn.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -172,12 +183,17 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Log.d("Conectado","Conectado");
+            Log.d("Conectado", "Conectado");
+            idPlus = acct.getId();
+            String personName = acct.getDisplayName();
+            String personPhotoUrl = acct.getPhotoUrl().toString();
+            String email = acct.getEmail();
+            new DescargaImagenTask(personPhotoUrl).execute();
+            Log.d("DATA", personName + "-" + email + "-" + personPhotoUrl + "-" + idPlus + "-" + imagenPerfil);
         }
-
     }
 
-    protected void showInputDialog(){
+    protected void showInputDialog() {
         LayoutInflater layout = LayoutInflater.from(RegistroActivity.this);
         View view = layout.inflate(R.layout.login, null);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroActivity.this);
@@ -222,14 +238,13 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     }
 
 
-    public Boolean compruebaContraseña(String passBBDD,String passInput){
-        if(passBBDD.equals(passInput)){
+    public Boolean compruebaContraseña(String passBBDD, String passInput) {
+        if (passBBDD.equals(passInput)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
 
 
     //Encriptación
@@ -241,12 +256,11 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             do {
                 if ((0 <= halfbyte) && (halfbyte <= 9)) {
                     buf.append((char) ('0' + halfbyte));
-                }
-                else {
+                } else {
                     buf.append((char) ('a' + (halfbyte - 10)));
                 }
                 halfbyte = data[i] & 0x0F;
-            } while(two_halfs++ < 1);
+            } while (two_halfs++ < 1);
         }
         return buf.toString();
     }
@@ -260,9 +274,19 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         return convertToHex(sha1hash);
     }
 
+    @Override
+    public void onConnected(Bundle arg0) {
+        Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
 
     //AsyncTask
-    private class UsuariosTask extends AsyncTask<String,Void,String> {
+    private class UsuariosTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -272,7 +296,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
             try {
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
-                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/datos/0/"+email).openConnection();
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/datos/0/" + email).openConnection();
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");
@@ -309,43 +333,92 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             try {
-                    JSONObject e = new JSONObject(s);
+                JSONObject e = new JSONObject(s);
 
-                    Integer id = e.getInt("id");
-                    String nombre = e.getString("nombre");
-                    String apellidos = e.getString("apellidos");
-                    String nombre_usuario = e.getString("nombre_usuario");
-                    String emailUser = e.getString("email");
-                    String password = e.getString("password");
-                    String foto = e.getString("foto");
-                    String ingreso = e.getString("ingreso_at");
-                    String localidad = e.getString("localidad");
+                Integer id = e.getInt("id");
+                String nombre = e.getString("nombre");
+                String apellidos = e.getString("apellidos");
+                String nombre_usuario = e.getString("nombre_usuario");
+                String emailUser = e.getString("email");
+                String password = e.getString("password");
+                String foto = e.getString("foto");
+                String ingreso = e.getString("ingreso_at");
+                String localidad = e.getString("localidad");
 
-                    usuario = new Usuario(id,nombre,apellidos,nombre_usuario,emailUser,password,foto,ingreso,localidad);
+                usuario = new Usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
 
-                    Log.d("Usuario", nombre + "-" + apellidos + "-" + nombre_usuario + "-" + emailUser + "-" + password + "-" + foto + "-"
-                            + ingreso + "-" +localidad +"-"+id);
+                Log.d("Usuario", nombre + "-" + apellidos + "-" + nombre_usuario + "-" + emailUser + "-" + password + "-" + foto + "-"
+                        + ingreso + "-" + localidad + "-" + id);
+
+                //Comprobamos pass
+                passBBDD = usuario.getPassword();
+
+                if (compruebaContraseña(passBBDD, passInput)) {
+
+                    bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
+
+                    bbdd.logueado("true");
+
+                    Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+                    //i.putExtra("usuario", usuario);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
-            //Comprobamos pass
-            passBBDD = usuario.getPassword();
 
-            if (compruebaContraseña(passBBDD, passInput)) {
-                Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
-                i.putExtra("usuario",usuario);
-                startActivity(i);
-                finish();
-            } else {
-                Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
-            }
 
         }
     }
 
+    public class DescargaImagenTask extends AsyncTask<String, String, Bitmap> {
+        String personPhotoUrl;
+        public DescargaImagenTask(String personPhotoUrl) {
+            this.personPhotoUrl=personPhotoUrl;
+        }
 
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            InputStream iS = null;
+            try {
+                URL url = new URL(personPhotoUrl.toString());
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setReadTimeout(10000);
+                con.setConnectTimeout(15000);
+                con.setRequestMethod("GET");
+                con.setDoInput(true);
+                con.connect();
+
+                iS = con.getInputStream();
+
+                imagenPerfil = BitmapFactory.decodeStream(iS);
+                return imagenPerfil;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return imagenPerfil;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+        }
+    }
 }

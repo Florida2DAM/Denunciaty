@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,6 +55,7 @@ import java.util.Locale;
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
+    private SQLite bbdd;
     FloatingActionButton fB;
     Toolbar tbReporte;
     ImageView iVReporte;
@@ -62,7 +64,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng valencia = new LatLng(39.4699075, -0.3762881000000107);
     ArrayList<Reporte> reportes;
-    Usuario usuario;
+    Usuario usuario=null;
     String id_selec;
     HashMap<String, String[]> haspMap = new HashMap <String, String[]>();
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
@@ -86,8 +88,13 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         //Recupero al usuario logueado
-        usuario = (Usuario)getIntent().getExtras().getSerializable("usuario");
-
+        bbdd = new SQLite(getApplicationContext());
+        bbdd.open();
+        usuario = bbdd.recuperarUsuario();
+        Toast.makeText(PrincipalActivity.this, usuario.getNombre(), Toast.LENGTH_SHORT).show();
+        //if(usuario==null) {
+          //  usuario = (Usuario) getIntent().getExtras().getSerializable("usuario");
+        //}
 
         //set up the drawer
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
@@ -103,6 +110,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.framelayout, fragmentAddReporte);
                 fragmentTransaction.commit();
+                fB.setVisibility(View.GONE);
             }
         });
         comprobarClicks();
@@ -405,6 +413,17 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         if(pref!=null){
             if(pref.getBoolean("notificaciones",true)){
                 notification("NOTIFICACION","Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion");
+            }
+            switch(pref.getString("cambiarVista","")){
+                case "normal":
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    break;
+                case "satelite":
+                    mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                    break;
+                case "hibrida":
+                    mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                    break;
             }
         }
     }
