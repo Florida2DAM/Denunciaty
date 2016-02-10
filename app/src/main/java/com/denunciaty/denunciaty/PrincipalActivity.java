@@ -411,7 +411,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     public void comprobarPreferencias(){
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if(pref!=null){
-            if(pref.getBoolean("notificaciones",true)){
+            if(pref.getBoolean("notificaciones",false)){
                 notification("NOTIFICACION","Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion");
             }
             switch(pref.getString("cambiarVista","")){

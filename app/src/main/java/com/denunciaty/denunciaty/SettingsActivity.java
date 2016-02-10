@@ -2,7 +2,9 @@ package com.denunciaty.denunciaty;
 
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -43,7 +45,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onResume();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
-        comprobarPreferencias();
     }
 
     @Override
@@ -62,8 +63,8 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             case "ca":
                 config.locale = new Locale("ca");
                 break;
-            case "en-US":
-                config.locale = new Locale("en-US");
+            case "en":
+                config.locale = new Locale("en");
                 break;
             default:
                 config.locale = new Locale("");
@@ -75,10 +76,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public void comprobarPreferencias(){
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if(pref!=null){
-
             switch(pref.getString("cambiarIdioma","")){
                 case "ingles":
-                    changeLocale(getResources(),"en-US");
+                    changeLocale(getResources(),"en");
                     //Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
                     break;
                 case "valenciano":
@@ -89,6 +89,24 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                     changeLocale(getResources(),"");
                     //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a español",Toast.LENGTH_SHORT).show();
                     break;
+            }
+
+            if(pref.getBoolean("cerrarSesion",false)){
+                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+                dialogo1.setTitle("Importante");
+                dialogo1.setMessage("¿ Acepta la ejecución de este programa en modo prueba ?");
+                dialogo1.setCancelable(false);
+                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        
+                    }
+                });
+                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogo1, int id) {
+                        finish();
+                    }
+                });
+                dialogo1.show();
             }
         }
     }
@@ -102,19 +120,27 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         Preference connectionPref = findPreference(key);
         switch (key){
+            case "notificaciones":
+                Boolean a = pref.getBoolean(key, false);
+                connectionPref.setSummary("@string/pref_recibirNotificaciones "+a.toString());
+                break;
             case "cambiarIdioma":
                 connectionPref.setSummary(pref.getString(key, ""));
                 break;
-            case "notificaciones":
-                Boolean a = pref.getBoolean(key, false);
-                connectionPref.setSummary(a.toString());
-                break;
             case "accederWifi":
                 Boolean b = pref.getBoolean(key, false);
-                connectionPref.setSummary(b.toString());
+                connectionPref.setSummary("@string/preff_Wifi "+b.toString());
                 break;
             case "cambiarVista":
                 connectionPref.setSummary(pref.getString(key, ""));
+                break;
+            case "borrarCuenta":
+                Boolean c = pref.getBoolean(key, false);
+                //connectionPref.setSummary(c.toString());
+                break;
+            case "cerrarSesion":
+                Boolean d = pref.getBoolean(key, false);
+                //connectionPref.setSummary(d.toString());
                 break;
         }
     }
@@ -133,8 +159,18 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         Boolean b =pref.getBoolean("accederWifi", false);
         connectionPref.setSummary(b.toString());
 
-        Preference conectionPref = findPreference("cambiarVista");
-        connectionPref.setSummary(pref.getString("cambiarIdioma",""));
+        connectionPref = findPreference("cambiarVista");
+        connectionPref.setSummary(pref.getString("cambiarVista", ""));
+
+        connectionPref = findPreference("borrarCuenta");
+        Boolean c = pref.getBoolean("borrarCuenta", false);
+        connectionPref.setSummary(c.toString());
+
+        connectionPref = findPreference("cerrarSesion");
+        Boolean d = pref.getBoolean("cerrarSesion", false);
+        connectionPref.setSummary(c.toString());
+
+
     }
 
 }
