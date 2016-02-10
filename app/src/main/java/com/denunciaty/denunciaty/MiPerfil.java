@@ -131,9 +131,6 @@ public class MiPerfil extends AppCompatActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiPerfil.this);
         alertDialog.setView(view);
 
-        final Button hazFoto = (Button) view.findViewById(R.id.bt_hacerFoto);
-        final Button eligeFoto = (Button) view.findViewById(R.id.bt_eligeFoto);
-
         AlertDialog alert = alertDialog.create();
         alert.show();
     }
