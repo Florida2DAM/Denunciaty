@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -62,8 +64,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     String passInput = null;
     String passBBDD = null;
     String idPlus;
-    Bitmap imagenPerfil;
+    String urlImagen;
     private SQLite bbdd;
+    String imagenCodificada;
+
 
 
     @Override
@@ -105,12 +109,13 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             public void success(Result<TwitterSession> result) {
                 // The TwitterSession is also available through:
                 // Twitter.getInstance().core.getSessionManager().getActiveSession()
+
                 TwitterSession session = result.data;
                 // Remove toast and use the TwitterSession's userID
                 // with your app's user model
-                String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                tw_sign_in = 0;
+                TwitterSession twitterSession = result.data;
+                Log.d("twitter",""+twitterSession.getUserId()+"-"+twitterSession.getUserName()+"-"+twitterSession.getId()+"-"+twitterSession.getAuthToken());
+
             }
 
             @Override
@@ -186,10 +191,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             Log.d("Conectado", "Conectado");
             idPlus = acct.getId();
             String personName = acct.getDisplayName();
-            String personPhotoUrl = acct.getPhotoUrl().toString();
+            urlImagen = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
-            new DescargaImagenTask(personPhotoUrl).execute();
-            Log.d("DATA", personName + "-" + email + "-" + personPhotoUrl + "-" + idPlus + "-" + imagenPerfil);
+            new DescargaImagenTask().execute();
+            Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
         }
     }
 
@@ -370,27 +375,17 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
-
         }
     }
 
-    public class DescargaImagenTask extends AsyncTask<String, String, Bitmap> {
-        String personPhotoUrl;
-        public DescargaImagenTask(String personPhotoUrl) {
-            this.personPhotoUrl=personPhotoUrl;
-        }
-
+    public class DescargaImagenTask extends AsyncTask<Void, Void, Bitmap> {
+        Bitmap imagenPerfil;
         @Override
-        protected Bitmap doInBackground(String... params) {
+        protected Bitmap doInBackground(Void... params) {
             InputStream iS = null;
             try {
-                URL url = new URL(personPhotoUrl.toString());
+                URL url = new URL(urlImagen);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setReadTimeout(10000);
-                con.setConnectTimeout(15000);
                 con.setRequestMethod("GET");
                 con.setDoInput(true);
                 con.connect();
@@ -398,8 +393,8 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 iS = con.getInputStream();
 
                 imagenPerfil = BitmapFactory.decodeStream(iS);
-                return imagenPerfil;
 
+                return imagenPerfil;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -413,12 +408,23 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                     }
                 }
             }
-            return imagenPerfil;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
+        protected void onPostExecute(Bitmap imagenPerfil) {
+            super.onPostExecute(imagenPerfil);
+            imagenCodificada = convertirBase64(imagenPerfil);
+            Log.d("IMAGEN","Imagen Codificada: "+imagenCodificada);
         }
     }
+
+    public String convertirBase64(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        String encoded = Base64.encodeToString(byteArray,Base64.DEFAULT);
+        return encoded;
+    }
+
 }
