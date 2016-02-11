@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,6 +42,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
@@ -56,6 +60,15 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
     Button bt_publicar, botonprueba;
 
     String titulo, descripcion, tipo;
+
+    OnXPulsada mCallback;
+
+
+    // Container Activity must implement this interface y...
+    //...crear en activity el método cerrarFragmentReporte()
+    public interface OnXPulsada {
+        public void cerrarFragmentReporte();
+    }
 
 
     public void onStart() {
@@ -90,13 +103,37 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
 
         et_descripcion = (TextView) view.findViewById(R.id.et_descripcion);
 
+
+
+
+        //datos a mostrar
+        List<ElementoSpinner> items = new ArrayList<ElementoSpinner>(15);
+        items.add(new ElementoSpinner("Limpieza", R.drawable.limpieza));
+        items.add(new ElementoSpinner("Señales", R.drawable.senyalizacion));
+        items.add(new ElementoSpinner("Vehiculo", R.drawable.vehiculo));
+        items.add(new ElementoSpinner("Alumbrado", R.drawable.iluminacion));
+        items.add(new ElementoSpinner("Mobiliario", R.drawable.mobiliario));
+        items.add(new ElementoSpinner("Vía pública", R.drawable.via_publica));
+        items.add(new ElementoSpinner("Arbolado", R.drawable.arbolada));
+        items.add(new ElementoSpinner("Transporte público", R.drawable.transporte_publico));
+        items.add(new ElementoSpinner("Otros", R.drawable.senyalizacion));
+
+
+
+
+
         sp_tipo = (Spinner) view.findViewById(R.id.sp_tipo);
         //Creamos el adaptador
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.tipo_reporte, android.R.layout.simple_spinner_item);
+        //ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.tipo_reporte, android.R.layout.simple_spinner_item);
         //Añadimos el layout para el menú
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Le indicamos al spinner el adaptador a usar
-        sp_tipo.setAdapter(adapter);
+
+        sp_tipo.setAdapter(new SpinnerAdapter(getActivity().getApplicationContext(), items));
+
+
+
+
 
         img_camara = (ImageView) view.findViewById(R.id.img_camara);
         img_camara.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +143,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
                         android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 //Creamos una carpeta en la memeria del terminal
                 File imagesFolder = new File(
-                        Environment.getExternalStorageDirectory(), "Tutorialeshtml5");
+                        Environment.getExternalStorageDirectory(), "DenuncityPics");
                 imagesFolder.mkdirs();
                 //añadimos el nombre de la imagen
                 File image = new File(imagesFolder, "foto.jpg");

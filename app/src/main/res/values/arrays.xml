@@ -25,18 +25,5 @@
         <item >valenciano</item>
     </string-array>
 
-    <string-array name="tipo_reporte">
-        <item >TIPO DE INCIDENCIA</item>
-        <item >Limpieza</item>
-        <item >Señales</item>
-        <item >Vehículo</item>
-        <item >Alumbrado</item>
-        <item >Mobiliario</item>
-        <item >Via pública</item>
-        <item >Arbolado</item>
-        <item >Transporte público</item>
-        <item >Otros</item>
-    </string-array>
-
 
 </resources>
