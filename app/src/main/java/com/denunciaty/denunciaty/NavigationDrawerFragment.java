@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
+import com.google.android.gms.auth.api.Auth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -300,8 +301,12 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
+                        bbdd.resetUsuario();
+                        bbdd.resetLogueado();
+
+                        Intent i = new Intent(getActivity().getApplicationContext(), RegistroActivity.class);
+                        startActivity(i);
                         getActivity().finish();
-                        Toast.makeText(getContext(), "Has cerrado sesión", Toast.LENGTH_SHORT).show();
 
                     }
                 });

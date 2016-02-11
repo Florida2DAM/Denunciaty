@@ -32,7 +32,7 @@ public class SQLite {
     private static final String LOGUEADO = "logueado";
 
 
-    private static final String DATABASE_CREATE = "CREATE TABLE "+TABLA_USUARIO+" (id integer primary key,nombre text,apellidos text,nombre_usuario text,email text,password text,foto text,ingreso text,localidad text);";
+    private static final String DATABASE_CREATE = "CREATE TABLE "+TABLA_USUARIO+" (id text primary key,nombre text,apellidos text,nombre_usuario text,email text,password text,foto text,ingreso text,localidad text);";
     private static final String DATABASE_CREATE2 = "CREATE TABLE "+TABLA_LOGUEADO+" (logueado text primary key);";
 
     private static final String DATABASE_DROP = "DROP TABLE IF EXISTS "+TABLA_USUARIO+";";
@@ -59,11 +59,12 @@ public class SQLite {
         }
     }
 
-    //Método para insertar un estudiante
-    public void usuario(int id,String nombre,String apellidos,String nombre_usuario,String email,String password,String foto,String ingreso,String localidad){
+    //Método para guardar el usuario logueado
+    public void usuario(String id,String nombre,String apellidos,String nombre_usuario,String email,String password,String foto,String ingreso,String localidad){
         //Creamos un nuevo registro de valores a insertar
         ContentValues newValues = new ContentValues();
         //Asignamos los valores de cada campo
+        newValues.put(ID,id);
         newValues.put(NOMBRE,nombre);
         newValues.put(APELLIDOS,apellidos);
         newValues.put(NOMBRE_USUARIO,nombre_usuario);
@@ -75,8 +76,10 @@ public class SQLite {
 
         //insertamos
         db.insert(TABLA_USUARIO,null,newValues);
+
     }
 
+    // Inserta true (Logueado) false (No logueado)
     public void logueado(String logueado){
         //Creamos un nuevo registro de valores a insertar
         ContentValues newValues = new ContentValues();
@@ -85,8 +88,10 @@ public class SQLite {
 
         //insertamos
         db.insert(TABLA_LOGUEADO,null,newValues);
+
     }
 
+    //Recuperar true (Logueado) false (No logueado)
     public String recuperarLogueado(){
         String logueado = "";
 
@@ -101,11 +106,14 @@ public class SQLite {
                 logueado =cursor.getString(0);
             }while (cursor.moveToNext());
         }
+
+
         return logueado;
     }
 
 
-    //Método para recuperar estudiantes
+
+    //Método para recuperar el usuario
     public Usuario recuperarUsuario(){
         Usuario usuario = null;
 
@@ -117,16 +125,24 @@ public class SQLite {
         //Recorremos el cursor
         if (cursor != null && cursor.moveToFirst()){
             do{
-                usuario = new Usuario(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8));
+                usuario = new Usuario(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8));
             }while (cursor.moveToNext());
         }
+
         return usuario;
     }
 
+    //Resetea la tabla usuarios
     public void resetUsuario()
     {
-        db.delete(TABLA_USUARIO,null,null);
-        db.close();
+        db.delete(TABLA_USUARIO, null, null);
+
+    }
+
+    //Resetea la tabla usuarios
+    public void resetLogueado()
+    {
+        db.delete(TABLA_LOGUEADO,null,null);
     }
 
 

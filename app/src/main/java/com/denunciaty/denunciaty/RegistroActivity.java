@@ -30,6 +30,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -85,7 +87,6 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
         if(bbdd.recuperarLogueado().equals("true")){
             Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
-            //i.putExtra("usuario", usuario);
             startActivity(i);
             finish();
         }
@@ -202,6 +203,18 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
         }
     }
+
+    /*
+    public void signOutGoogle(){
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(Status status) {
+
+            }
+        });
+
+    }*/
 
     protected void showInputDialog() {
         LayoutInflater layout = LayoutInflater.from(RegistroActivity.this);
@@ -346,7 +359,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             try {
                 JSONObject e = new JSONObject(s);
 
-                Integer id = e.getInt("id");
+                String id = e.getString("id");
                 String nombre = e.getString("nombre");
                 String apellidos = e.getString("apellidos");
                 String nombre_usuario = e.getString("nombre_usuario");
@@ -420,7 +433,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         protected void onPostExecute(Bitmap imagenPerfil) {
             super.onPostExecute(imagenPerfil);
             imagenCodificada = convertirBase64(imagenPerfil);
-            Log.d("IMAGEN","Imagen Codificada: "+imagenCodificada);
+            Log.d("IMAGEN", "Imagen Codificada: " + imagenCodificada);
         }
     }
 

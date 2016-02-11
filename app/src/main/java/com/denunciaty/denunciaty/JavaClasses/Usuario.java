@@ -3,7 +3,7 @@ package com.denunciaty.denunciaty.JavaClasses;
 import java.io.Serializable;
 
 public class Usuario implements Serializable {
-    private int id;
+    private String id;
     private String nombre;
     private String apellidos;
     private String nombre_usuario;
@@ -13,7 +13,7 @@ public class Usuario implements Serializable {
     private String ingreso;
     private String localidad;
 
-    public Usuario(int id,String nombre,String apellidos,String nombre_usuario,String email,String password,String foto,String ingreso,String localidad){
+    public Usuario(String id,String nombre,String apellidos,String nombre_usuario,String email,String password,String foto,String ingreso,String localidad){
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -25,11 +25,11 @@ public class Usuario implements Serializable {
         this.localidad = localidad;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
