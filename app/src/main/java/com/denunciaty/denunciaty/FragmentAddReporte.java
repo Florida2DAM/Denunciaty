@@ -108,15 +108,15 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
 
         //datos a mostrar
         List<ElementoSpinner> items = new ArrayList<ElementoSpinner>(15);
-        items.add(new ElementoSpinner("Limpieza", R.drawable.limpieza));
-        items.add(new ElementoSpinner("Señales", R.drawable.senyalizacion));
-        items.add(new ElementoSpinner("Vehiculo", R.drawable.vehiculo));
-        items.add(new ElementoSpinner("Alumbrado", R.drawable.iluminacion));
-        items.add(new ElementoSpinner("Mobiliario", R.drawable.mobiliario));
-        items.add(new ElementoSpinner("Vía pública", R.drawable.via_publica));
-        items.add(new ElementoSpinner("Arbolado", R.drawable.arbolada));
-        items.add(new ElementoSpinner("Transporte público", R.drawable.transporte_publico));
-        items.add(new ElementoSpinner("Otros", R.drawable.senyalizacion));
+        items.add(new ElementoSpinner("Alumbrado", R.drawable.icono_iluminacion));
+        items.add(new ElementoSpinner("Arbolado", R.drawable.icono_arbolada));
+        items.add(new ElementoSpinner("Limpieza", R.drawable.icono_limpieza));
+        items.add(new ElementoSpinner("Mobiliario", R.drawable.icono_mobiliario));
+        items.add(new ElementoSpinner("Señales", R.drawable.icono_senyalizacion));
+        items.add(new ElementoSpinner("Transporte público", R.drawable.icono_transporte_publico));
+        items.add(new ElementoSpinner("Vehiculo", R.drawable.icono_vehiculo));
+        items.add(new ElementoSpinner("Vía pública", R.drawable.icono_via_publica));
+        items.add(new ElementoSpinner("Otros", R.drawable.icono_otros));
 
 
 
