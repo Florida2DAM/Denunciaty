@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <ImageView
-        android:src="@mipmap/logo"
+        android:src="@mipmap/logodos"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"
@@ -16,7 +16,8 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_passAntigua"
-        android:hint="Contraseña antigua" />
+        android:hint="Contraseña antigua"
+        android:textColor="#010101" />
 
     <EditText
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_passNueva"
-        android:hint="Contraseña nueva" />
+        android:hint="Contraseña nueva"
+        android:textColor="#010101" />
 
     <EditText
         android:layout_width="match_parent"
@@ -32,6 +34,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_passNuevaRepite"
-        android:hint="Contraseña nueva repetida" />
+        android:hint="Contraseña nueva repetida"
+        android:textColor="#010101" />
 
 </LinearLayout>

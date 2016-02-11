@@ -11,53 +11,32 @@
         android:background="#FFFFBB33"
         android:contentDescription="@string/app_name" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <Button
+        android:layout_width="383dp"
+        android:layout_height="wrap_content"
+        android:text="Hacer foto"
+        android:drawableLeft="@mipmap/camarandroid"
+        android:id="@+id/bt_hacerfoto"
+        android:background="#efefef"
+        android:textColor="#b2b2b2"
+        android:textStyle="bold"
+        android:allowUndo="false"
+        android:elegantTextHeight="false"
+        android:gravity="center_vertical"
+        android:textSize="17dp" />
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:background="#ececec">
+        android:layout_height="wrap_content"
+        android:text="Seleccionar foto"
+        android:drawableLeft="@mipmap/galeriandroid"
+        android:id="@+id/bt_seleccionafoto"
+        android:textColor="#b2b2b2"
+        android:textSize="17dp"
+        android:gravity="center_vertical"
+        android:background="#efefef"
+        android:textStyle="bold" />
 
-        <ImageButton
-            android:text="Hacer foto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:src="@mipmap/camarandroid"
-            android:background="#00ffffff" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Hacer foto"
-            android:id="@+id/textView8"
-            android:textColor="#9d9d9d"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:background="#ececec">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageButton2"
-            android:background="#00ffffff"
-            android:src="@mipmap/galeriandroid" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Seleccionar foto..."
-            android:id="@+id/textView9"
-            android:textColor="#9d9d9d"
-            android:textStyle="bold" />
-    </LinearLayout>
 
 </LinearLayout>

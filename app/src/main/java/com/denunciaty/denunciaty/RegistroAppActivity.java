@@ -7,9 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +23,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,7 +53,6 @@ public class RegistroAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_app);
 
-        //Imagen del usuario
         imagen = (ImageView) findViewById(R.id.iv_avatar);
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +81,22 @@ public class RegistroAppActivity extends Activity {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            //Creamos un bitmap con la imagen recientemente
+            //almacenada en la memoria
+            Bitmap bMap = BitmapFactory.decodeFile(
+                    Environment.getExternalStorageDirectory() +
+                            "/DenunciatyPics/" + "perfil.jpg");
+            //Añadimos el bitmap al imageView para
+            //mostrarlo por pantalla
+            imagen.setImageBitmap(bMap);
+        }
+
+    }
+
     //Comprueba que tenga todos los datos llenos
     protected void datosLlenos() {
         String nom = nombre.getText().toString();
@@ -89,8 +112,6 @@ public class RegistroAppActivity extends Activity {
         } else {
             if (contra.equals(repitcontra)) {
                 encriptaPass();
-                //reemplaza espacios por +
-                nom = nom.replace(' ','+');
                 //Ejecuta
                 UsuariosTask async = new UsuariosTask();
                 //Consulta por email
@@ -123,6 +144,34 @@ public class RegistroAppActivity extends Activity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroAppActivity.this);
         alertDialog.setView(view);
 
+        final Button hazfoto = (Button) findViewById(R.id.bt_hacerfoto);
+        /*hazfoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //imagen
+                    Intent cameraIntent = new Intent(
+                            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    //Creamos una carpeta en la memeria del terminal
+                    File imagesFolder = new File(
+                            Environment.getExternalStorageDirectory(), "Perfil");
+                    imagesFolder.mkdirs();
+                    //añadimos el nombre de la imagen
+                    File image = new File(imagesFolder, "perfil.jpg");
+                    Uri uriSavedImage = Uri.fromFile(image);
+                    //Le decimos al Intent que queremos grabar la imagen
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+                    //Lanzamos la aplicacion de la camara con retorno (forResult)
+                    startActivityForResult(cameraIntent, 1);
+                }
+            });*/
+
+        final Button eligefoto = (Button) findViewById(R.id.bt_seleccionafoto);
+        eligefoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         AlertDialog alert = alertDialog.create();
         alert.show();
@@ -204,7 +253,7 @@ public class RegistroAppActivity extends Activity {
             try {
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/datos/0/"+nombre+"/"+apellidos+"/"+usuario+"/"+email+"/"+contraseña+"/"+0+"/"+localidad).openConnection();
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/"+apellidos+"/"+usuario+"/"+email+"/"+contraseña+"/"+0+"/"+localidad).openConnection();
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");
