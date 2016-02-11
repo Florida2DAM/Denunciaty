@@ -5,8 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +16,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,7 +50,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
@@ -77,6 +76,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
         lY = (LinearLayout)findViewById(R.id.rep_selec);
@@ -253,56 +253,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         }
     }
 
-    private class CargarReporteSeleccionado extends AsyncTask<String,Void,String>{
-
-        @Override
-        protected String doInBackground(String... id) {
-            InputStream iS = null;
-            String data = "";
-            Integer idReporteSeleccionado=0;
-            try {
-                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
-                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/reporte/datos/"+idReporteSeleccionado).openConnection();
-                //con.setReadTimeout(10000);
-                //con.setConnectTimeout(15000);
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Authorization", "Basic " + encoded);
-                connection.setDoInput(true);
-                connection.connect();
-
-                iS = new BufferedInputStream(connection.getInputStream());
-                connection.getResponseCode();
-                if (iS != null) {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
-                    String line = "";
-
-                    while ((line = bufferedReader.readLine()) != null)
-                        data += line;
-                }
-                iS.close();
-
-                return data;
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (iS != null) {
-                    try {
-                        iS.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            reportes = parseaJSON(s);
-        }
-    }
-
     public static int getImageId(Context context, String imageName) {
         return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
@@ -426,5 +376,24 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
