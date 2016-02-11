@@ -35,6 +35,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ import java.util.List;
  */
 public class NavigationDrawerFragment extends Fragment implements NavigationDrawerCallbacks {
 
+    private SQLite bbdd;
     /**
      * Remember the position of the selected item.
      */
@@ -77,6 +80,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        bbdd = new SQLite(getActivity().getApplicationContext());
+        bbdd.open();
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -296,6 +302,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                     public void onClick(DialogInterface dialogo1, int id) {
                         getActivity().finish();
                         Toast.makeText(getContext(), "Has cerrado sesión", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

@@ -123,6 +123,14 @@ public class SQLite {
         return usuario;
     }
 
+    public void resetUsuario()
+    {
+        db.delete(TABLA_USUARIO,null,null);
+        db.close();
+    }
+
+
+
     private static class MyDbHelper extends SQLiteOpenHelper {
 
         public MyDbHelper (Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
