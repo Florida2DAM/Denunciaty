@@ -200,12 +200,19 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             String personName = acct.getDisplayName();
             urlImagen = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
-            //new DescargaImagenTask().execute();
+
+            DescargaImagenTask descarga = new DescargaImagenTask();
+            descarga.execute();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
+
+            while(descarga.getStatus() != AsyncTask.Status.FINISHED){
+
+            }
 
             RegistroRRSS registroRRSS = new RegistroRRSS();
             //Consulta por email
             registroRRSS.execute(personName,email,urlImagen);
+
         }
     }
 
@@ -438,6 +445,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         protected void onPostExecute(Bitmap imagenPerfil) {
             super.onPostExecute(imagenPerfil);
             imagenCodificada = convertirBase64(imagenPerfil);
+
             Log.d("IMAGEN", "Imagen Codificada: " + imagenCodificada);
         }
     }
@@ -446,8 +454,9 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
-        String encoded = Base64.encodeToString(byteArray,Base64.DEFAULT);
-        return encoded;
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String safe = encoded.replace("+","-").replace("/","_");
+        return safe;
     }
 
 
