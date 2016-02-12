@@ -51,6 +51,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -455,17 +456,18 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
         @Override
         protected String doInBackground(String... params) {
-            String nombre = params[0];
-            String email = params[1];
-            String foto = params[2];
 
             InputStream iS = null;
             String data = "";
 
             try {
+                String nombre = URLEncoder.encode(params[0], "UTF-8");
+                String email =URLEncoder.encode(params[1],"UTF-8");
+                String foto = URLEncoder.encode(params[2],"UTF-8");
+
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"///"+email+"//"+foto+"/0/").openConnection();
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/null/null/"+email+"/null/"+foto+"/0/null").openConnection();
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");
@@ -482,15 +484,15 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                     while ((line = bufferedReader.readLine()) != null)
                         data += line;
                 }
-                iS.close();
 
-                return data;
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("Error","Google error no se ha registrado");
             } finally {
                 if (iS != null) {
                     try {
                         iS.close();
+                        return data;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -502,9 +504,9 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+            /*Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
             startActivity(i);
-            finish();
+            finish();*/
         }
 
     }
