@@ -9,6 +9,44 @@
         android:title="lista"
         app:showAsAction="ifRoom"
         android:orderInCategory="1"
-        android:menuCategory="secondary"/>
+        android:menuCategory="secondary">
+    <menu>
+        <item android:id="@+id/limpieza"
+            android:icon="@drawable/limpieza"
+            android:title="Limpieza"/>
+        <item android:id="@+id/senyalizacion"
+            android:icon="@drawable/senyalizacion"
+            android:title="Señalización"/>
+        <item android:id="@+id/vehiculo"
+            android:icon="@drawable/vehiculo"
+            android:title="Vehículo"/>
+        <item android:id="@+id/iluminacion"
+            android:icon="@drawable/iluminacion"
+            android:title="Iluminación"/>
+        <item android:id="@+id/mobiliario"
+            android:icon="@drawable/mobiliario"
+            android:title="Mobiliario"/>
+        <item android:id="@+id/via_publica"
+            android:icon="@drawable/via_publica"
+            android:title="Via pública"/>
+        <item android:id="@+id/arbolado"
+            android:icon="@drawable/arbolada"
+            android:title="Arbolado"/>
+        <item android:id="@+id/transp_publico"
+            android:icon="@drawable/transporte_publico"
+            android:title="Transporte público"/>
+        <item android:id="@+id/otros"
+            android:icon="@drawable/otros"
+            android:title="Otros"/>
+        <item android:id="@+id/accesos"
+            android:icon="@drawable/wifi"
+            android:title="Accesos Wi-Fi"/>
+        <item android:id="@+id/misReportes"
+            android:title="Mis reportes"/>
+        <item android:id="@+id/todos"
+            android:title="Todos los reportes"/>
+    </menu>
+
+    </item>
 
 </menu>

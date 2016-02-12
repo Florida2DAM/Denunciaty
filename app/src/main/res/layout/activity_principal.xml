@@ -33,14 +33,10 @@
                 tools:context="com.denunciaty.denunciaty.PrincipalActivity" />
 
             <android.support.v7.widget.Toolbar
-                android:background="#FFFFFF"
+                android:background="#66224562"
                 android:id="@+id/rep_tb"
                 android:visibility="invisible"
-                android:layout_below="@+id/fab"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_horizontal|bottom"
+                android:layout_gravity="center_horizontal|start"
                 android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
                 android:layout_width="match_parent"
                 android:layout_height="80dp">
@@ -82,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="20dp"
                 android:src="@android:drawable/ic_input_add"
                 app:backgroundTint="#6071C2" />
 

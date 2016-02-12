@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,10 +62,13 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     TextView tVReporte,tVReporteUbi;
     LinearLayout lY;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private LatLng valencia = new LatLng(39.4699075, -0.3762881000000107);
+    private LatLng valencia = new LatLng(39.4699075, -0.376288);
     ArrayList<Reporte> reportes;
     Usuario usuario=null;
+    ArrayList<Marker> limpieza,senyalizacion,vehiculo,via_publica,transporte,iluminacion,mobiliario,arbolado,otros;
     String id_selec;
+    Context wrapper;
+
     HashMap<String, String[]> haspMap = new HashMap <String, String[]>();
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
             .zoom(12.5f)
@@ -84,7 +88,16 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         iVReporte = (ImageView)findViewById(R.id.img_reporte_selec);
         tVReporte = (TextView)findViewById(R.id.tv_reporte_selec);
         tVReporteUbi = (TextView)findViewById(R.id.tv_reporte_ub);
-
+        wrapper = new ContextThemeWrapper(getBaseContext(),R.style.MyPopupMenu);
+        limpieza = new ArrayList<Marker>();
+        senyalizacion = new ArrayList<Marker>();
+        vehiculo = new ArrayList<Marker>();
+        via_publica = new ArrayList<Marker>();
+        transporte = new ArrayList<Marker>();
+        iluminacion = new ArrayList<Marker>();
+        mobiliario = new ArrayList<Marker>();
+        arbolado = new ArrayList<Marker>();
+        otros = new ArrayList<Marker>();
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         //Recupero al usuario logueado
@@ -147,8 +160,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         new CargarMarcadoresMapa().execute();
     }
 
-
-
     private class CargarMarcadoresMapa extends AsyncTask<Void,Void,List<Reporte>>{
 
         @Override
@@ -204,52 +215,68 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                         imagen ="limpieza";
                                 m =mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.limpieza)));
-                        haspMap.put(m.getId(),new String[]{imagen, String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        limpieza.add(m);
                         break;
                     case "1":
                         imagen ="senyalizacion";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.senyalizacion)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        senyalizacion.add(m);
                         break;
                     case "2":
                         imagen ="vehiculo";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.vehiculo)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        vehiculo.add(m);
                         break;
                     case "3":
                         imagen ="iluminacion";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.iluminacion)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        iluminacion.add(m);
                         break;
                     case "4":
                         imagen ="mobiliario";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.mobiliario)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        mobiliario.add(m);
                         break;
                     case "5":
                         imagen ="via_publica";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.via_publica)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        via_publica.add(m);
                         break;
                     case "6":
                         imagen ="arbolada";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.arbolada)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        arbolado.add(m);
                         break;
                     case "7":
                         imagen ="transporte_publico";
                         m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.transporte_publico)));
-                        haspMap.put(m.getId(),new String[]{imagen,String.valueOf(reporte.getId())});
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        transporte.add(m);
+                        break;
+                    case "8":
+                        imagen ="otros";
+                        m=mMap.addMarker(new MarkerOptions().position(posicion).title(reporte.getTitulo()).snippet(reporte.getUbicacion())
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.otros)));
+                        haspMap.put(m.getId(), new String[]{imagen, String.valueOf(reporte.getId())});
+                        otros.add(m);
                         break;
                 }
             }
+            Toast.makeText(getApplicationContext(), "FIN marcadores", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -344,6 +371,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
 
     }
 
+
+
     public void notification(String titulo,String contenido){
 
         Notification.Builder n = new Notification.Builder(this);
@@ -387,12 +416,488 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_search) {
-            return true;
+        switch (id){
+            case R.id.limpieza:
+                Log.d("Reporte","Limpieza");
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                break;
+            case R.id.senyalizacion:
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Señalizacion");
+                break;
+            case R.id.vehiculo:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Vehículo");
+                break;
+            case R.id.iluminacion:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Iluminacion");
+                break;
+            case R.id.mobiliario:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Mobiliario");
+                break;
+            case R.id.via_publica:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Vía pública");
+                break;
+            case R.id.arbolado:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Arbolado");
+                break;
+            case R.id.transp_publico:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Transporte Público");
+                break;
+            case R.id.otros:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(false);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Transporte Público");
+                break;
+            case R.id.todos:
+                for(Marker m:senyalizacion){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:limpieza){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:vehiculo){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:mobiliario){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:via_publica){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:arbolado){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:iluminacion){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:transporte){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                for(Marker m:otros){
+                    if(m!=null) {
+                        m.setVisible(true);
+                    }
+                }
+                Log.d("Reporte","Todos");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
