@@ -52,9 +52,10 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     protected void onPause() {
         super.onPause();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        pref.registerOnSharedPreferenceChangeListener(this);
+        pref.unregisterOnSharedPreferenceChangeListener(this);
         comprobarPreferencias();
     }
+
 
     public static void changeLocale(Resources res,String locale){
         Configuration config;
