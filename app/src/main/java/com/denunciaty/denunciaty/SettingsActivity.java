@@ -81,15 +81,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             switch(pref.getString("cambiarIdioma","")){
                 case "ingles":
                     changeLocale(getResources(),"en");
-                    //Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
                     break;
                 case "valenciano":
                     changeLocale(getResources(),"ca");
-                    //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a valenciano",Toast.LENGTH_SHORT).show();
                     break;
                 case "castellano":
                     changeLocale(getResources(),"");
-                    //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a español",Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -106,14 +103,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         switch (key){
             case "notificaciones":
                 Boolean a = pref.getBoolean(key, false);
-                connectionPref.setSummary("¿Quieres recibir notificaciones?");
+                connectionPref.setSummary(R.string.pref_recibirNotificaciones);
                 break;
             case "cambiarIdioma":
                 connectionPref.setSummary(pref.getString(key, ""));
                 break;
             case "accederWifi":
                 Boolean b = pref.getBoolean(key, false);
-                connectionPref.setSummary("Acceder a la aplicacion solo con wifi");
+                connectionPref.setSummary(R.string.pref_accederWifi);
                 break;
             case "cambiarVista":
                 connectionPref.setSummary(pref.getString(key, ""));
@@ -129,11 +126,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         connectionPref = findPreference("notificaciones");
         Boolean a =pref.getBoolean("notificaciones", false);
-        connectionPref.setSummary("¿Quieres recibir notificaciones?");
+        connectionPref.setSummary(R.string.pref_recibirNotificaciones);
 
         connectionPref = findPreference("accederWifi");
         Boolean b =pref.getBoolean("accederWifi", false);
-        connectionPref.setSummary("Acceder a la aplicacion solo con wifi");
+        connectionPref.setSummary(R.string.pref_accederWifi);
 
         connectionPref = findPreference("cambiarVista");
         connectionPref.setSummary(pref.getString("cambiarVista", ""));

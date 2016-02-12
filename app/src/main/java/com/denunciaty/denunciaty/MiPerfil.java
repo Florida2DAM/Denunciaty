@@ -122,14 +122,14 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         final EditText passNuevaRepetida = (EditText) view.findViewById(R.id.et_passNuevaRepite);
 
         alertDialog.setCancelable(true)
-                .setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String antigua = passAntigua.getText().toString();
                         String nueva = passNueva.getText().toString();
                         String nuevaRepetida = passNuevaRepetida.getText().toString();
 
                         if (antigua.isEmpty() || nueva.isEmpty() || nuevaRepetida.isEmpty()) {
-                            Toast.makeText(MiPerfil.this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MiPerfil.this, R.string.camposVacios, Toast.LENGTH_SHORT).show();
                         } else {
                             //Encriptacion pass
                             try {

@@ -31,9 +31,9 @@ public class AddReporte2 extends AppCompatActivity {
                 LocationManager locManager = (LocationManager)getSystemService(LOCATION_SERVICE);
                 //Si el GPS no está habilitado
                 if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                    Toast.makeText(getApplicationContext(),"Necesitas tener el GPS activado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.necesitasGPS, Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(),"GPS Activado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.gpsAct, Toast.LENGTH_SHORT).show();
 
                     //acciones para obtener ubicacion
 

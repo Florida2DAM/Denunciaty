@@ -44,17 +44,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/et_usuario"
-                        android:hint="Usuario"
                         android:background="#00ffffff"
                         android:enabled="false"
                         android:textStyle="bold"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:hint="@string/usuario_registroapp" />
 
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/et_nombre"
-                        android:hint="Nombre"
+                        android:hint="@string/nombre_registroapp"
                         android:enabled="false"
                         android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/et_apellidos"
-                        android:hint="Apellidos"
+                        android:hint="@string/apellido_registroapp"
                         android:enabled="false"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/et_localidad"
-        android:hint="Localidad"
+        android:hint="@string/localidad_registroapp"
         android:enabled="false"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -101,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/et_email"
-        android:hint="Correo Electrónico"
+        android:hint="@string/correo_login"
         android:layout_below="@+id/et_localidad"
         android:layout_alignParentStart="true"
         android:enabled="false"
@@ -110,7 +110,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardar"
+        android:text="@string/guardar"
         android:id="@+id/bt_guardar"
         android:background="#00ffffff"
         android:visibility="invisible"
@@ -120,7 +120,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cambiar contraseña"
+        android:text="@string/cambiarContrase"
         android:id="@+id/bt_cambia_password"
         android:layout_below="@+id/et_email"
         android:layout_alignParentStart="true"

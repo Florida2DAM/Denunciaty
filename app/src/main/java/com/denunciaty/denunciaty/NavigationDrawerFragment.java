@@ -296,10 +296,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
             case 4:
                 //Cerrar Sesion
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(getActivity());
-                dialogo1.setTitle("Alerta");
-                dialogo1.setMessage("¿ Estás seguro de que quieres cerrar sesión ?");
+                dialogo1.setTitle(R.string.alerta);
+                dialogo1.setMessage(R.string.estasSeguro);
                 dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                dialogo1.setPositiveButton(R.string.confirmar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
                         bbdd.resetUsuario();
                         bbdd.resetLogueado();
@@ -310,7 +310,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
                     }
                 });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                dialogo1.setNegativeButton(R.string.cancelar_registroapp, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
                     }
                 });

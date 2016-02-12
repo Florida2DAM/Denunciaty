@@ -103,6 +103,7 @@
     <string name="calle_lista">calle</string>
     <string name="descripcion_lista">descripcion:</string>
     <string name="pref_cambiarIdioma">Cambiar idioma</string>
+    <string name="cambiarContrase">Cambiar contraseña</string>
     <string name="pref_notificaciones">Notificaciones</string>
     <string name="pref_recibirNotificaciones">¿Quieres recibir notificaciones?</string>
     <string name="pref_accederWifi">Acceder solo con wifi</string>
@@ -116,6 +117,24 @@
     <string name="pref_austesdered">Ajustes de red</string>
     <string name="pref_vista">Vista del mapa</string>
     <string name="pref_vistaas">Vistas</string>
+    <string name="alerta">Alerta</string>
+    <string name="estasSeguro">¿ Estás seguro de que quieres cerrar sesión ?</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="guardar">Guardar</string>
+    <string name="camposVacios">Hay campos vacíos</string>
+    <string name="limpieza">Limpieza</string>
+    <string name="senyales">Señales</string>
+    <string name="vehiculo">Vehiculo</string>
+    <string name="alumnbrado">Alumbrado</string>
+    <string name="mobiliario">Mobiliario</string>
+    <string name="viaPublica">Vía pública</string>
+    <string name="arbolado">Arbolado</string>
+    <string name="transporteP">Transporte público</string>
+    <string name="otros">Otros</string>
+    <string name="necesitasGPS">Necesitas tener el GPS activado</string>
+    <string name="gpsAct">GPS Activado</string>
+    <string name="ubicacionReporte">ubicacionReporte</string>
+    <string name="tituloReporte">tituloReporte</string>
 
 
 </resources>
