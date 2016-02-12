@@ -40,7 +40,8 @@
                 android:textSize="22dp"
                 android:hint="@string/nombre_registroapp"
                 android:layout_marginTop="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -50,7 +51,8 @@
                 android:textSize="22dp"
                 android:textColor="#FFFFFFFF"
                 android:hint="@string/apellido_registroapp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -60,7 +62,8 @@
                 android:textSize="22dp"
                 android:textColor="#ffffff"
                 android:hint="@string/localidad_registroapp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -70,7 +73,8 @@
                 android:textSize="22dp"
                 android:textColor="#FFFFFFFF"
                 android:hint="@string/email_registroapp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -80,7 +84,8 @@
                 android:textSize="22dp"
                 android:textColor="#FFFFFFFF"
                 android:hint="@string/usuario_registroapp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -92,7 +97,8 @@
                 android:textColor="#FFFFFFFF"
                 android:hint="@string/contraseña_registroapp"
                 android:textStyle="bold"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -102,9 +108,10 @@
                 android:ems="10"
                 android:id="@+id/et_contraseñaRepetida"
                 android:textColor="#FFFFFFFF"
-                android:hint="@string/contraseña_registroapp"
+                android:hint="@string/repite_contraseña_registroapp"
                 android:textStyle="bold"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColorHint="#ffffff" />
 
             <Button
                 android:layout_width="wrap_content"

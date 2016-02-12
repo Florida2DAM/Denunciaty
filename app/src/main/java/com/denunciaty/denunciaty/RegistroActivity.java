@@ -199,8 +199,12 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             String personName = acct.getDisplayName();
             urlImagen = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
-            new DescargaImagenTask().execute();
+            //new DescargaImagenTask().execute();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
+
+            RegistroRRSS registroRRSS = new RegistroRRSS();
+            //Consulta por email
+            registroRRSS.execute(personName,email,urlImagen);
         }
     }
 
@@ -443,6 +447,66 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         String encoded = Base64.encodeToString(byteArray,Base64.DEFAULT);
         return encoded;
+    }
+
+
+
+    private class RegistroRRSS extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String nombre = params[0];
+            String email = params[1];
+            String foto = params[2];
+
+            InputStream iS = null;
+            String data = "";
+
+            try {
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL(
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"///"+email+"//"+foto+"/0/").openConnection();
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+                iS.close();
+
+                return data;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+            startActivity(i);
+            finish();
+        }
+
     }
 
 }

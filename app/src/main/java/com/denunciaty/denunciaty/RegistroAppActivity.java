@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -46,7 +48,6 @@ public class RegistroAppActivity extends Activity {
     ImageView imagen;
     EditText usuario, nombre, apellidos, email, localidad, contraseña, repite_contraseña;
     Button enviar;
-    String passInput = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,20 +105,27 @@ public class RegistroAppActivity extends Activity {
         String loc = localidad.getText().toString();
         String correo = email.getText().toString();
         String usu = usuario.getText().toString();
-        String contra = contraseña.getText().toString();
-        String repitcontra = repite_contraseña.getText().toString();
+        String contra = null;
+        String repitcontra = null;
+        try {
+            contra = SHA1(contraseña.getText().toString());
+            repitcontra = SHA1(repite_contraseña.getText().toString());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         if (nom.isEmpty() || apell.isEmpty() || loc.isEmpty() || correo.isEmpty() || usu.isEmpty() || contra.isEmpty() || repitcontra.isEmpty()) {
             Toast.makeText(RegistroAppActivity.this, "Hay campos vacíos", Toast.LENGTH_SHORT).show();
         } else {
             if (contra.equals(repitcontra)) {
-                encriptaPass();
                 //Ejecuta
                 UsuariosTask async = new UsuariosTask();
                 //Consulta por email
-                async.execute(nom, apell, loc, correo, usu, contra, repitcontra);
+                async.execute(nom, apell, loc, correo, usu, contra);
             }else{
-                Toast.makeText(RegistroAppActivity.this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistroAppActivity.this, "Las contraseñas no son iguales", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -131,6 +139,7 @@ public class RegistroAppActivity extends Activity {
                         Toast.makeText(RegistroAppActivity.this, R.string.registro_correcto, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), RegistroActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 });
         AlertDialog alert = builder.create();
@@ -199,18 +208,7 @@ public class RegistroAppActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Encripta las contraseñas
-    protected void encriptaPass() {
-        //Encriptacion pass
-        try {
-            passInput = SHA1(contraseña.getText().toString());
-            passInput = SHA1(repite_contraseña.getText().toString());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
+
     private static String convertToHex(byte[] data) {
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < data.length; i++) {
@@ -240,20 +238,25 @@ public class RegistroAppActivity extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            String nombre = params[0];
-            String apellidos = params[1];
-            String usuario = params[2];
-            String email = params[3];
-            String contraseña = params[4];
-            String localidad = params[5];
 
             InputStream iS = null;
             String data = "";
 
             try {
+                String nombre = URLEncoder.encode(params[0],"UTF-8");
+                String apellidos = URLEncoder.encode(params[1],"UTF-8");
+                String usuario = URLEncoder.encode(params[4],"UTF-8");
+                String email = URLEncoder.encode(params[3],"UTF-8");
+                String contraseña = params[5];
+                String localidad = URLEncoder.encode(params[2],"UTF-8");
+
+                Log.d("Datos",nombre+"-"+apellidos+"-"+usuario+"-"+email+"-"+contraseña+"-"+localidad);
+
+
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/"+apellidos+"/"+usuario+"/"+email+"/"+contraseña+"/"+0+"/"+localidad).openConnection();
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/"+apellidos+"/"+usuario+"/"+email+"/"+contraseña+"/0/0/"+localidad).openConnection();
+                Log.d("URL",""+connection);
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");
@@ -270,21 +273,21 @@ public class RegistroAppActivity extends Activity {
                     while ((line = bufferedReader.readLine()) != null)
                         data += line;
                 }
-                iS.close();
 
-                return data;
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("Error","No se ha registrado");
             } finally {
                 if (iS != null) {
                     try {
                         iS.close();
+                        return data;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-            return data;
+            return null;
         }
 
         @Override

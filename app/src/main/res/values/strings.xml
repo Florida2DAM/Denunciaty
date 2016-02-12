@@ -114,6 +114,7 @@
     <string name="email_registroapp">Email</string>
     <string name="usuario_registroapp">Usuario</string>
     <string name="contraseña_registroapp">Contraseña</string>
+    <string name="repite_contraseña_registroapp">Repite Contraseña</string>
     <string name="enviar_registroapp">Enviar</string>
     <string name="registro_correctamente">Se ha registrado correctamente</string>
     <string name="registro_correcto">Registro correcto</string>
