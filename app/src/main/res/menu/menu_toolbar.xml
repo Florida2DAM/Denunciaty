@@ -13,7 +13,7 @@
     <menu>
         <item android:id="@+id/limpieza"
             android:icon="@drawable/limpieza"
-            android:title="Limpieza"/>
+            android:title="Limpieza" />
         <item android:id="@+id/senyalizacion"
             android:icon="@drawable/senyalizacion"
             android:title="Señalización"/>

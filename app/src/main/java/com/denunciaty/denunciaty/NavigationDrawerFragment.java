@@ -273,7 +273,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 //Principal Activity
                 Intent i0 = new Intent(getActivity(),PrincipalActivity.class);
                 startActivity(i0);
-                //getActivity().finish();
+               // getActivity().finish();
                 break;
             case 1:
                 //Mis Reportes Activity
@@ -285,7 +285,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 //Mi perfil Activity
                 Intent i2 = new Intent(getActivity(),MiPerfil.class);
                 startActivity(i2);
-                //getActivity().finish();
+               // getActivity().finish();
                 break;
             case 3:
                 //Settings Activity

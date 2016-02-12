@@ -129,16 +129,22 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         comprobarClicks();
     }
 
-    @Override
+   /* @Override
     protected void onRestart() {
         super.onRestart();
         comprobarPreferencias();
-    }
+    }*/
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+        comprobarPreferencias();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         comprobarPreferencias();
     }
 
