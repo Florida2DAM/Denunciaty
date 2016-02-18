@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,6 +52,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
@@ -127,11 +130,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         comprobarClicks();
     }
 
-   /* @Override
-    protected void onRestart() {
-        super.onRestart();
-        comprobarPreferencias();
-    }*/
 
     @Override
     protected void onResume() {
@@ -395,7 +393,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if(pref!=null){
             if(pref.getBoolean("notificaciones",false)){
-                notification("NOTIFICACION","Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion");
+                notification(getString(R.string.notificacion),getString(R.string.txtNotificacion));
             }
             switch(pref.getString("cambiarVista","")){
                 case "normal":
@@ -406,6 +404,17 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                     break;
                 case "hibrida":
                     mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                    break;
+            }
+            switch(pref.getString("cambiarIdioma","")){
+                case "ingles":
+                    changeLocale(getResources(), "en");
+                    break;
+                case "valenciano":
+                    changeLocale(getResources(), "ca");
+                    break;
+                case "castellano":
+                    changeLocale(getResources(), "");
                     break;
             }
         }
@@ -904,5 +913,23 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void changeLocale(Resources res,String locale){
+        Configuration config;
+        config = new Configuration(res.getConfiguration());
+
+        switch (locale) {
+            case "ca":
+                config.locale = new Locale("ca");
+                break;
+            case "en":
+                config.locale = new Locale("en");
+                break;
+            default:
+                config.locale = new Locale("");
+                break;
+        }
+        res.updateConfiguration(config, res.getDisplayMetrics());
     }
 }

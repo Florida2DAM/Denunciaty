@@ -45,7 +45,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onResume();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.registerOnSharedPreferenceChangeListener(this);
-        comprobarPreferencias();
+        //comprobarPreferencias();
     }
 
     @Override
@@ -53,43 +53,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onPause();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.unregisterOnSharedPreferenceChangeListener(this);
-        comprobarPreferencias();
-    }
-
-
-    public static void changeLocale(Resources res,String locale){
-        Configuration config;
-        config = new Configuration(res.getConfiguration());
-
-        switch (locale) {
-            case "ca":
-                config.locale = new Locale("ca");
-                break;
-            case "en":
-                config.locale = new Locale("en");
-                break;
-            default:
-                config.locale = new Locale("");
-                break;
-        }
-        res.updateConfiguration(config, res.getDisplayMetrics());
-    }
-
-    public void comprobarPreferencias(){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        if(pref!=null){
-            switch(pref.getString("cambiarIdioma","")){
-                case "ingles":
-                    changeLocale(getResources(),"en");
-                    break;
-                case "valenciano":
-                    changeLocale(getResources(),"ca");
-                    break;
-                case "castellano":
-                    changeLocale(getResources(),"");
-                    break;
-            }
-        }
+        //comprobarPreferencias();
     }
 
     @Override

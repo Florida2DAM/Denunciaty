@@ -135,6 +135,8 @@
     <string name="gpsAct">GPS Activado</string>
     <string name="ubicacionReporte">ubicacionReporte</string>
     <string name="tituloReporte">tituloReporte</string>
+    <string name="notificacion">NOTIFICACION</string>
+    <string name="txtNotificacion">Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion</string>
 
 
 </resources>
