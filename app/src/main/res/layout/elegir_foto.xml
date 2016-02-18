@@ -14,7 +14,7 @@
     <Button
         android:layout_width="383dp"
         android:layout_height="wrap_content"
-        android:text="Hacer foto"
+        android:text="@string/hacerFoto"
         android:drawableLeft="@mipmap/camarandroid"
         android:id="@+id/bt_hacerfoto"
         android:background="#efefef"
@@ -28,7 +28,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seleccionar foto"
+        android:text="@string/selecionarFoto"
         android:drawableLeft="@mipmap/galeriandroid"
         android:id="@+id/bt_seleccionafoto"
         android:textColor="#b2b2b2"

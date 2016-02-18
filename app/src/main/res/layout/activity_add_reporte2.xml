@@ -31,7 +31,7 @@
                 app:contentScrim="#6071C2"
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleMarginEnd="64dp"
-                android:title="Reporte seleccionado"
+                android:title="@string/reporteSeleccionado"
                 >
 
                 <ImageView

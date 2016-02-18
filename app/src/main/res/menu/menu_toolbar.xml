@@ -6,7 +6,7 @@
 
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_info_black_24dp"
-        android:title="lista"
+        android:title="@string/Lista"
         app:showAsAction="ifRoom"
         android:orderInCategory="1"
         android:actionViewClass="com.denunciaty.denunciaty.Card"
@@ -14,38 +14,38 @@
     <menu>
         <item android:id="@+id/limpieza"
             android:icon="@drawable/limpieza"
-            android:title="Limpieza" />
+            android:title="@string/Limpieza" />
         <item android:id="@+id/senyalizacion"
             android:icon="@drawable/senyalizacion"
-            android:title="Señalización"/>
+            android:title="@string/Senyalizacion"/>
         <item android:id="@+id/vehiculo"
             android:icon="@drawable/vehiculo"
-            android:title="Vehículo"/>
+            android:title="@string/Vehiculo"/>
         <item android:id="@+id/iluminacion"
             android:icon="@drawable/iluminacion"
-            android:title="Iluminación"/>
+            android:title="@string/Iluminacion"/>
         <item android:id="@+id/mobiliario"
             android:icon="@drawable/mobiliario"
-            android:title="Mobiliario"/>
+            android:title="@string/Mobiliario"/>
         <item android:id="@+id/via_publica"
             android:icon="@drawable/via_publica"
-            android:title="Via pública"/>
+            android:title="@string/ViaPublica"/>
         <item android:id="@+id/arbolado"
             android:icon="@drawable/arbolada"
-            android:title="Arbolado"/>
+            android:title="@string/Arbolado"/>
         <item android:id="@+id/transp_publico"
             android:icon="@drawable/transporte_publico"
-            android:title="Transporte público"/>
+            android:title="@string/TransportePublico"/>
         <item android:id="@+id/otros"
             android:icon="@drawable/otros"
-            android:title="Otros"/>
+            android:title="@string/Otros"/>
         <item android:id="@+id/accesos"
             android:icon="@drawable/wifi"
-            android:title="Accesos Wi-Fi"/>
+            android:title="@string/AccesoWifi"/>
         <item android:id="@+id/misReportes"
-            android:title="Mis reportes"/>
+            android:title="@string/MisReportes"/>
         <item android:id="@+id/todos"
-            android:title="Todos los reportes"/>
+            android:title="@string/TodosLosReportes"/>
     </menu>
 
     </item>
