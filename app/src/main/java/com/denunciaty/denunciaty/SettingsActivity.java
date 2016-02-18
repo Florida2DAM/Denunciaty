@@ -2,6 +2,7 @@ package com.denunciaty.denunciaty;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,6 +35,7 @@ import java.util.Locale;
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferencias);
@@ -44,8 +46,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     protected void onResume() {
         super.onResume();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        pref.registerOnSharedPreferenceChangeListener(this);
-        //comprobarPreferencias();
+        pref.registerOnSharedPreferenceChangeListener(this);;
     }
 
     @Override
@@ -53,7 +54,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         super.onPause();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         pref.unregisterOnSharedPreferenceChangeListener(this);
-        //comprobarPreferencias();
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -37,9 +38,11 @@ import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -400,6 +403,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         }
 
     }
+
 
 
 }
