@@ -2,6 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.denunciaty.denunciaty.MiPerfil">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/edita"
+        android:title="Edita"
+        android:orderInCategory="100"
+        android:icon="@drawable/icono_lapiz_blanco"
+        app:showAsAction="always" />
+
 </menu>

@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,15 +17,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
+import com.denunciaty.denunciaty.JavaClasses.Usuario;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallbacks {
 
-    EditText usuario, nombre, apellido, email, localidad;
+    private SQLite bbdd;
+    Usuario usuario=null;
+    EditText usu, nombre, apellido, email, localidad;
     ImageView foto;
-    ImageButton edita;
     Button guardar, cambiar_contraseña;
     String passInput = null;
 
@@ -40,40 +47,38 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         //set up the drawer
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
 
+        //Recupero al usuario logueado
+        bbdd = new SQLite(getApplicationContext());
+        bbdd.open();
+        usuario = bbdd.recuperarUsuario();
 
-        usuario = (EditText) findViewById(R.id.et_usuario);
-        usuario.setEnabled(false);
+        usu = (EditText) findViewById(R.id.et_usuario);
+        usu.setEnabled(false);
+        usu.setText(usuario.getNombre());
+
         nombre = (EditText) findViewById(R.id.et_nombre);
         nombre.setEnabled(false);
+        nombre.setText(usuario.getApellidos());
+
         apellido = (EditText) findViewById(R.id.et_apellidos);
         apellido.setEnabled(false);
+        apellido.setText(usuario.getApellidos());
+
         email = (EditText) findViewById(R.id.et_email);
         email.setEnabled(false);
+        email.setText(usuario.getEmail());
+
         localidad = (EditText) findViewById(R.id.et_localidad);
         localidad.setEnabled(false);
+        localidad.setText(usuario.getLocalidad());
+
         foto = (ImageView) findViewById(R.id.iv_avatar);
         foto.setEnabled(false);
-
+        //foto.setText(usuario.getFoto());
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showInputDialogFoto();
-            }
-        });
-
-        edita = (ImageButton) findViewById(R.id.ib_edit);
-        edita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cambiar_contraseña.setVisibility(View.VISIBLE);
-                guardar.setVisibility(View.VISIBLE);
-                usuario.setEnabled(true);
-                nombre.setEnabled(true);
-                apellido.setEnabled(true);
-                email.setEnabled(true);
-                localidad.setEnabled(true);
-                foto.setEnabled(true);
-
             }
         });
 
@@ -83,7 +88,7 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
             public void onClick(View v) {
                 cambiar_contraseña.setVisibility(View.INVISIBLE);
                 guardar.setVisibility(View.INVISIBLE);
-                usuario.setEnabled(false);
+                usu.setEnabled(false);
                 nombre.setEnabled(false);
                 apellido.setEnabled(false);
                 email.setEnabled(false);
@@ -186,4 +191,30 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
     public void onNavigationDrawerItemSelected(int position) {
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_mi_perfil, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.edita:
+                Log.d("Boton", "Edita");
+                cambiar_contraseña.setVisibility(View.VISIBLE);
+                guardar.setVisibility(View.VISIBLE);
+                usu.setEnabled(true);
+                nombre.setEnabled(true);
+                apellido.setEnabled(true);
+                email.setEnabled(true);
+                localidad.setEnabled(true);
+                foto.setEnabled(true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
