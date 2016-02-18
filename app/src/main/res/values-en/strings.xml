@@ -86,6 +86,7 @@
     <string name="mis_reportes_navigation">My Reports</string>
     <string name="mi_perfil_navigation">My profile</string>
     <string name="configuracion_navigation">Settings</string>
+    <string name="cerrarSesion">Log out</string>
 
     <!-- Registro Activity -->
     <string name="registrate_desde_nuestra_app">Sing in for our app</string>
@@ -174,4 +175,13 @@
     <string name="MisReportes">My reports</string>
     <string name="TodosLosReportes">All reports</string>
     <string name="Lista">List</string>
+    <string name="limpieza">Cleaning</string>
+    <string name="senyales">Signal</string>
+    <string name="vehiculo">Vehicle</string>
+    <string name="alumnbrado">Lighting</string>
+    <string name="mobiliario">Furniture</string>
+    <string name="viaPublica">Public road</string>
+    <string name="arbolado">Wooded</string>
+    <string name="transporteP">Public transport</string>
+    <string name="otros">Others</string>
 </resources>
