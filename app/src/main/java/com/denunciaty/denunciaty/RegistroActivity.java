@@ -68,6 +68,8 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     String urlImagen;
     private SQLite bbdd;
     String imagenCodificada;
+    String personName;
+    String email;
 
 
 
@@ -190,13 +192,13 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             GoogleSignInAccount acct = result.getSignInAccount();
             Log.d("Conectado", "Conectado");
             idPlus = acct.getId();
-            String personName = acct.getDisplayName();
+            personName = acct.getDisplayName();
             urlImagen = acct.getPhotoUrl().toString();
-            String email = acct.getEmail();
+            email = acct.getEmail();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
 
             DescargaImagenTask descarga = new DescargaImagenTask();
-            descarga.execute(personName, email);
+            descarga.execute();
 
 
         }
@@ -394,12 +396,12 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         }
     }
 
-    public class DescargaImagenTask extends AsyncTask<String, Void, Void> {
+    public class DescargaImagenTask extends AsyncTask<Void, Void, String> {
         Bitmap imagenPerfil;
         Bitmap imagen_pequenya;
         String imagen_comprimida;
         @Override
-        protected Void doInBackground(String... params) {
+        protected String doInBackground(Void... params) {
             InputStream iS = null;
             try {
                 URL url = new URL(urlImagen);
@@ -414,8 +416,44 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 imagen_pequenya = Bitmap.createScaledBitmap(imagenPerfil,10,10,true);
                 imagen_comprimida = convertirBase64(imagen_pequenya);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return imagen_comprimida;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.d("Chachi", "Pistachi");
+            new usuarioRRSS().execute(personName,email,s);
+        }
+    }
+
+    public String convertirBase64(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String safe = encoded.replace("+","-").replace("/","_").replace("=",",");
+        return safe;
+    }
+
+    public class usuarioRRSS extends AsyncTask<String,Void,Void>{
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
                 String nombre = URLEncoder.encode(params[0], "UTF-8");
                 String email =URLEncoder.encode(params[1],"UTF-8");
+                String imagen_comprimida = URLEncoder.encode(params[2],"UTF-8");
 
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
@@ -428,14 +466,6 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                if (iS != null) {
-                    try {
-                        iS.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
             return null;
         }
@@ -443,19 +473,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("Chachi", "Bieeeeeen");
-            Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
-            startActivity(i);
+            Log.d("Ole","Puta madre");
         }
     }
-
-    public String convertirBase64(Bitmap bitmap){
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        String safe = encoded.replace("+","-").replace("/","_");
-        return safe;
-    }
-
 }
