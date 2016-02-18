@@ -21,7 +21,8 @@
         <item name="android:windowNoTitle">true</item>
         <item name="actionMenuTextColor">#FFFFFF</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
+        <item name="dropDownListViewStyle">@style/PopupMenuListView</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
     <style name="AppCompatTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -38,9 +39,10 @@
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
-    <style name="MyPopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">#224562</item>
-        <item name="android:textColor">#FFFFFF</item>
+    <style name="PopupMenuListView" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:divider">#FFFFFF</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:background">#224562</item>
     </style>
 
 </resources>
