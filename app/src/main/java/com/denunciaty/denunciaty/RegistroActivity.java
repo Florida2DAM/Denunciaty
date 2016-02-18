@@ -3,14 +3,10 @@ package com.denunciaty.denunciaty;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -30,8 +26,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -54,7 +48,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
@@ -200,18 +193,11 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             String personName = acct.getDisplayName();
             urlImagen = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
-
-            DescargaImagenTask descarga = new DescargaImagenTask();
-            descarga.execute();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
 
-            while(descarga.getStatus() != AsyncTask.Status.FINISHED){
+            DescargaImagenTask descarga = new DescargaImagenTask();
+            descarga.execute(personName, email);
 
-            }
-
-            RegistroRRSS registroRRSS = new RegistroRRSS();
-            //Consulta por email
-            registroRRSS.execute(personName,email,urlImagen);
 
         }
     }
@@ -408,10 +394,12 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         }
     }
 
-    public class DescargaImagenTask extends AsyncTask<Void, Void, Bitmap> {
+    public class DescargaImagenTask extends AsyncTask<String, Void, Void> {
         Bitmap imagenPerfil;
+        Bitmap imagen_pequenya;
+        String imagen_comprimida;
         @Override
-        protected Bitmap doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
             InputStream iS = null;
             try {
                 URL url = new URL(urlImagen);
@@ -423,10 +411,21 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 iS = con.getInputStream();
 
                 imagenPerfil = BitmapFactory.decodeStream(iS);
+                imagen_pequenya = Bitmap.createScaledBitmap(imagenPerfil,10,10,true);
+                imagen_comprimida = convertirBase64(imagen_pequenya);
 
-                return imagenPerfil;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+                String nombre = URLEncoder.encode(params[0], "UTF-8");
+                String email =URLEncoder.encode(params[1],"UTF-8");
+
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL(
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/null/null/"+email+"/null/"+imagen_comprimida+"/0/null").openConnection();
+
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -442,11 +441,11 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         }
 
         @Override
-        protected void onPostExecute(Bitmap imagenPerfil) {
-            super.onPostExecute(imagenPerfil);
-            imagenCodificada = convertirBase64(imagenPerfil);
-
-            Log.d("IMAGEN", "Imagen Codificada: " + imagenCodificada);
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.d("Chachi", "Bieeeeeen");
+            Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
+            startActivity(i);
         }
     }
 
@@ -457,67 +456,6 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         String safe = encoded.replace("+","-").replace("/","_");
         return safe;
-    }
-
-
-
-    private class RegistroRRSS extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            InputStream iS = null;
-            String data = "";
-
-            try {
-                String nombre = URLEncoder.encode(params[0], "UTF-8");
-                String email =URLEncoder.encode(params[1],"UTF-8");
-                String foto = URLEncoder.encode(params[2],"UTF-8");
-
-                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
-                HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/null/null/"+email+"/null/"+foto+"/0/null").openConnection();
-                //con.setReadTimeout(10000);
-                //con.setConnectTimeout(15000);
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Authorization", "Basic " + encoded);
-                connection.setDoInput(true);
-                connection.connect();
-
-                iS = new BufferedInputStream(connection.getInputStream());
-                connection.getResponseCode();
-                if (iS != null) {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
-                    String line = "";
-
-                    while ((line = bufferedReader.readLine()) != null)
-                        data += line;
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("Error","Google error no se ha registrado");
-            } finally {
-                if (iS != null) {
-                    try {
-                        iS.close();
-                        return data;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            /*Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
-            startActivity(i);
-            finish();*/
-        }
-
     }
 
 }
