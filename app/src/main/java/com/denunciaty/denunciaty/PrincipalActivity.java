@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,7 +87,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         iVReporte = (ImageView)findViewById(R.id.img_reporte_selec);
         tVReporte = (TextView)findViewById(R.id.tv_reporte_selec);
         tVReporteUbi = (TextView)findViewById(R.id.tv_reporte_ub);
-        wrapper = new ContextThemeWrapper(getBaseContext(),R.style.MyPopupMenu);
         limpieza = new ArrayList<Marker>();
         senyalizacion = new ArrayList<Marker>();
         vehiculo = new ArrayList<Marker>();

@@ -9,6 +9,7 @@
         android:title="lista"
         app:showAsAction="ifRoom"
         android:orderInCategory="1"
+        android:actionViewClass="com.denunciaty.denunciaty.Card"
         android:menuCategory="secondary">
     <menu>
         <item android:id="@+id/limpieza"
