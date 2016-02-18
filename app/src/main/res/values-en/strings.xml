@@ -62,18 +62,6 @@
 
     <string name="pref_title_system_sync_settings">Sicronizar ajustes de sistema</string>
 
-    <!-- Settings for Notifications -->
-    <string name="pref_header_notifications">Notificaciones</string>
-
-    <string name="pref_title_new_message_notifications">Nuevo mensaje de notificación</string>
-
-    <string name="pref_title_ringtone">Tono de notificación</string>
-    <string name="pref_ringtone_silent">Silencio</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Fragment Add Reporte -->
     <string name="titulo_descriptivo">Descriptive tittle</string>
