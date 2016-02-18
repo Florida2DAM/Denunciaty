@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="vistas">
-        <item>Vista normal</item>
-        <item>Vista satelite</item>
-        <item>Vista hibrida</item>
+        <item>@string/vistaNormal</item>
+        <item>@string/vistaSatelite</item>
+        <item>@string/vistaHibrida</item>
     </string-array>
 
     <string-array name="codigo_vistas">
@@ -14,9 +14,9 @@
     </string-array>
 
     <string-array name="idiomas">
-        <item >Español</item>
-        <item >Ingles</item>
-        <item >Valenciano</item>
+        <item >Espanyol</item>
+        <item >English</item>
+        <item >Valencià</item>
     </string-array>
 
     <string-array name="codigo_idiomas">

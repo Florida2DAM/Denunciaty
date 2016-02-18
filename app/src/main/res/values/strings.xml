@@ -135,6 +135,35 @@
     <string name="gpsAct">GPS Activado</string>
     <string name="ubicacionReporte">ubicacionReporte</string>
     <string name="tituloReporte">tituloReporte</string>
+    <string name="notificacion">NOTIFICACION</string>
+    <string name="txtNotificacion">Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion</string>
+    <string name="reporteSeleccionado">Reporte seleccionado</string>
+    <string name="descripcion">Descripción</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="tipo">Tipo</string>
+    <string name="denunciadoPor">Denunciado por:</string>
+    <string name="contrAntigua">Contraseña antigua</string>
+    <string name="ContrNueva">Contraseña nueva</string>
+    <string name="ContrNueva2">Contraseña nueva repetida</string>
+    <string name="hacerFoto">Hacer foto</string>
+    <string name="selecionarFoto">Seleccionar foto</string>
+    <string name="vistaNormal">Vista normal</string>
+    <string name="vistaHibrida">Vista hibrida</string>
+    <string name="vistaSatelite">Vista satelite</string>
+    <string name="edit">Edita</string>
+    <string name="Senyalizacion">Señalización</string>
+    <string name="Limpieza">Limpieza</string>
+    <string name="Vehiculo">Vehículo</string>
+    <string name="Iluminacion">Iluminación</string>
+    <string name="Mobiliario">Mobiliario</string>
+    <string name="ViaPublica">Via pública</string>
+    <string name="Arbolado">Arbolado</string>
+    <string name="TransportePublico">Transporte público</string>
+    <string name="Otros">Otros</string>
+    <string name="AccesoWifi">Accesos Wi-Fi</string>
+    <string name="MisReportes">Mis reportes</string>
+    <string name="TodosLosReportes">Todos los reportes</string>
+    <string name="Lista">lista</string>
 
 
 </resources>

@@ -4,7 +4,7 @@
     tools:context="com.denunciaty.denunciaty.MiPerfil">
 
     <item android:id="@+id/edita"
-        android:title="Edita"
+        android:title="@string/edit"
         android:orderInCategory="100"
         android:icon="@drawable/icono_lapiz_blanco"
         app:showAsAction="always" />

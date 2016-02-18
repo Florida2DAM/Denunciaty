@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -67,10 +67,12 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     String idPlus;
     String urlImagen;
     private SQLite bbdd;
-    String imagenCodificada;
-    String personName;
-    String email;
-
+    String personName="";
+    String email="";
+    String imagen_comprimida="";
+    Boolean enEjecucion=true;
+    DescargaImagenTask descarga;
+    ImageView image;
 
 
     @Override
@@ -90,6 +92,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         twitterLogIn = (TwitterLoginButton) findViewById(R.id.twitterLogIn);
         app = (TextView) findViewById(R.id.app);
         iniciar = (Button) findViewById(R.id.iniciar);
+        image = (ImageView)this.findViewById(R.id.imageView3);
 
         //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -197,10 +200,14 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             email = acct.getEmail();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
 
-            DescargaImagenTask descarga = new DescargaImagenTask();
+            descarga = new DescargaImagenTask();
             descarga.execute();
+            int i=0;
+            while(!enEjecucion) {
 
-
+            }
+            Log.d("Imagen",imagen_comprimida);
+            new usuarioRRSS().execute();
         }
     }
 
@@ -396,14 +403,14 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         }
     }
 
-    public class DescargaImagenTask extends AsyncTask<Void, Void, String> {
+    public class DescargaImagenTask extends AsyncTask<Void, Void, Void> {
         Bitmap imagenPerfil;
         Bitmap imagen_pequenya;
-        String imagen_comprimida;
         @Override
-        protected String doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
             InputStream iS = null;
             try {
+                enEjecucion=true;
                 URL url = new URL(urlImagen);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
@@ -413,8 +420,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 iS = con.getInputStream();
 
                 imagenPerfil = BitmapFactory.decodeStream(iS);
-                imagen_pequenya = Bitmap.createScaledBitmap(imagenPerfil,10,10,true);
+                imagen_pequenya = Bitmap.createScaledBitmap(imagenPerfil, 10, 10, true);
                 imagen_comprimida = convertirBase64(imagen_pequenya);
+                Log.d("IMAGEN","Perfil:"+imagenPerfil+" Pequeña: "+imagen_pequenya+" Comprimida: "+imagen_comprimida);
+                return null;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -422,19 +431,20 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 if (iS != null) {
                     try {
                         iS.close();
+                        return null;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
-            return imagen_comprimida;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(Void s) {
             super.onPostExecute(s);
-            Log.d("Chachi", "Pistachi");
-            new usuarioRRSS().execute(personName,email,s);
+            Log.d("Chachi", "s");
+            enEjecucion=false;
         }
     }
 
@@ -443,37 +453,75 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        String safe = encoded.replace("+","-").replace("/","_").replace("=",",");
+        Log.d("Fotaca", "" + encoded);
+        String safe = encoded.replace("+","-").replace("/","_").replace("=",",").replaceAll("\\s+", "");
+        safe.trim();
         return safe;
     }
 
-    public class usuarioRRSS extends AsyncTask<String,Void,Void>{
+    public class usuarioRRSS extends AsyncTask<Void,Void,String>{
+
         @Override
-        protected Void doInBackground(String... params) {
+        protected String doInBackground(Void... params) {
+
+            InputStream iS = null;
+            String data = "";
+
             try {
-                String nombre = URLEncoder.encode(params[0], "UTF-8");
-                String email =URLEncoder.encode(params[1],"UTF-8");
-                String imagen_comprimida = URLEncoder.encode(params[2],"UTF-8");
+                String nombre = URLEncoder.encode(personName, "UTF-8");
+                String email2 =URLEncoder.encode(email,"UTF-8");
+                String imagen_comprimida2 = URLEncoder.encode(imagen_comprimida,"UTF-8");
 
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/null/null/"+email+"/null/"+imagen_comprimida+"/0/null").openConnection();
-
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/n/u/"+email2+"/n/"+imagen_comprimida+"/0/n").openConnection();
+                Log.d("URL",""+connection);
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Authorization", "Basic " + encoded);
                 connection.setDoInput(true);
                 connection.connect();
 
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("Error","No se ha registrado");
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                        return data;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             return null;
+
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("Ole","Puta madre");
+            Log.d("Ole", imagen_comprimida);
+
+
+            String putaMadre = imagen_comprimida.replace("-","+").replace("_","/").replace(",", "=");
+            Log.d("PutaMadre",""+putaMadre);
+
+            byte[] imageAsBytes = Base64.decode(putaMadre.getBytes(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            Bitmap imagen = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            image.setImageBitmap(imagen);
+
         }
     }
 }

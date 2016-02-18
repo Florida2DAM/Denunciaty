@@ -16,7 +16,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_passAntigua"
-        android:hint="Contraseña antigua"
+        android:hint="@string/contrAntigua"
         android:textColor="#010101" />
 
     <EditText
@@ -25,7 +25,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_passNueva"
-        android:hint="Contraseña nueva"
+        android:hint="@string/ContrNueva"
         android:textColor="#010101" />
 
     <EditText
@@ -34,7 +34,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/et_passNuevaRepite"
-        android:hint="Contraseña nueva repetida"
+        android:hint="@string/ContrNueva2"
         android:textColor="#010101" />
 
 </LinearLayout>
