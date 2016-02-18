@@ -130,11 +130,11 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
-        items.add(new NavigationItem(getResources().getString(R.string.buscar_navigation), getResources().getDrawable(R.drawable.search100)));
-        items.add(new NavigationItem(getResources().getString(R.string.mis_reportes_navigation), getResources().getDrawable(R.drawable.tool1132)));
-        items.add(new NavigationItem(getResources().getString(R.string.mi_perfil_navigation), getResources().getDrawable(R.drawable.user157)));
-        items.add(new NavigationItem(getResources().getString(R.string.configuracion_navigation), getResources().getDrawable(R.drawable.settings49)));
-        items.add(new NavigationItem(getResources().getString(R.string.cerrarSesion), getResources().getDrawable(R.drawable.cerrarsesion)));
+        items.add(new NavigationItem(getResources().getString(R.string.buscar_navigation), getResources().getDrawable(R.drawable.nav_search)));
+        items.add(new NavigationItem(getResources().getString(R.string.mis_reportes_navigation), getResources().getDrawable(R.drawable.nav_report)));
+        items.add(new NavigationItem(getResources().getString(R.string.mi_perfil_navigation), getResources().getDrawable(R.drawable.nav_account)));
+        items.add(new NavigationItem(getResources().getString(R.string.configuracion_navigation), getResources().getDrawable(R.drawable.nav_settings)));
+        items.add(new NavigationItem(getResources().getString(R.string.cerrarSesion), getResources().getDrawable(R.drawable.nav_signout)));
         return items;
     }
 

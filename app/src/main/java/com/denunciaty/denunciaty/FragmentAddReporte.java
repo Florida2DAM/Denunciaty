@@ -63,11 +63,9 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
     RelativeLayout relativeLayout;
     TextView et_titulo, et_descripcion;
     Spinner sp_tipo;
-    Button bt_publicar, botonprueba;
+    Button bt_publicar;
     SQLite bbdd;
     Usuario usuario;
-
-    OnXPulsada mCallback;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,12 +74,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         bbdd = new SQLite(getActivity().getApplicationContext());
         bbdd.open();
         usuario = bbdd.recuperarUsuario();
-    }
 
-    // Container Activity must implement this interface y...
-    //...crear en activity el método cerrarFragmentReporte()
-    public interface OnXPulsada {
-        public void cerrarFragmentReporte();
     }
 
 
@@ -175,9 +168,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         img_cruz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = getFragmentManager().findFragmentByTag(getTag());
-                if(fragment != null)
-                    getFragmentManager().beginTransaction().remove(fragment).commit();
+                borrarFragment();
             }
         });
 
@@ -204,6 +195,14 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
 
         return view;
     }
+
+
+    public void borrarFragment(){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(this).commit();
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -331,5 +330,10 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
                 getActivity().finish();
             }
         }
+
+
+
+
+
     }
 }
