@@ -332,6 +332,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                         intent.putExtra("ubicacionIntent",rep.getUbicacion());
                         intent.putExtra("tipoIntent",rep.getTipoIncidente());
                         intent.putExtra("solIntent",rep.isSolucionado());
+                        intent.putExtra("usuario",usuario.getNombre_usuario());
                         startActivity(intent);
                     }
                 }

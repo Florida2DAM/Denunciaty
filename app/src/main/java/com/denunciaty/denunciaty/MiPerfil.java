@@ -1,7 +1,11 @@
 package com.denunciaty.denunciaty;
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +24,19 @@ import android.widget.Toast;
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallbacks {
 
@@ -31,7 +45,11 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
     EditText usu, nombre, apellido, email, localidad;
     ImageView foto;
     Button guardar, cambiar_contraseña;
-    String passInput = null;
+    String passInput_Antigua = null;
+    String passInput_Nueva = null;
+    String passInput_Repetida = null;
+    String antigua,nueva;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +72,11 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
 
         usu = (EditText) findViewById(R.id.et_usuario);
         usu.setEnabled(false);
-        usu.setText(usuario.getNombre());
+        usu.setText(usuario.getNombre_usuario());
 
         nombre = (EditText) findViewById(R.id.et_nombre);
         nombre.setEnabled(false);
-        nombre.setText(usuario.getApellidos());
+        nombre.setText(usuario.getNombre());
 
         apellido = (EditText) findViewById(R.id.et_apellidos);
         apellido.setEnabled(false);
@@ -94,6 +112,7 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
                 email.setEnabled(false);
                 localidad.setEnabled(false);
                 foto.setEnabled(false);
+                new editarUsuario().execute(nombre.getText().toString(),apellido.getText().toString(),localidad.getText().toString(),email.getText().toString(),usu.getText().toString());
             }
         });
 
@@ -129,8 +148,8 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         alertDialog.setCancelable(true)
                 .setPositiveButton(R.string.guardar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        String antigua = passAntigua.getText().toString();
-                        String nueva = passNueva.getText().toString();
+                        antigua = passAntigua.getText().toString();
+                        nueva = passNueva.getText().toString();
                         String nuevaRepetida = passNuevaRepetida.getText().toString();
 
                         if (antigua.isEmpty() || nueva.isEmpty() || nuevaRepetida.isEmpty()) {
@@ -138,9 +157,23 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
                         } else {
                             //Encriptacion pass
                             try {
-                                passInput = SHA1(passAntigua.getText().toString());
-                                passInput = SHA1(passNueva.getText().toString());
-                                passInput = SHA1(passNuevaRepetida.getText().toString());
+                                passInput_Antigua = SHA1(passAntigua.getText().toString());
+                                Log.d("Antigua", passInput_Antigua);
+                                Log.d("BBDD", usuario.getPassword());
+                                passInput_Nueva = SHA1(passNueva.getText().toString());
+                                passInput_Repetida = SHA1(passNuevaRepetida.getText().toString());
+
+                                if (usuario.getPassword().equals(passInput_Antigua)) {
+                                    if (nueva.equals(nuevaRepetida)) {
+                                        new cambiarContrasenya().execute();
+                                    }else {
+                                        Toast.makeText(MiPerfil.this, "Contraseñas incorrectas", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(MiPerfil.this, "Contraseñas incorrectas", Toast.LENGTH_SHORT).show();
+                                }
+
+
                             } catch (NoSuchAlgorithmException e) {
                                 e.printStackTrace();
                             } catch (UnsupportedEncodingException e) {
@@ -215,6 +248,128 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
                 foto.setEnabled(true);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public class cambiarContrasenya extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... params) {
+            InputStream iS = null;
+            String data = "";
+
+            try {
+
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL(
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/cambiarPass/"+usuario.getId()+"/"+antigua+"/"+nueva).openConnection();
+                Log.d("URL",""+connection);
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("Error","No se ha registrado");
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            bbdd.resetUsuario();
+            bbdd.usuario(usuario.getId(), usuario.getNombre(), usuario.getApellidos(), usuario.getNombre_usuario(), usuario.getEmail(), passInput_Nueva, usuario.getFoto(), usuario.getIngreso(), usuario.getLocalidad());
+            Toast.makeText(getApplicationContext(), "Contraseña cambiada", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public class editarUsuario extends AsyncTask<String,Void,Void>{
+        @Override
+        protected Void doInBackground(String... params) {
+            InputStream iS = null;
+            String data = "";
+
+            try {
+                String nombre = URLEncoder.encode(params[0], "UTF-8");
+                String apellidos = URLEncoder.encode(params[1],"UTF-8");
+                String usu = URLEncoder.encode(params[4],"UTF-8");
+                String email = URLEncoder.encode(params[3],"UTF-8");
+                String localidad = URLEncoder.encode(params[2],"UTF-8");
+
+                usuario.setNombre(params[0]);
+                usuario.setApellidos(params[1]);
+                usuario.setNombre_usuario(params[4]);
+                usuario.setEmail(params[3]);
+                usuario.setLocalidad(params[2]);
+
+
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL(
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/editar/"+usuario.getId()+"?nombre="+nombre+"&apellidos="+apellidos+"&nombre_usuario="+usu+"&email="+email+"&localidad="+localidad).openConnection();
+                Log.d("URL",""+connection);
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("Error","No se ha registrado");
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            bbdd.resetUsuario();
+            bbdd.usuario(usuario.getId(), usuario.getNombre(), usuario.getApellidos(), usuario.getNombre_usuario(), usuario.getEmail(), usuario.getPassword(), usuario.getFoto(), usuario.getIngreso(), usuario.getLocalidad());
+
+            Intent i = new Intent(getApplicationContext(),MiPerfil.class);
+            startActivity(i);
+            finish();
+        }
     }
 
 }
