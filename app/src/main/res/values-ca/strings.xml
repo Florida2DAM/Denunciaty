@@ -94,8 +94,8 @@
     <string name="inicia_sesion">Iniciar Sessió</string>
     <string name="iniciasesion_registroapp">Inicia Sessió</string>
     <string name="iniciando_registroapp">Iniciant</string>
-    <string name="cancelar_registroapp">cancel·lar</string>
-    <string name="cancelando_registroapp">cancel·lant</string>
+    <string name="cancelar_registroapp">Cancel·lar</string>
+    <string name="cancelando_registroapp">Cancel·lant</string>
 
     <!-- Registro Usuario Activity -->
     <string name="nombre_registroapp">Nom</string>
@@ -117,10 +117,73 @@
 
     <!-- Lista -->
     <string name="nombre_denuncia_lista">Nom de la denuncia</string>
-    <string name="calle_lista">carrer</string>
-    <string name="descripcion_lista">descripció:</string>
-    <string name="QuienesSomos">¿QUIENES SOMOS?</string>
-    <string name="txtQuienesSomos">Somos un grupo de estudiantes que nos hemos dedicado a hacer esta app para poder mejorar el entorno que nos rodea. Queremos poder denunciar cualquier tipo de desperfecto que haya en la calle y ponernos en contacto con aquellas instituciones que puedan solucionarlos.</string>
-    <string name="Conocenos">Conócenos</string>
+    <string name="calle_lista">Carrer</string>
+    <string name="descripcion_lista">Descripció:</string>
+
+    <string name="pref_cambiarIdioma">Canviar idioma</string>
+    <string name="cambiarContrase">Canviar contrasenya</string>
+    <string name="pref_notificaciones">Notificacions</string>
+    <string name="pref_recibirNotificaciones">¿Vols rebre notificacions?</string>
+    <string name="pref_accederWifi">Accedir només amb wifi</string>
+    <string name="preff_Wifi">Wifi</string>
+    <string name="notificaciones_pref">NOTIFICACIONS</string>
+    <string name="idioma_pref">IDIOMA</string>
+    <string name="pref_ajustesGenerales">AJUSTOS GENERALS</string>
+    <string name="pref_borrarCuenta">Borrar compte de usuari</string>
+    <string name="pref_cerrarSesion">Tancar sessió</string>
+    <string name="pref_ajustesusuario">Ajustos de usuari</string>
+    <string name="pref_austesdered">Ajustos de red</string>
+    <string name="pref_vista">Vista del mapa</string>
+    <string name="pref_vistaas">Vistes</string>
+    <string name="alerta">Alerta</string>
+    <string name="estasSeguro">¿Estàs segur de que vols tancar sessió?</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="guardar">Guardar</string>
+    <string name="camposVacios">Hi ha camps buits</string>
+    <string name="limpieza">Neteja</string>
+    <string name="senyales">Senyals</string>
+    <string name="vehiculo">Vehicle</string>
+    <string name="alumnbrado">Enllumenat</string>
+    <string name="mobiliario">Mobiliari</string>
+    <string name="viaPublica">Via pública</string>
+    <string name="arbolado">Arbrat</string>
+    <string name="transporteP">Transport públic</string>
+    <string name="otros">Altres</string>
+    <string name="necesitasGPS">Necessites tindre el GPS activat</string>
+    <string name="gpsAct">GPS Activat</string>
+    <string name="ubicacionReporte">ubicació Report</string>
+    <string name="tituloReporte">titul Report</string>
+    <string name="notificacion">NOTIFICACIÓ</string>
+    <string name="txtNotificacion">Benvingut a la nostra app, en aquest mapa podràs afegir incidents propers a la teva localització</string>
+    <string name="reporteSeleccionado">Report seleccionat</string>
+    <string name="descripcion">Descripció</string>
+    <string name="ubicacion">Ubicació</string>
+    <string name="tipo">Tipus</string>
+    <string name="denunciadoPor">Denunciat per:</string>
+    <string name="contrAntigua">Contrasenya antiga</string>
+    <string name="ContrNueva">Contrasenya nova</string>
+    <string name="ContrNueva2">Contrasenya nova repetida</string>
+    <string name="hacerFoto">Fer foto</string>
+    <string name="selecionarFoto">Seleccionar foto</string>
+    <string name="vistaNormal">Vista normal</string>
+    <string name="vistaHibrida">Vista hibrida</string>
+    <string name="vistaSatelite">Vista satèl·lit</string>
+    <string name="edit">Edita</string>
+    <string name="Senyalizacion">Senyalització</string>
+    <string name="Limpieza">Neteja</string>
+    <string name="Vehiculo">Vehicle</string>
+    <string name="Iluminacion">Enllumenat</string>
+    <string name="Mobiliario">Mobiliari</string>
+    <string name="ViaPublica">Via pública</string>
+    <string name="Arbolado">Arbolado</string>
+    <string name="TransportePublico">Transport públic</string>
+    <string name="Otros">Altres</string>
+    <string name="AccesoWifi">Accés Wi-Fi</string>
+    <string name="MisReportes">Els meus reports</string>
+    <string name="TodosLosReportes">Tots els reports</string>
+    <string name="Lista">llista</string>
+    <string name="QuienesSomos">¿QUI SOM?</string>
+    <string name="txtQuienesSomos">Som un grup d'estudiants que ens hem dedicat a fer esta app per poder millorar l´entorn que ens rodeja. Volem poder denunciar qualsevol tipus de desperfecte que hi haja en el carrer i posar-nos en contacte amb aquelles institucions que puguem solucionar-los.</string>
+    <string name="Conocenos">Coneix-nos</string>
 
 </resources>

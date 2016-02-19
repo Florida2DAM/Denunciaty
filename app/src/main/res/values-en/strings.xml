@@ -60,7 +60,7 @@
         <item>-1</item>
     </string-array>
 
-    <string name="pref_title_system_sync_settings">Sicronizar ajustes de sistema</string>
+    <string name="pref_title_system_sync_settings">Sync system settings</string>
 
 
     <!-- Fragment Add Reporte -->
@@ -79,7 +79,7 @@
     <!-- Registro Activity -->
     <string name="registrate_desde_nuestra_app">Sing in for our app</string>
     <string name="bienvenido_denunciaty">Welcome to Denunciaty</string>
-    <string name="la_app_valenciana">La app valenciana donde podrás \ndenunciar cualquier desperfecto o \nincidente presente en tu ubicación.</string>
+    <string name="la_app_valenciana">The Valencian app where you can \nreport any damage or \nincident present in your location.</string>
     <string name="inicia_sesion">Log in</string>
     <string name="iniciasesion_registroapp">Log in</string>
     <string name="iniciando_registroapp">Strarting</string>
@@ -106,14 +106,14 @@
 
     <!-- Lista -->
     <string name="nombre_denuncia_lista">Name of the report</string>
-    <string name="calle_lista">street</string>
-    <string name="descripcion_lista">description:</string>
+    <string name="calle_lista">Street</string>
+    <string name="descripcion_lista">Description:</string>
 
 
     <string name="pref_cambiarIdioma">Change language</string>
     <string name="cambiarContrase">Change password</string>
     <string name="pref_notificaciones">Notifications</string>
-    <string name="pref_recibirNotificaciones">Would you like to receive notifications ?</string>
+    <string name="pref_recibirNotificaciones">Would you like to receive notifications?</string>
     <string name="pref_accederWifi">Only access to WIFI</string>
     <string name="preff_Wifi">Wifi</string>
     <string name="notificaciones_pref">NOTIFICATIONS</string>
@@ -126,7 +126,7 @@
     <string name="pref_vista">Map view</string>
     <string name="pref_vistaas">Views</string>
     <string name="alerta">Alert</string>
-    <string name="estasSeguro">¿ Are you sure you want sign out ?</string>
+    <string name="estasSeguro">Are you sure you want sign out?</string>
     <string name="confirmar">Confirm</string>
     <string name="guardar">Save</string>
     <string name="camposVacios">There are empty fields</string>
@@ -172,7 +172,7 @@
     <string name="arbolado">Wooded</string>
     <string name="transporteP">Public transport</string>
     <string name="otros">Others</string>
-    <string name="QuienesSomos">¿QUIENES SOMOS?</string>
-    <string name="txtQuienesSomos">Somos un grupo de estudiantes que nos hemos dedicado a hacer esta app para poder mejorar el entorno que nos rodea. Queremos poder denunciar cualquier tipo de desperfecto que haya en la calle y ponernos en contacto con aquellas instituciones que puedan solucionarlos.</string>
-    <string name="Conocenos">Conócenos</string>
+    <string name="QuienesSomos">Who are we?</string>
+    <string name="txtQuienesSomos">We are a group of students that we have dedicated to making this app to improve the environment around us. We want to report any type of damage you have in the street and get in contact with institutions that can solve them.</string>
+    <string name="Conocenos">About us:</string>
 </resources>
