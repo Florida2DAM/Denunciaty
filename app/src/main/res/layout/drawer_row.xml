@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:background="?android:attr/selectableItemBackground" android:drawablePadding="16dp"
         android:textSize="14sp" android:gravity="center_vertical"
-        android:textColor="#2196F3"
+        android:textColor="#ACECB2"
         android:textStyle="bold"
         android:layout_marginLeft="10dp" />
 </LinearLayout>
