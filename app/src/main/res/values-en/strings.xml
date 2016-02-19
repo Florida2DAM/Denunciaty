@@ -175,4 +175,10 @@
     <string name="QuienesSomos">Who are we?</string>
     <string name="txtQuienesSomos">We are a group of students that we have dedicated to making this app to improve the environment around us. We want to report any type of damage you have in the street and get in contact with institutions that can solve them.</string>
     <string name="Conocenos">About us:</string>
+
+    <!--CARD LAYOUT-->
+    <string name="descripcion_card">Description</string>
+    <string name="ubi_card">Location</string>
+    <string name="denunciado_card">Reported by:</string>
+    <string name="tipo_card">Type</string>
 </resources>

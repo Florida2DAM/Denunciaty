@@ -168,5 +168,10 @@
     <string name="txtQuienesSomos">Somos un grupo de estudiantes que nos hemos dedicado a hacer esta app para poder mejorar el entorno que nos rodea. Queremos poder denunciar cualquier tipo de desperfecto que haya en la calle y ponernos en contacto con aquellas instituciones que puedan solucionarlos.</string>
     <string name="Conocenos">Conócenos</string>
 
+    <!--CARD LAYOUT-->
+    <string name="descripcion_card">Descripción</string>
+    <string name="ubi_card">Ubicación</string>
+    <string name="denunciado_card">Denunciado por:</string>
+    <string name="tipo_card">Tipo</string>
 
 </resources>
