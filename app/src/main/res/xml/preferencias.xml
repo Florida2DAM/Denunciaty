@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/notificaciones_pref"
-        android:icon="@drawable/ic_notifications_black_24dp">
+    <PreferenceCategory android:title="@string/notificaciones_pref">
         <SwitchPreference
             android:key="notificaciones"
             android:summary="@string/pref_recibirNotificaciones"
@@ -19,8 +18,7 @@
             android:entryValues="@array/codigo_idiomas" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_austesdered"
-        android:icon="@drawable/ic_info_black_24dp">
+    <PreferenceCategory android:title="@string/pref_austesdered">
             <SwitchPreference
                 android:key="accederWifi"
                 android:summary="@string/preff_Wifi"
@@ -39,6 +37,18 @@
             android:dialogTitle="@string/pref_vistaas"
             android:entries="@array/vistas"
             android:entryValues="@array/codigo_vistas" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="¿QUIENES SOMOS?">
+       <Preference
+           android:summary="Somos un grupo de estudiantes que nos hemos dedicado a hacer esta app para poder mejorar el entorno que nos rodea. Queremos poder denunciar cualquier tipo de desperfecto que haya en la calle y ponernos en contacto con aquellas instituciones que puedan solucionarlos."/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="ACERCA DE NOSOTROS">
+        <Preference  android:title = "Conocenos"  >
+            <intent  android:action = "android.intent.action.VIEW"
+                android:data = "https://docs.google.com/document/d/1G1Z2gWwBZg9mZnBpi2JRSBpN0hmE_7QrGv2WCq9Tt3o/edit"  />
+        </Preference>
     </PreferenceCategory>
 
 
