@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -70,6 +71,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     ArrayList<Marker> limpieza,senyalizacion,vehiculo,via_publica,transporte,iluminacion,mobiliario,arbolado,otros,puntosMarker;
     String id_selec;
     Context wrapper;
+    WifiManager administrador_wifi;
 
     HashMap<String, String[]> haspMap = new HashMap <String, String[]>();
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
@@ -128,19 +130,13 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 fB.setVisibility(View.GONE);
             }
         });
+
+        administrador_wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+
         comprobarClicks();
 
 
-
-
     }
-
-
-    /* @Override
-    protected void onRestart() {
-        super.onRestart();
-        comprobarPreferencias();
-    }*/
 
     @Override
     protected void onResume() {
@@ -459,27 +455,9 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     }
 
 
-
-    public void notification(String titulo,String contenido){
-
-        Notification.Builder n = new Notification.Builder(this);
-        n.setContentTitle(titulo);
-        n.setContentText(contenido);
-        n.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        n.setSmallIcon(R.mipmap.ic_launcher);
-        n.setDefaults(Notification.DEFAULT_VIBRATE);
-        n.setDefaults(Notification.DEFAULT_SOUND) ;
-
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(0,n.build());
-    }
-
     public void comprobarPreferencias(){
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if(pref!=null){
-            if(pref.getBoolean("notificaciones",false)){
-                notification("NOTIFICACION","Bienvenido a nuestra app, en este mapa puedes podras añadir incidentes cercanos a tu localizacion");
-            }
             switch(pref.getString("cambiarVista","")){
                 case "normal":
                     mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -490,6 +468,9 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 case "hibrida":
                     mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                     break;
+            }
+            if(pref.getBoolean("accederWifi",false)){
+                administrador_wifi.setWifiEnabled(!administrador_wifi.isWifiEnabled());
             }
         }
     }
