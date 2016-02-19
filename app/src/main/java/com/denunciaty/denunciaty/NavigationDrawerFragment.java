@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
+import com.denunciaty.denunciaty.JavaClasses.Usuario;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.maps.GoogleMap;
 
@@ -80,6 +81,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    TextView usu,em;
+
+    Usuario usuario=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
         bbdd = new SQLite(getActivity().getApplicationContext());
         bbdd.open();
+        usuario = bbdd.recuperarUsuario();
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -108,8 +113,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDrawerList.setLayoutManager(layoutManager);
         mDrawerList.setHasFixedSize(true);
-        //setUserData("Denunciaty","denunciaty.florida@gmail.com",R.mipmap.avatar);
-
+        usu = (TextView)view.findViewById(R.id.txtUsername);
+        usu.setText(usuario.getNombre_usuario());
+        em = (TextView)view.findViewById(R.id.txtUserEmail);
+        em.setText(usuario.getEmail());
         final List<NavigationItem> navigationItems = getMenu();
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(navigationItems);
         adapter.setNavigationDrawerCallbacks(this);
@@ -258,12 +265,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         mActionBarDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void setUserData(String user, String email, Bitmap avatar) {
-        ImageView avatarContainer = (ImageView) mFragmentContainerView.findViewById(R.id.iv_avatar);
+   /* public void setUserData(String user, String email) {
         ((TextView) mFragmentContainerView.findViewById(R.id.txtUserEmail)).setText(email);
         ((TextView) mFragmentContainerView.findViewById(R.id.txtUsername)).setText(user);
-        avatarContainer.setImageDrawable(new RoundImage(avatar));
-    }
+    }*/
 
     public View getGoogleDrawer() {
         return mFragmentContainerView.findViewById(R.id.googleDrawer);
