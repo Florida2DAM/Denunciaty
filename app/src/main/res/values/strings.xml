@@ -164,6 +164,8 @@
     <string name="MisReportes">Mis reportes</string>
     <string name="TodosLosReportes">Todos los reportes</string>
     <string name="Lista">lista</string>
+    <string name="QuienesSomos">¿QUIENES SOMOS?</string>
+    <string name="txtQuienesSomos">Somos un grupo de estudiantes que nos hemos dedicado a hacer esta app para poder mejorar el entorno que nos rodea. Queremos poder denunciar cualquier tipo de desperfecto que haya en la calle y ponernos en contacto con aquellas instituciones que puedan solucionarlos.</string>
 
 
 </resources>

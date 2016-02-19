@@ -39,9 +39,9 @@
             android:entryValues="@array/codigo_vistas" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="¿QUIENES SOMOS?">
+    <PreferenceCategory android:title="@string/QuienesSomos">
        <Preference
-           android:summary="Somos un grupo de estudiantes que nos hemos dedicado a hacer esta app para poder mejorar el entorno que nos rodea. Queremos poder denunciar cualquier tipo de desperfecto que haya en la calle y ponernos en contacto con aquellas instituciones que puedan solucionarlos."/>
+           android:summary="@string/txtQuienesSomos"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="ACERCA DE NOSOTROS">
