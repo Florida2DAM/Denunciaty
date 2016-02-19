@@ -40,16 +40,14 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/QuienesSomos">
-       <Preference
-           android:summary="@string/txtQuienesSomos"/>
+         <PreferenceScreen
+           android:key="button_voicemail_category_key"
+           android:title="@string/Conocenos"
+           android:persistent="false">
+             <Preference android:summary="@string/txtQuienesSomos"/>
+         </PreferenceScreen>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="ACERCA DE NOSOTROS">
-        <Preference  android:title = "Conocenos"  >
-            <intent  android:action = "android.intent.action.VIEW"
-                android:data = "https://docs.google.com/document/d/1G1Z2gWwBZg9mZnBpi2JRSBpN0hmE_7QrGv2WCq9Tt3o/edit"  />
-        </Preference>
-    </PreferenceCategory>
 
 
 </PreferenceScreen>
