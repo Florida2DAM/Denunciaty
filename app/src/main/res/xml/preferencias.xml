@@ -44,7 +44,9 @@
            android:key="button_voicemail_category_key"
            android:title="@string/Conocenos"
            android:persistent="false">
-             <Preference android:summary="@string/txtQuienesSomos"/>
+             <PreferenceCategory android:title="@string/QuienesSomos">
+                 <Preference android:summary="@string/txtQuienesSomos"/>
+             </PreferenceCategory>
          </PreferenceScreen>
     </PreferenceCategory>
 
