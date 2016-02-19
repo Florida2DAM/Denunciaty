@@ -18,9 +18,9 @@ public class ReporteActivity extends AppCompatActivity {
 
     Toolbar tB;
     View cardView;
-    TextView descripcionTV,ubicacionTV,tipoTV;
+    TextView descripcionTV,ubicacionTV,tipoTV,textDenunciado;
     FloatingActionButton shareButton;
-    String descripcion, ubicacion, tipo,titulo;
+    String descripcion, ubicacion, tipo,titulo,usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class ReporteActivity extends AppCompatActivity {
         descripcionTV = (TextView) cardView.findViewById(R.id.descripcionTV);
         ubicacionTV = (TextView) cardView.findViewById(R.id.ubicacionTV);
         tipoTV = (TextView) cardView.findViewById(R.id.tipoTV);
+        textDenunciado = (TextView)cardView.findViewById(R.id.textDenunciado);
 
         Bundle b = getIntent().getExtras();
         if(b!=null){
@@ -42,9 +43,40 @@ public class ReporteActivity extends AppCompatActivity {
             ubicacion = b.getString("ubicacionIntent");
             tipo = b.getString("tipoIntent");
             titulo = b.getString("tituloIntent");
-            descripcionTV.setText(titulo);
+            usuario = b.getString("usuario");
+
+            textDenunciado.setText(usuario);
+            descripcionTV.setText(descripcion);
             ubicacionTV.setText(ubicacion);
-            tipoTV.setText(tipo);
+            switch (tipo) {
+                case "0":
+                    tipoTV.setText("Limpieza");
+                    break;
+                case "1":
+                    tipoTV.setText("Señalización");
+                    break;
+                case "2":
+                    tipoTV.setText("Vehículo");
+                    break;
+                case "3":
+                    tipoTV.setText("Iluminación");
+                    break;
+                case "4":
+                    tipoTV.setText("Mobiliario");
+                    break;
+                case "5":
+                    tipoTV.setText("Vía Pública");
+                    break;
+                case "6":
+                    tipoTV.setText("Arbolada");
+                    break;
+                case "7":
+                    tipoTV.setText("Transporte Público");
+                    break;
+                case "8":
+                    tipoTV.setText("Otros");
+                    break;
+            }
             getSupportActionBar().setTitle(titulo);
         }
 

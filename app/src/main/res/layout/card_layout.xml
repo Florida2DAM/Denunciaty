@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/descripcion"
+                android:text="Descripción"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/ubicacion"
+                android:text="Ubicación"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/tipo"
+                android:text="Tipo"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/denunciadoPor"
+                android:text="Denunciado por:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView

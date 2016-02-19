@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.denunciaty.denunciaty.JavaClasses.AdaptadorSpinner;
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
+import com.denunciaty.denunciaty.JavaClasses.SQLite;
+import com.denunciaty.denunciaty.JavaClasses.Usuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,12 +36,21 @@ import io.fabric.sdk.android.services.network.HttpRequest;
 public class MisReportesActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
     ListView lV;
     ArrayList<Reporte> reportes;
+    private SQLite bbdd;
+    Usuario usuario=null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_reportes);
         lV = (ListView) findViewById(R.id.listView);
+
+        //Recogemos usuario
+        bbdd = new SQLite(getApplicationContext());
+        bbdd.open();
+        usuario = bbdd.recuperarUsuario();
 
         //navigation drawer
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
@@ -75,7 +86,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
             try {
                 numID_usuario=13;
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
-                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/reps/17").openConnection();
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/reps/"+usuario.getId()).openConnection();
                 //con.setReadTimeout(10000);
                 //con.setConnectTimeout(15000);
                 connection.setRequestMethod("GET");
@@ -152,6 +163,7 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
                 i.putExtra("ubicacionIntent",repSeleccionado.getUbicacion());
                 i.putExtra("tipoIntent",repSeleccionado.getTipoIncidente());
                 i.putExtra("solIntent",repSeleccionado.isSolucionado());
+                i.putExtra("usuario",usuario.getNombre_usuario());
                 startActivity(i);
             }
         });
