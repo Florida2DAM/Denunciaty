@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -25,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.denunciaty.denunciaty.JavaClasses.PuntoAcceso;
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
@@ -52,12 +53,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
     private SQLite bbdd;
-    private Boolean mostrados=true;
     FloatingActionButton fB;
     Toolbar tbReporte;
     ImageView iVReporte;
@@ -66,9 +67,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng valencia = new LatLng(39.4699075, -0.376288);
     ArrayList<Reporte> reportes;
-    ArrayList<PuntoAcceso> puntosAcceso;
     Usuario usuario=null;
-    ArrayList<Marker> limpieza,senyalizacion,vehiculo,via_publica,transporte,iluminacion,mobiliario,arbolado,otros,puntosMarker;
+    ArrayList<Marker> limpieza,senyalizacion,vehiculo,via_publica,transporte,iluminacion,mobiliario,arbolado,otros;
     String id_selec;
     Context wrapper;
     WifiManager administrador_wifi;
@@ -101,7 +101,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         mobiliario = new ArrayList<Marker>();
         arbolado = new ArrayList<Marker>();
         otros = new ArrayList<Marker>();
-        puntosMarker = new ArrayList<Marker>();
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
 
         //Recupero al usuario logueado
@@ -167,7 +166,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
         new CargarMarcadoresMapa().execute();
-        new CargarPuntosAcceso().execute();
     }
 
     private class CargarMarcadoresMapa extends AsyncTask<Void,Void,List<Reporte>>{
@@ -290,79 +288,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         }
     }
 
-    private class CargarPuntosAcceso extends AsyncTask<Void,Void,List<PuntoAcceso>>{
-
-        @Override
-        protected List<PuntoAcceso> doInBackground(Void... params) {
-            InputStream iS = null;
-            String data = "";
-            try {
-                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
-                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/index/puntos").openConnection();
-                //con.setReadTimeout(10000);
-                //con.setConnectTimeout(15000);
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Authorization", "Basic " + encoded);
-                connection.setDoInput(true);
-                connection.connect();
-
-                iS = new BufferedInputStream(connection.getInputStream());
-                connection.getResponseCode();
-                if (iS != null) {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
-                    String line = "";
-
-                    while ((line = bufferedReader.readLine()) != null)
-                        data += line;
-                }
-                iS.close();
-                puntosAcceso = parseaPuntosJSON(data);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (iS != null) {
-                    try {
-                        iS.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            return puntosAcceso;
-        }
-
-        @Override
-        protected void onPostExecute(final List<PuntoAcceso> puntos) {
-            super.onPostExecute(puntos);
-            for (final PuntoAcceso punto: puntos) {
-                LatLng posicion = new LatLng(punto.getLatitud(),punto.getLongitud());
-                Marker m;
-                m =mMap.addMarker(new MarkerOptions().position(posicion).title(punto.getDescripcion())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.wifi)));
-                puntosMarker.add(m);
-            }
-        }
-    }
-
-    public ArrayList<PuntoAcceso> parseaPuntosJSON(String s){
-        ArrayList<PuntoAcceso>puntos= new ArrayList<PuntoAcceso>();
-        try {
-            JSONArray json = new JSONArray(s);
-            for(int i=0;i < json.length();i++) {
-                JSONObject e = json.getJSONObject(i);
-                String descripcion = e.getString("descripcion");
-                Double latitud = e.getDouble("latitud");
-                Double longitud = e.getDouble("longitud");
-                PuntoAcceso puntoAcceso = new PuntoAcceso(i,descripcion,latitud,longitud);
-                puntos.add(puntoAcceso);
-            }
-            return puntos;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return puntos;
-    }
-
     public static int getImageId(Context context, String imageName) {
         return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
@@ -455,6 +380,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     }
 
 
+
     public void comprobarPreferencias(){
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         if(pref!=null){
@@ -467,6 +393,20 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                     break;
                 case "hibrida":
                     mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                    break;
+            }
+            switch(pref.getString("cambiarIdioma","")){
+                case "ingles":
+                    changeLocale(getResources(),"en-US");
+                    //Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
+                    break;
+                case "valenciano":
+                    changeLocale(getResources(),"ca");
+                    //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a valenciano",Toast.LENGTH_SHORT).show();
+                    break;
+                case "castellano":
+                    changeLocale(getResources(),"");
+                    //Toast.makeText(getApplicationContext(),"Has cambiado el idioma a español",Toast.LENGTH_SHORT).show();
                     break;
             }
             if(pref.getBoolean("accederWifi",false)){
@@ -966,24 +906,25 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 }
                 Log.d("Reporte","Todos");
                 break;
-            case R.id.accesos:
-                if(!mostrados){
-                    for (Marker m:puntosMarker){
-                        if (m!=null){
-                            m.setVisible(true);
-                        }
-                    }
-                    mostrados=true;
-                }
-                if (mostrados==true) {
-                    for (Marker m : puntosMarker) {
-                        if (m != null) {
-                            m.setVisible(false);
-                        }
-                        mostrados = false;
-                    }
-                }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void changeLocale(Resources res,String locale){
+        Configuration config;
+        config = new Configuration(res.getConfiguration());
+
+        switch (locale) {
+            case "ca":
+                config.locale = new Locale("ca");
+                break;
+            case "en-US":
+                config.locale = new Locale("en-US");
+                break;
+            default:
+                config.locale = new Locale("");
+                break;
+        }
+        res.updateConfiguration(config, res.getDisplayMetrics());
     }
 }
