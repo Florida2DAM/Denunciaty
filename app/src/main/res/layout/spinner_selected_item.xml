@@ -21,6 +21,6 @@
         android:layout_alignBottom="@+id/icono"
         android:layout_marginLeft="10dp"
         android:singleLine="true"
-        android:textColor="#ACECB2"
+        android:textColor="#FFFFFF"
         android:textSize="17sp"/>
     </RelativeLayout>

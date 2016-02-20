@@ -33,7 +33,7 @@
                 tools:context="com.denunciaty.denunciaty.PrincipalActivity" />
 
             <android.support.v7.widget.Toolbar
-                android:background="#66224562"
+                android:background="#59224562"
                 android:id="@+id/rep_tb"
                 android:visibility="invisible"
                 android:layout_gravity="center_horizontal|start"
@@ -58,14 +58,14 @@
                         android:paddingLeft="8dp"
                         android:text="@string/tituloReporte"
                         android:textSize="15dp"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:id="@+id/tv_reporte_ub"
                         android:paddingLeft="8dp"
                         android:text="@string/ubicacionReporte"
-                        android:textColor="@android:color/darker_gray"
+                        android:textColor="@android:color/white"
                         android:layout_marginTop="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -80,7 +80,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
                 android:src="@android:drawable/ic_input_add"
-                app:backgroundTint="#6071C2" />
+                app:backgroundTint="#224562" />
 
         </FrameLayout>
     </LinearLayout>
