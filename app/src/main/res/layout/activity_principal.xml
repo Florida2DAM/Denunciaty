@@ -33,7 +33,7 @@
                 tools:context="com.denunciaty.denunciaty.PrincipalActivity" />
 
             <android.support.v7.widget.Toolbar
-                android:background="#59224562"
+                android:background="#CC363636"
                 android:id="@+id/rep_tb"
                 android:visibility="invisible"
                 android:layout_gravity="center_horizontal|start"

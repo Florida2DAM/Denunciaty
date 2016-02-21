@@ -71,6 +71,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     String id_selec;
     Context wrapper;
     WifiManager administrador_wifi;
+    Boolean accesosMostrados = false;
 
     HashMap<String, String[]> haspMap = new HashMap <String, String[]>();
     private CameraPosition posicionCamara  = new CameraPosition.Builder().target(valencia)
@@ -218,6 +219,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                 m =mMap.addMarker(new MarkerOptions().position(posicion).title(punto.getDescripcion())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.wifi)));
                 puntosMarkers.add(m);
+                m.setVisible(false);
             }
             new CargarMarcadoresMapa().execute();
         }
@@ -982,6 +984,20 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                     }
                 }
                 Log.d("Reporte","Todos");
+                break;
+            case R.id.accesos:
+                if (!accesosMostrados){
+                    for (Marker m:puntosMarkers){
+                        m.setVisible(true);
+                    }
+                    accesosMostrados = true;
+                }else{
+                    for (Marker m:puntosMarkers){
+                        m.setVisible(false);
+                    }
+                    accesosMostrados = false;
+                }
+
                 break;
         }
         return super.onOptionsItemSelected(item);
