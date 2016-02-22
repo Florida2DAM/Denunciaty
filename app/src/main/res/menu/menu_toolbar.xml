@@ -42,8 +42,6 @@
         <item android:id="@+id/accesos"
             android:icon="@drawable/wifi"
             android:title="@string/AccesoWifi"/>
-        <item android:id="@+id/misReportes"
-            android:title="@string/MisReportes"/>
         <item android:id="@+id/todos"
             android:title="@string/TodosLosReportes"/>
     </menu>

@@ -136,7 +136,11 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
                             Bitmap bMap = BitmapFactory.decodeFile(
                                     Environment.getExternalStorageDirectory() +
                                             "/DenunciatyPics/"+((Reporte) entrada).getTitulo()+ ".jpg");
-                            iV.setImageBitmap(bMap);
+                            if(bMap==null) {
+                                iV.setImageResource(R.mipmap.ic_launcher);
+                            }else{
+                                iV.setImageBitmap(bMap);
+                            }
                         }
                         TextView titulo = (TextView) view.findViewById(R.id.tituloTV);
                         if (titulo != null) {

@@ -1,6 +1,8 @@
 package com.denunciaty.denunciaty;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -22,7 +24,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.PuntoAcceso;
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
@@ -139,6 +140,20 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
     }
 
     @Override
+    public void onBackPressed() {
+        Log.d("Salir","Salimos de la aplicaçao");
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(PrincipalActivity.this);
+        dialogo1.setTitle(R.string.alerta);
+        dialogo1.setMessage(R.string.estasSeguro);
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton(R.string.confirmar, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                finish();
+            }
+        });
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
@@ -168,6 +183,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
         new CargarPuntosAcceso().execute();
     }
+
+
 
     private class CargarPuntosAcceso extends AsyncTask<Void,Void,List<PuntoAcceso>>{
 
@@ -994,7 +1011,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                     }
                     accesosMostrados = false;
                 }
-
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -1017,4 +1033,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         }
         res.updateConfiguration(config, res.getDisplayMetrics());
     }
+
+
 }
