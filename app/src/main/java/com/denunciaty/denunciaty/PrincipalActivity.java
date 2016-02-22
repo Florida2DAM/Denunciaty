@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.PuntoAcceso;
 import com.denunciaty.denunciaty.JavaClasses.Reporte;
@@ -410,7 +409,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
                         intent.putExtra("ubicacionIntent",rep.getUbicacion());
                         intent.putExtra("tipoIntent",rep.getTipoIncidente());
                         intent.putExtra("solIntent",rep.isSolucionado());
-                        intent.putExtra("usuario",usuario.getNombre_usuario());
+                        intent.putExtra("usuario",rep.getUsuario_id());
                         startActivity(intent);
                     }
                 }

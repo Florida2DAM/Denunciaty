@@ -1,8 +1,11 @@
 package com.denunciaty.denunciaty;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -130,7 +133,10 @@ public class MisReportesActivity extends AppCompatActivity implements Navigation
                     if (entrada != null) {
                         ImageView iV = (ImageView) view.findViewById(R.id.iV);
                         if (iV != null) {
-                            iV.setImageResource(((Reporte) entrada).getImagen());
+                            Bitmap bMap = BitmapFactory.decodeFile(
+                                    Environment.getExternalStorageDirectory() +
+                                            "/DenunciatyPics/"+((Reporte) entrada).getTitulo()+ ".jpg");
+                            iV.setImageBitmap(bMap);
                         }
                         TextView titulo = (TextView) view.findViewById(R.id.tituloTV);
                         if (titulo != null) {

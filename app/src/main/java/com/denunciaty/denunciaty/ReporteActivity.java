@@ -3,6 +3,7 @@ package com.denunciaty.denunciaty;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import io.fabric.sdk.android.services.network.HttpRequest;
+
 public class ReporteActivity extends AppCompatActivity {
 
     Toolbar tB;
@@ -19,7 +33,8 @@ public class ReporteActivity extends AppCompatActivity {
     ImageView img;
     TextView descripcionTV,ubicacionTV,tipoTV,textDenunciado;
     FloatingActionButton shareButton;
-    String descripcion, ubicacion, tipo,titulo,usuario;
+    String descripcion, ubicacion, tipo,titulo;
+    Integer usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +57,7 @@ public class ReporteActivity extends AppCompatActivity {
             ubicacion = b.getString("ubicacionIntent");
             tipo = b.getString("tipoIntent");
             titulo = b.getString("tituloIntent");
-            usuario = b.getString("usuario");
+            usuario = b.getInt("usuario");
             Bitmap bMap = BitmapFactory.decodeFile(
                     Environment.getExternalStorageDirectory() +
                             "/DenunciatyPics/" + titulo + ".jpg");
@@ -51,9 +66,9 @@ public class ReporteActivity extends AppCompatActivity {
             }else{
                 img.setImageBitmap(bMap);
             }
-            textDenunciado.setText(usuario);
             descripcionTV.setText(descripcion);
             ubicacionTV.setText(ubicacion);
+            new GetUsuarioNombre().execute(usuario);
             switch (tipo) {
                 case "0":
                     tipoTV.setText("Limpieza");
@@ -104,6 +119,67 @@ public class ReporteActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private class GetUsuarioNombre extends AsyncTask<Integer,Void,String>{
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            InputStream iS = null;
+            String data = "";
+
+            try {
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL("http://denunciaty.florida.com.mialias.net/api/usuario/datos/"+params[0].toString()).openConnection();
+                //con.setReadTimeout(10000);
+                //con.setConnectTimeout(15000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+                iS.close();
+                String nombreUsuario = JSONUsuario(data);
+                return nombreUsuario;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            textDenunciado.setText(s);
+        }
+    }
+
+    public String JSONUsuario(String s){
+        String nombre_usuario="";
+        try {
+            JSONObject e = new JSONObject(s);
+            nombre_usuario= e.getString("nombre_usuario");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return nombre_usuario;
     }
 
     public void onBackPressed(){
