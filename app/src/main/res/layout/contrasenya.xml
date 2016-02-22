@@ -17,7 +17,8 @@
         android:ems="10"
         android:id="@+id/et_passAntigua"
         android:hint="@string/contrAntigua"
-        android:textColor="#010101" />
+        android:textColor="#010101"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -26,7 +27,8 @@
         android:ems="10"
         android:id="@+id/et_passNueva"
         android:hint="@string/ContrNueva"
-        android:textColor="#010101" />
+        android:textColor="#010101"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -35,6 +37,7 @@
         android:ems="10"
         android:id="@+id/et_passNuevaRepite"
         android:hint="@string/ContrNueva2"
-        android:textColor="#010101" />
+        android:textColor="#010101"
+        android:singleLine="true" />
 
 </LinearLayout>
