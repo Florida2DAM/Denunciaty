@@ -30,6 +30,7 @@ import android.widget.Toast;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,6 +41,7 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.services.network.HttpRequest;
@@ -143,7 +145,31 @@ public class RegistroAppActivity extends Activity {
 
         if (requestCode == ACTIVITY_SELECT_IMAGE){
             Uri path = data.getData();
-            imagen.setImageURI(path);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
+
+                String root = Environment.getExternalStorageDirectory().toString();
+                File myDir = new File(root + "/DenunciatyProfile");
+                myDir.mkdirs();
+                String fname = "perfil.jpg";
+                File file = new File (myDir, fname);
+
+
+                FileOutputStream out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            Bitmap bMap = BitmapFactory.decodeFile(
+                    Environment.getExternalStorageDirectory() +
+                            "/DenunciatyProfile/" + "perfil.jpg");
+            //Añadimos el bitmap al imageView para
+            //mostrarlo por pantalla
+            imagen.setImageBitmap(bMap);
         }
     }
 
