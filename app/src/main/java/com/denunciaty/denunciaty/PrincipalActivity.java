@@ -475,7 +475,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
             }
             switch(pref.getString("cambiarIdioma","")){
                 case "ingles":
-                    changeLocale(getResources(),"en-US");
+                    changeLocale(getResources(),"en");
                     //Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
                     break;
                 case "valenciano":

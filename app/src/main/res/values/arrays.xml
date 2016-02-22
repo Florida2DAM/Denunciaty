@@ -8,9 +8,9 @@
     </string-array>
 
     <string-array name="codigo_vistas">
-        <item> Normal</item>
-        <item> Satelite</item>
-        <item> Hibrida</item>
+        <item> normal</item>
+        <item> satelite</item>
+        <item> hibrida</item>
     </string-array>
 
     <string-array name="idiomas">
@@ -20,9 +20,9 @@
     </string-array>
 
     <string-array name="codigo_idiomas">
-        <item >Castellano</item>
-        <item >Ingles</item>
-        <item >Valenciano</item>
+        <item >castellano</item>
+        <item >ingles</item>
+        <item >valenciano</item>
     </string-array>
 
 

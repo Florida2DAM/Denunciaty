@@ -62,7 +62,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
 
-    public void comprobarPreferencias(){}
+    public void comprobarPreferencias(){
+
+    }
 
     private void registrarPrefs(String key){
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
