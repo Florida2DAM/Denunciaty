@@ -61,6 +61,9 @@
     <string name="descripcion_fragment_addreporte">Descripción</string>
     <string name="ubicacion_fragment_addreporte">Ubicación</string>
     <string name="publicar_reporte_fragment_addreporte">Publicar reporte</string>
+    <string name="toast_falta_texto">Ha dejado campos vacíos</string>
+
+
 
     <!-- Navigation Drawer Fragments -->
     <string name="buscar_navigation">Buscar</string>
