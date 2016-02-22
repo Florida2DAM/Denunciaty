@@ -174,7 +174,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
             @Override
             public void onClick(View v) {
                 if(et_titulo.getText().toString().equals("") || et_descripcion.getText().toString().equals("")){
-                    Toast.makeText(getActivity().getApplicationContext(), "Ha dejado campos vacíos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.toast_falta_texto, Toast.LENGTH_SHORT).show();
                 }else{
                     mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                             mGoogleApiClient);

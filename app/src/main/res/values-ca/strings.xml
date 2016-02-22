@@ -80,6 +80,10 @@
     <string name="descripcion_fragment_addreporte">Descripció</string>
     <string name="ubicacion_fragment_addreporte">Ubicació</string>
     <string name="publicar_reporte_fragment_addreporte">Publicar report</string>
+    <string name="toast_falta_texto">Has deixat camps buits</string>
+
+
+
 
     <!-- Navigation Drawer Fragments -->
     <string name="buscar_navigation">Buscar</string>
