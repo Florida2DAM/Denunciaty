@@ -477,15 +477,12 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
             switch(pref.getString("cambiarIdioma","")){
                 case "ingles":
                     changeLocale(getResources(),"en");
-                    Toast.makeText(getApplicationContext(), "Has cambiado el idioma a ingles", Toast.LENGTH_SHORT).show();
                     break;
                 case "valenciano":
                     changeLocale(getResources(),"ca");
-                    Toast.makeText(getApplicationContext(),"Has cambiado el idioma a valenciano",Toast.LENGTH_SHORT).show();
                     break;
                 case "castellano":
                     changeLocale(getResources(),"");
-                    Toast.makeText(getApplicationContext(),"Has cambiado el idioma a español",Toast.LENGTH_SHORT).show();
                     break;
             }
             if(pref.getBoolean("accederWifi",false)){
