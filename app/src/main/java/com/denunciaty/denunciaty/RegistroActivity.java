@@ -73,6 +73,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
     Boolean enEjecucion=true;
     DescargaImagenTask descarga;
     ImageView image;
+    Boolean google = false;
 
 
     @Override
@@ -200,13 +201,13 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             email = acct.getEmail();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
 
-            descarga = new DescargaImagenTask();
+            /*descarga = new DescargaImagenTask();
             descarga.execute();
             int i=0;
             while(!enEjecucion) {
 
             }
-            Log.d("Imagen",imagen_comprimida);
+            Log.d("Imagen",imagen_comprimida);*/
             new usuarioRRSS().execute();
         }
     }
@@ -381,22 +382,30 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 Log.d("Usuario", nombre + "-" + apellidos + "-" + nombre_usuario + "-" + emailUser + "-" + password + "-" + foto + "-"
                         + ingreso + "-" + localidad + "-" + id);
 
-                //Comprobamos pass
-                passBBDD = usuario.getPassword();
-
-                if (compruebaContraseña(passBBDD, passInput)) {
-
-                    bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
-
-                    bbdd.logueado("true");
-
+                if(google){
                     Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
-                    //i.putExtra("usuario", usuario);
                     startActivity(i);
                     finish();
-                } else {
-                    Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
+                    google = false;
+                }else{
+                    //Comprobamos pass
+                    passBBDD = usuario.getPassword();
+
+                    if (compruebaContraseña(passBBDD, passInput)) {
+
+                        bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
+
+                        bbdd.logueado("true");
+
+                        Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+                        //i.putExtra("usuario", usuario);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Toast.makeText(RegistroActivity.this, "La dirección de correo y contraseña no coinciden", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -474,7 +483,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/n/u/"+email2+"/n/"+imagen_comprimida+"/0/n").openConnection();
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/n/u/"+email2+"/n/0/0/n").openConnection();
                 Log.d("URL",""+connection);
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Authorization", "Basic " + encoded);
@@ -511,7 +520,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
         @Override
         protected void onPostExecute(String aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("Ole", imagen_comprimida);
+            google = true;
+            new UsuariosTask().execute(email);
+
+            /*Log.d("Ole", imagen_comprimida);
 
 
             String putaMadre = imagen_comprimida.replace("-","+").replace("_","/").replace(",", "=");
@@ -520,7 +532,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             byte[] imageAsBytes = Base64.decode(putaMadre.getBytes(), Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             Bitmap imagen = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
-            image.setImageBitmap(imagen);
+            image.setImageBitmap(imagen);*/
 
         }
     }

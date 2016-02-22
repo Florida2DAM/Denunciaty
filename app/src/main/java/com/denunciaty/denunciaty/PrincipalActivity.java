@@ -108,7 +108,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
         bbdd = new SQLite(getApplicationContext());
         bbdd.open();
         usuario = bbdd.recuperarUsuario();
-        Toast.makeText(PrincipalActivity.this, usuario.getId(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(PrincipalActivity.this, usuario.getId(), Toast.LENGTH_SHORT).show();
         //if(usuario==null) {
           //  usuario = (Usuario) getIntent().getExtras().getSerializable("usuario");
         //}

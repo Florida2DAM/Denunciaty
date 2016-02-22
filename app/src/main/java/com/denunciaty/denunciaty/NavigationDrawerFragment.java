@@ -306,7 +306,6 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                 //Settings Activity
                 Intent i3 = new Intent(getActivity(),SettingsActivity.class);
                 startActivity(i3);
-                getActivity().finish();
                 break;
             case 4:
                 //Cerrar Sesion
