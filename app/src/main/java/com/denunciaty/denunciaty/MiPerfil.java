@@ -101,7 +101,12 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
 
         foto = (CircleImageView) findViewById(R.id.iv_avatar);
         foto.setEnabled(false);
-        //foto.setText(usuario.getFoto());
+        Bitmap bMap = BitmapFactory.decodeFile(
+                Environment.getExternalStorageDirectory() +
+                        "/DenunciatyProfile/" + "perfil.jpg");
+        //Añadimos el bitmap al imageView para mostrarlo por pantalla
+        foto.setImageBitmap(bMap);
+
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
