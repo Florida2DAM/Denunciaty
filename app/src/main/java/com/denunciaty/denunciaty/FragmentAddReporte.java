@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
 import com.denunciaty.denunciaty.JavaClasses.Usuario;
@@ -172,18 +173,22 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
         bt_publicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                        mGoogleApiClient);
+                if(et_titulo.getText().toString().equals("") || et_descripcion.getText().toString().equals("")){
+                    Toast.makeText(getActivity().getApplicationContext(), "Ha dejado campos vacíos", Toast.LENGTH_SHORT).show();
+                }else{
+                    mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                            mGoogleApiClient);
 
-                //recogemos los datos introducidos
-                String titulo = et_titulo.getText().toString();
-                String descripcion = et_descripcion.getText().toString();
-                String tipo = String.valueOf(sp_tipo.getSelectedItemPosition());
-                Double latitud = mLastLocation.getLatitude();
-                Double longitud = mLastLocation.getLongitude();
-                String ubicacion = ubicacion(latitud,longitud);
+                    //recogemos los datos introducidos
+                    String titulo = et_titulo.getText().toString();
+                    String descripcion = et_descripcion.getText().toString();
+                    String tipo = String.valueOf(sp_tipo.getSelectedItemPosition());
+                    Double latitud = mLastLocation.getLatitude();
+                    Double longitud = mLastLocation.getLongitude();
+                    String ubicacion = ubicacion(latitud,longitud);
 
-                new CrearReporteTask().execute(titulo,descripcion,tipo,ubicacion,latitud.toString(),longitud.toString());
+                    new CrearReporteTask().execute(titulo,descripcion,tipo,ubicacion,latitud.toString(),longitud.toString());
+                }
             }
         });
 
