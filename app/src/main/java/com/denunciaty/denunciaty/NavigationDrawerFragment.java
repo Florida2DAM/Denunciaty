@@ -129,7 +129,8 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
                         "/DenunciatyProfile/" + "perfil.jpg");
         //Añadimos el bitmap al imageView para
         //mostrarlo por pantalla
-        image.setImageBitmap(bMap);
+        Bitmap bit = Bitmap.createScaledBitmap(bMap,100,100,false);
+        image.setImageBitmap(bit);
 
 
         final List<NavigationItem> navigationItems = getMenu();
