@@ -5,8 +5,13 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +31,7 @@ import com.denunciaty.denunciaty.JavaClasses.Usuario;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,6 +42,7 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallbacks {
@@ -43,7 +50,7 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
     private SQLite bbdd;
     Usuario usuario=null;
     EditText usu, nombre, apellido, email, localidad;
-    ImageView foto;
+    CircleImageView foto;
     Button guardar, cambiar_contraseña;
     String passInput_Antigua = null;
     String passInput_Nueva = null;
@@ -90,13 +97,48 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         localidad.setEnabled(false);
         localidad.setText(usuario.getLocalidad());
 
-        foto = (ImageView) findViewById(R.id.iv_avatar);
+        foto = (CircleImageView) findViewById(R.id.iv_avatar);
         foto.setEnabled(false);
         //foto.setText(usuario.getFoto());
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInputDialogFoto();
+                LayoutInflater layout = LayoutInflater.from(MiPerfil.this);
+                View view = layout.inflate(R.layout.elegir_foto, null);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiPerfil.this);
+                alertDialog.setView(view);
+
+                final Button hazfoto = (Button) view.findViewById(R.id.bt_hacerfoto);
+                hazfoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //imagen
+                        Intent cameraIntent = new Intent(
+                                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        //Creamos una carpeta en la memeria del terminal
+                        File imagesFolder = new File(
+                                Environment.getExternalStorageDirectory(), "DenuncityProfile");
+                        imagesFolder.mkdirs();
+                        //añadimos el nombre de la imagen
+                        File image = new File(imagesFolder, "perfil.jpg");
+                        Uri uriSavedImage = Uri.fromFile(image);
+                        //Le decimos al Intent que queremos grabar la imagen
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+                        //Lanzamos la aplicacion de la camara con retorno (forResult)
+                        startActivityForResult(cameraIntent, 1);
+                    }
+                });
+
+                final Button eligefoto = (Button) view.findViewById(R.id.bt_seleccionafoto);
+                eligefoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+                AlertDialog alert = alertDialog.create();
+                alert.show();
             }
         });
 
@@ -125,14 +167,19 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         });
     }
 
-    protected void showInputDialogFoto(){
-        LayoutInflater layout = LayoutInflater.from(MiPerfil.this);
-        View view = layout.inflate(R.layout.elegir_foto, null);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiPerfil.this);
-        alertDialog.setView(view);
-
-        AlertDialog alert = alertDialog.create();
-        alert.show();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            //Creamos un bitmap con la imagen recientemente
+            //almacenada en la memoria
+            Bitmap bMap = BitmapFactory.decodeFile(
+                    Environment.getExternalStorageDirectory() +
+                            "/DenunciatyPics/" + "perfil.jpg");
+            //Añadimos el bitmap al imageView para
+            //mostrarlo por pantalla
+            foto.setImageBitmap(bMap);
+        }
     }
 
     protected void showInputDialog(){

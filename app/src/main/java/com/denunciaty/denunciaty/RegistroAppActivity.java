@@ -41,11 +41,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.services.network.HttpRequest;
 
 public class RegistroAppActivity extends Activity {
 
-    ImageView imagen;
+    CircleImageView imagen;
     EditText usuario, nombre, apellidos, email, localidad, contraseña, repite_contraseña;
     Button enviar;
 
@@ -54,11 +55,46 @@ public class RegistroAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_app);
 
-        imagen = (ImageView) findViewById(R.id.iv_avatar);
+        imagen = (CircleImageView) findViewById(R.id.iv_avatar);
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInputDialogFoto();
+                LayoutInflater layout = LayoutInflater.from(RegistroAppActivity.this);
+                View view = layout.inflate(R.layout.elegir_foto, null);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroAppActivity.this);
+                alertDialog.setView(view);
+
+                final Button hazfoto = (Button) view.findViewById(R.id.bt_hacerfoto);
+                hazfoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //imagen
+                        Intent cameraIntent = new Intent(
+                                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        //Creamos una carpeta en la memeria del terminal
+                        File imagesFolder = new File(
+                                Environment.getExternalStorageDirectory(), "DenuncityProfile");
+                        imagesFolder.mkdirs();
+                        //añadimos el nombre de la imagen
+                        File image = new File(imagesFolder, "perfil.jpg");
+                        Uri uriSavedImage = Uri.fromFile(image);
+                        //Le decimos al Intent que queremos grabar la imagen
+                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+                        //Lanzamos la aplicacion de la camara con retorno (forResult)
+                        startActivityForResult(cameraIntent, 1);
+                    }
+                });
+
+                final Button eligefoto = (Button) view.findViewById(R.id.bt_seleccionafoto);
+                eligefoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+                AlertDialog alert = alertDialog.create();
+                alert.show();
             }
         });
 
@@ -82,6 +118,7 @@ public class RegistroAppActivity extends Activity {
         });
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -95,7 +132,6 @@ public class RegistroAppActivity extends Activity {
             //mostrarlo por pantalla
             imagen.setImageBitmap(bMap);
         }
-
     }
 
     //Comprueba que tenga todos los datos llenos
@@ -143,46 +179,6 @@ public class RegistroAppActivity extends Activity {
                     }
                 });
         AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    //Método para hacer una foto o elegir en la galeria
-    protected void showInputDialogFoto() {
-        LayoutInflater layout = LayoutInflater.from(RegistroAppActivity.this);
-        View view = layout.inflate(R.layout.elegir_foto, null);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroAppActivity.this);
-        alertDialog.setView(view);
-
-        final Button hazfoto = (Button) findViewById(R.id.bt_hacerfoto);
-        /*hazfoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //imagen
-                    Intent cameraIntent = new Intent(
-                            android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    //Creamos una carpeta en la memeria del terminal
-                    File imagesFolder = new File(
-                            Environment.getExternalStorageDirectory(), "Perfil");
-                    imagesFolder.mkdirs();
-                    //añadimos el nombre de la imagen
-                    File image = new File(imagesFolder, "perfil.jpg");
-                    Uri uriSavedImage = Uri.fromFile(image);
-                    //Le decimos al Intent que queremos grabar la imagen
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-                    //Lanzamos la aplicacion de la camara con retorno (forResult)
-                    startActivityForResult(cameraIntent, 1);
-                }
-            });*/
-
-        final Button eligefoto = (Button) findViewById(R.id.bt_seleccionafoto);
-        eligefoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-        AlertDialog alert = alertDialog.create();
         alert.show();
     }
 
