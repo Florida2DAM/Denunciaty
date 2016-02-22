@@ -146,10 +146,10 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
                         android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 //Creamos una carpeta en la memeria del terminal
                 File imagesFolder = new File(
-                        Environment.getExternalStorageDirectory(), "DenuncityPics");
+                        Environment.getExternalStorageDirectory(), "DenunciatyPics");
                 imagesFolder.mkdirs();
                 //añadimos el nombre de la imagen
-                File image = new File(imagesFolder, "foto.jpg");
+                File image = new File(imagesFolder, et_titulo.getText().toString()+".jpg");
                 Uri uriSavedImage = Uri.fromFile(image);
                 //Le decimos al Intent que queremos grabar la imagen
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
@@ -207,7 +207,7 @@ public class FragmentAddReporte extends Fragment implements GoogleApiClient.Conn
             //almacenada en la memoria
             Bitmap bMap = BitmapFactory.decodeFile(
                     Environment.getExternalStorageDirectory() +
-                            "/DenuncityPics/" + "foto.jpg");
+                            "/DenunciatyPics/" +et_titulo.getText()+".jpg");
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
             img_camara.setImageBitmap(bMap);

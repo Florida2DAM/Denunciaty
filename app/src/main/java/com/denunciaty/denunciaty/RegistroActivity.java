@@ -120,7 +120,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 // Remove toast and use the TwitterSession's userID
                 // with your app's user model
                 TwitterSession twitterSession = result.data;
-                Log.d("twitter",""+twitterSession.getUserId()+"-"+twitterSession.getUserName()+"-"+twitterSession.getId()+"-"+twitterSession.getAuthToken());
+                Log.d("twitter", "" + twitterSession.getUserId() + "-" + twitterSession.getUserName() + "-" + twitterSession.getId() + "-" + twitterSession.getAuthToken());
 
             }
 
@@ -157,6 +157,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 showInputDialog();
             }
         });
+
     }
 
     public void regitroApp() {
@@ -383,6 +384,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                         + ingreso + "-" + localidad + "-" + id);
 
                 if(google){
+                    bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
+
+                    bbdd.logueado("true");
+
                     Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
                     startActivity(i);
                     finish();
@@ -483,7 +488,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
                 String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
                 HttpURLConnection connection = (HttpURLConnection) new URL(
-                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/n/u/"+email2+"/n/0/0/n").openConnection();
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/n/"+nombre+"/"+email2+"/n/0/0/n").openConnection();
                 Log.d("URL",""+connection);
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Authorization", "Basic " + encoded);
