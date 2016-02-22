@@ -49,6 +49,10 @@ public class RegistroAppActivity extends Activity {
     CircleImageView imagen;
     EditText usuario, nombre, apellidos, email, localidad, contraseña, repite_contraseña;
     Button enviar;
+    View view;
+    AlertDialog alert;
+    private static final int ACTIVITY_SELECT_IMAGE = 1020;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +63,9 @@ public class RegistroAppActivity extends Activity {
         imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater layout = LayoutInflater.from(RegistroAppActivity.this);
-                View view = layout.inflate(R.layout.elegir_foto, null);
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroAppActivity.this);
+                final LayoutInflater layout = LayoutInflater.from(RegistroAppActivity.this);
+                view = layout.inflate(R.layout.elegir_foto, null);
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegistroAppActivity.this);
                 alertDialog.setView(view);
 
                 final Button hazfoto = (Button) view.findViewById(R.id.bt_hacerfoto);
@@ -73,7 +77,7 @@ public class RegistroAppActivity extends Activity {
                                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         //Creamos una carpeta en la memeria del terminal
                         File imagesFolder = new File(
-                                Environment.getExternalStorageDirectory(), "DenuncityProfile");
+                                Environment.getExternalStorageDirectory(), "DenunciatyProfile");
                         imagesFolder.mkdirs();
                         //añadimos el nombre de la imagen
                         File image = new File(imagesFolder, "perfil.jpg");
@@ -82,6 +86,7 @@ public class RegistroAppActivity extends Activity {
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
                         //Lanzamos la aplicacion de la camara con retorno (forResult)
                         startActivityForResult(cameraIntent, 1);
+                        alert.dismiss();
                     }
                 });
 
@@ -89,11 +94,14 @@ public class RegistroAppActivity extends Activity {
                 eligefoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, ACTIVITY_SELECT_IMAGE);
+                        alert.dismiss();
                     }
                 });
 
-                AlertDialog alert = alertDialog.create();
+                alert = alertDialog.create();
                 alert.show();
             }
         });
@@ -127,10 +135,15 @@ public class RegistroAppActivity extends Activity {
             //almacenada en la memoria
             Bitmap bMap = BitmapFactory.decodeFile(
                     Environment.getExternalStorageDirectory() +
-                            "/DenunciatyPics/" + "perfil.jpg");
+                            "/DenunciatyProfile/" + "perfil.jpg");
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
             imagen.setImageBitmap(bMap);
+        }
+
+        if (requestCode == ACTIVITY_SELECT_IMAGE){
+            Uri path = data.getData();
+            imagen.setImageURI(path);
         }
     }
 

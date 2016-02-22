@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -44,6 +46,8 @@ import com.google.android.gms.maps.GoogleMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -84,6 +88,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public TextView usu,em;
 
     Usuario usuario=null;
+    ImageView image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +122,16 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         usu.setText(usuario.getNombre_usuario());
         em = (TextView)view.findViewById(R.id.txtUserEmail);
         em.setText(usuario.getEmail());
+
+        image = (CircleImageView) view.findViewById(R.id.iv_avatar);
+        Bitmap bMap = BitmapFactory.decodeFile(
+                Environment.getExternalStorageDirectory() +
+                        "/DenunciatyProfile/" + "perfil.jpg");
+        //Añadimos el bitmap al imageView para
+        //mostrarlo por pantalla
+        image.setImageBitmap(bMap);
+
+
         final List<NavigationItem> navigationItems = getMenu();
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(navigationItems);
         adapter.setNavigationDrawerCallbacks(this);
