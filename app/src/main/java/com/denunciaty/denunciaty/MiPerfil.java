@@ -117,7 +117,7 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
                                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         //Creamos una carpeta en la memeria del terminal
                         File imagesFolder = new File(
-                                Environment.getExternalStorageDirectory(), "DenuncityProfile");
+                                Environment.getExternalStorageDirectory(), "DenunciatyProfile");
                         imagesFolder.mkdirs();
                         //añadimos el nombre de la imagen
                         File image = new File(imagesFolder, "perfil.jpg");
@@ -175,7 +175,7 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
             //almacenada en la memoria
             Bitmap bMap = BitmapFactory.decodeFile(
                     Environment.getExternalStorageDirectory() +
-                            "/DenunciatyPics/" + "perfil.jpg");
+                            "/DenunciatyProfile/" + "perfil.jpg");
             //Añadimos el bitmap al imageView para
             //mostrarlo por pantalla
             foto.setImageBitmap(bMap);
