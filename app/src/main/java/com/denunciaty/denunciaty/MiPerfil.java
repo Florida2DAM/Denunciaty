@@ -56,7 +56,8 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
     String passInput_Nueva = null;
     String passInput_Repetida = null;
     String antigua,nueva;
-
+    AlertDialog alert;
+    private static final int ACTIVITY_SELECT_IMAGE = 1020;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +104,9 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater layout = LayoutInflater.from(MiPerfil.this);
-                View view = layout.inflate(R.layout.elegir_foto, null);
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiPerfil.this);
+                final LayoutInflater layout = LayoutInflater.from(MiPerfil.this);
+                final View view = layout.inflate(R.layout.elegir_foto, null);
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MiPerfil.this);
                 alertDialog.setView(view);
 
                 final Button hazfoto = (Button) view.findViewById(R.id.bt_hacerfoto);
@@ -126,6 +127,7 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
                         //Lanzamos la aplicacion de la camara con retorno (forResult)
                         startActivityForResult(cameraIntent, 1);
+                        alert.dismiss();
                     }
                 });
 
@@ -133,11 +135,14 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
                 eligefoto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, ACTIVITY_SELECT_IMAGE);
+                        alert.dismiss();
                     }
                 });
 
-                AlertDialog alert = alertDialog.create();
+                alert = alertDialog.create();
                 alert.show();
             }
         });
@@ -171,14 +176,16 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            //Creamos un bitmap con la imagen recientemente
-            //almacenada en la memoria
+            //Creamos un bitmap con la imagen recientemente almacenada en la memoria
             Bitmap bMap = BitmapFactory.decodeFile(
                     Environment.getExternalStorageDirectory() +
                             "/DenunciatyProfile/" + "perfil.jpg");
-            //Añadimos el bitmap al imageView para
-            //mostrarlo por pantalla
+            //Añadimos el bitmap al imageView para mostrarlo por pantalla
             foto.setImageBitmap(bMap);
+        }
+        if (requestCode == ACTIVITY_SELECT_IMAGE){
+            Uri path = data.getData();
+            foto.setImageURI(path);
         }
     }
 
