@@ -8,21 +8,21 @@
     </string-array>
 
     <string-array name="codigo_vistas">
-        <item> normal</item>
-        <item> satelite</item>
-        <item> hibrida</item>
+        <item> Normal</item>
+        <item> Satelite</item>
+        <item> Hibrida</item>
     </string-array>
 
     <string-array name="idiomas">
-        <item >Espanyol</item>
+        <item >Español</item>
         <item >English</item>
         <item >Valencià</item>
     </string-array>
 
     <string-array name="codigo_idiomas">
-        <item >castellano</item>
-        <item >ingles</item>
-        <item >valenciano</item>
+        <item >Castellano</item>
+        <item >Ingles</item>
+        <item >Valenciano</item>
     </string-array>
 
 

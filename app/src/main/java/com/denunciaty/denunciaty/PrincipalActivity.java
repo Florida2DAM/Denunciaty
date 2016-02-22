@@ -1011,8 +1011,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationDr
             case "ca":
                 config.locale = new Locale("ca");
                 break;
-            case "en-US":
-                config.locale = new Locale("en-US");
+            case "en":
+                config.locale = new Locale("en");
                 break;
             default:
                 config.locale = new Locale("");
