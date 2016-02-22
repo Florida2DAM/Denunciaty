@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -39,6 +40,8 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -202,13 +205,12 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             email = acct.getEmail();
             Log.d("DATA", personName + "-" + email + "-" + urlImagen + "-" + idPlus);
 
-            /*descarga = new DescargaImagenTask();
+            descarga = new DescargaImagenTask();
             descarga.execute();
             int i=0;
             while(!enEjecucion) {
 
             }
-            Log.d("Imagen",imagen_comprimida);*/
             new usuarioRRSS().execute();
         }
     }
@@ -419,7 +421,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
     public class DescargaImagenTask extends AsyncTask<Void, Void, Void> {
         Bitmap imagenPerfil;
-        Bitmap imagen_pequenya;
+        //Bitmap imagen_pequenya;
         @Override
         protected Void doInBackground(Void... params) {
             InputStream iS = null;
@@ -434,9 +436,20 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 iS = con.getInputStream();
 
                 imagenPerfil = BitmapFactory.decodeStream(iS);
-                imagen_pequenya = Bitmap.createScaledBitmap(imagenPerfil, 10, 10, true);
-                imagen_comprimida = convertirBase64(imagen_pequenya);
-                Log.d("IMAGEN","Perfil:"+imagenPerfil+" Pequeña: "+imagen_pequenya+" Comprimida: "+imagen_comprimida);
+                String root = Environment.getExternalStorageDirectory().toString();
+                File myDir = new File(root + "/DenunciatyProfile");
+                myDir.mkdirs();
+                String fname = "perfil.jpg";
+                File file = new File (myDir, fname);
+
+
+                FileOutputStream out = new FileOutputStream(file);
+                imagenPerfil.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                out.flush();
+                out.close();
+                //imagen_pequenya = Bitmap.createScaledBitmap(imagenPerfil, 10, 10, true);
+                //imagen_comprimida = convertirBase64(imagen_pequenya);
+                //Log.d("IMAGEN","Perfil:"+imagenPerfil+" Pequeña: "+imagen_pequenya+" Comprimida: "+imagen_comprimida);
                 return null;
 
             } catch (IOException e) {
