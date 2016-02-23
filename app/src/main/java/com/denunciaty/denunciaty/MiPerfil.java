@@ -1,8 +1,6 @@
 package com.denunciaty.denunciaty;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,8 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.denunciaty.denunciaty.JavaClasses.SQLite;
@@ -321,8 +317,13 @@ public class MiPerfil extends AppCompatActivity implements NavigationDrawerCallb
         int id = item.getItemId();
         switch (id){
             case R.id.edita:
-                Log.d("Boton", "Edita");
-                cambiar_contraseña.setVisibility(View.VISIBLE);
+                Log.d("Boton", bbdd.recuperarGoogle());
+                if(bbdd.recuperarGoogle().equals("true")){
+                    cambiar_contraseña.setVisibility(View.INVISIBLE);
+
+                }else{
+                    cambiar_contraseña.setVisibility(View.VISIBLE);
+                }
                 guardar.setVisibility(View.VISIBLE);
                 usu.setEnabled(true);
                 nombre.setEnabled(true);

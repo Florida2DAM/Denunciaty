@@ -124,6 +124,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                 // with your app's user model
                 TwitterSession twitterSession = result.data;
                 Log.d("twitter", "" + twitterSession.getUserId() + "-" + twitterSession.getUserName() + "-" + twitterSession.getId() + "-" + twitterSession.getAuthToken());
+                new usuarioTwitter().execute(twitterSession.getUserName());
 
             }
 
@@ -386,9 +387,10 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
                         + ingreso + "-" + localidad + "-" + id);
 
                 if(google){
+                    Log.d("Si","Si");
                     bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
 
-                    bbdd.logueado("true");
+                    bbdd.logueado("true","true");
 
                     Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
                     startActivity(i);
@@ -402,7 +404,7 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
 
                         bbdd.usuario(id, nombre, apellidos, nombre_usuario, emailUser, password, foto, ingreso, localidad);
 
-                        bbdd.logueado("true");
+                        bbdd.logueado("true","false");
 
                         Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
                         //i.putExtra("usuario", usuario);
@@ -540,6 +542,73 @@ public class RegistroActivity extends FragmentActivity implements GoogleApiClien
             super.onPostExecute(aVoid);
             google = true;
             new UsuariosTask().execute(email);
+
+            /*Log.d("Ole", imagen_comprimida);
+
+
+            String putaMadre = imagen_comprimida.replace("-","+").replace("_","/").replace(",", "=");
+            Log.d("PutaMadre",""+putaMadre);
+
+            byte[] imageAsBytes = Base64.decode(putaMadre.getBytes(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            Bitmap imagen = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+            image.setImageBitmap(imagen);*/
+
+        }
+    }
+
+    public class usuarioTwitter extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            InputStream iS = null;
+            String data = "";
+
+            try {
+                String nombre = URLEncoder.encode(params[0], "UTF-8");
+
+                String encoded = HttpRequest.Base64.encode("denunc699" + ":" + "28WdV4Xq");
+                HttpURLConnection connection = (HttpURLConnection) new URL(
+                        "http://denunciaty.florida.com.mialias.net/api/usuario/nuevo/"+nombre+"/Apellidos/"+nombre+"/"+nombre+"/n/0/0/Localidad").openConnection();
+                Log.d("URL",""+connection);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Authorization", "Basic " + encoded);
+                connection.setDoInput(true);
+                connection.connect();
+
+                iS = new BufferedInputStream(connection.getInputStream());
+                connection.getResponseCode();
+                if (iS != null) {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iS));
+                    String line = "";
+
+                    while ((line = bufferedReader.readLine()) != null)
+                        data += line;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("Error","No se ha registrado");
+            } finally {
+                if (iS != null) {
+                    try {
+                        iS.close();
+                        return params[0];
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(String aVoid) {
+            super.onPostExecute(aVoid);
+            google = true;
+            new UsuariosTask().execute(aVoid);
 
             /*Log.d("Ole", imagen_comprimida);
 

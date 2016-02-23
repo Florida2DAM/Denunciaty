@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class SQLite {
     // Definiciones y constantes
@@ -30,10 +26,12 @@ public class SQLite {
     private static final String INGRESO = "ingreso";
     private static final String LOCALIDAD = "localidad";
     private static final String LOGUEADO = "logueado";
+    private static final String GOOGLE = "google";
+
 
 
     private static final String DATABASE_CREATE = "CREATE TABLE "+TABLA_USUARIO+" (id text primary key,nombre text,apellidos text,nombre_usuario text,email text,password text,foto text,ingreso text,localidad text);";
-    private static final String DATABASE_CREATE2 = "CREATE TABLE "+TABLA_LOGUEADO+" (logueado text primary key);";
+    private static final String DATABASE_CREATE2 = "CREATE TABLE "+TABLA_LOGUEADO+" (logueado text primary key,google text);";
 
     private static final String DATABASE_DROP = "DROP TABLE IF EXISTS "+TABLA_USUARIO+";";
     private static final String DATABASE_DROP2 = "DROP TABLE IF EXISTS "+TABLA_LOGUEADO+";";
@@ -80,11 +78,13 @@ public class SQLite {
     }
 
     // Inserta true (Logueado) false (No logueado)
-    public void logueado(String logueado){
+    public void logueado(String logueado,String google){
         //Creamos un nuevo registro de valores a insertar
         ContentValues newValues = new ContentValues();
         //Asignamos los valores de cada campo
         newValues.put(LOGUEADO,logueado);
+        newValues.put(GOOGLE,google);
+
 
         //insertamos
         db.insert(TABLA_LOGUEADO,null,newValues);
@@ -109,6 +109,26 @@ public class SQLite {
 
 
         return logueado;
+    }
+
+    //Recuperar true (Logueado) false (No logueado)
+    public String recuperarGoogle(){
+        String google = "";
+
+        //Recuperamos en un cursor la consulta realizada
+        Cursor cursor;
+
+        cursor = db.query(TABLA_LOGUEADO,null,null,null,null,null,null);
+
+        //Recorremos el cursor
+        if (cursor != null && cursor.moveToFirst()){
+            do{
+                google =cursor.getString(1);
+            }while (cursor.moveToNext());
+        }
+
+
+        return google;
     }
 
 
